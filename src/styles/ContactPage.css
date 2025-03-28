@@ -1,0 +1,109 @@
+/* Contact Page Specific Styles */
+
+/* Hero Section Overrides */
+.contact-page .hero-section {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.8));
+  }
+  
+  /* Contact Methods Styles */
+  .contact-method-item {
+    transition: transform 0.3s ease;
+  }
+  
+  .contact-method-item:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Form Styles */
+  .contact-form label {
+    font-weight: 500;
+  }
+  
+  .contact-form .form-control {
+    border-radius: 8px;
+  }
+  
+  .contact-form .form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25);
+    border-color: #3b82f6;
+  }
+  
+  /* Map Styles */
+  .map-wrapper {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Office Location Card */
+  .office-card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+  }
+  
+  .office-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .office-icon {
+    font-size: 1.25rem;
+    color: #3b82f6;
+    margin-right: 0.5rem;
+  }
+  
+  /* FAQ Section */
+  .faq-accordion .accordion-button {
+    font-weight: 600;
+    padding: 1.25rem;
+  }
+  
+  .faq-accordion .accordion-button:not(.collapsed) {
+    background-color: #f0f9ff;
+    color: #3b82f6;
+  }
+  
+  .faq-accordion .accordion-button:focus {
+    box-shadow: none;
+    border-color: rgba(59, 130, 246, 0.25);
+  }
+  
+  .faq-accordion .accordion-body {
+    padding: 1.25rem;
+    color: #64748b;
+  }
+  
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+  }
+  
+  .cta-button {
+    background-color: white;
+    color: #0f172a;
+    border-radius: 50px;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 767.98px) {
+    .contact-icon {
+      font-size: 1.75rem;
+    }
+  
+    .office-card {
+      margin-bottom: 1.5rem;
+    }
+  }
+  
+  
