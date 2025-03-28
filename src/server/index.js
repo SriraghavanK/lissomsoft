@@ -423,7 +423,12 @@ app.post("/api/submit-form", async (req, res) => {
     })
   }
 })
+app.use(express.static(path.join(__dirname, "build")))
 
+// Catch all other requests and return the index.html
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"))
+})
 // Add this to serve static files
 app.use("/public", express.static(path.join(__dirname, "public")))
 
