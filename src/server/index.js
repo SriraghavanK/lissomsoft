@@ -270,25 +270,25 @@ app.post("/api/submit-form", async (req, res) => {
         return res.status(400).json({
           success: false,
           message: "All required fields must be filled out",
-        });
+        })
       }
-      
+
       // Validate email format
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       if (!emailRegex.test(formData.email)) {
         return res.status(400).json({
           success: false,
           message: "Please enter a valid email address",
-        });
+        })
       }
-      
+
       // Validate phone number
-      const phoneRegex = /^[0-9+\-\s()]{10,15}$/;
+      const phoneRegex = /^[0-9+\-\s()]{10,15}$/
       if (!phoneRegex.test(formData.phone)) {
         return res.status(400).json({
           success: false,
           message: "Please enter a valid phone number",
-        });
+        })
       }
     } else if (sheetName === "Sheet4") {
       // Demo form validation
@@ -296,25 +296,25 @@ app.post("/api/submit-form", async (req, res) => {
         return res.status(400).json({
           success: false,
           message: "All required fields must be filled out",
-        });
+        })
       }
-      
+
       // Validate email format
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       if (!emailRegex.test(formData.email)) {
         return res.status(400).json({
           success: false,
           message: "Please enter a valid email address",
-        });
+        })
       }
-      
+
       // Validate phone number
-      const phoneRegex = /^[0-9+\-\s()]{10,15}$/;
+      const phoneRegex = /^[0-9+\-\s()]{10,15}$/
       if (!phoneRegex.test(formData.phoneNumber)) {
         return res.status(400).json({
           success: false,
           message: "Please enter a valid phone number",
-        });
+        })
       }
     }
 
@@ -352,7 +352,7 @@ app.post("/api/submit-form", async (req, res) => {
           formData.organization || "",
           formData.email || "",
           formData.phoneNumber || "",
-          
+
           date,
           time,
         ],
@@ -372,11 +372,11 @@ app.post("/api/submit-form", async (req, res) => {
     // Send email notification
     const transporter = setupEmailTransporter()
 
-    let emailSubject = "";
-    let emailContent = "";
+    let emailSubject = ""
+    let emailContent = ""
 
     if (sheetName === "Sheet3") {
-      emailSubject = "New Smartgrc Contact Form Submission";
+      emailSubject = "New Smartgrc Contact Form Submission"
       emailContent = `
         <h2>New Smartgrc Contact Form Submission</h2>
         <p><strong>Date:</strong> ${date}</p>
@@ -387,9 +387,9 @@ app.post("/api/submit-form", async (req, res) => {
         <p><strong>Phone:</strong> ${formData.phone}</p>
         <p><strong>Message:</strong> ${formData.message || "No message"}</p>
         <p><strong>Agreed to Terms:</strong> ${formData.agreeTerms ? "Yes" : "No"}</p>
-      `;
+      `
     } else if (sheetName === "Sheet4") {
-      emailSubject = "New Demo Request";
+      emailSubject = "New Demo Request"
       emailContent = `
         <h2>New Demo Request</h2>
         <p><strong>Date:</strong> ${date}</p>
@@ -400,7 +400,7 @@ app.post("/api/submit-form", async (req, res) => {
         <p><strong>Email:</strong> ${formData.email}</p>
         <p><strong>Phone Number:</strong> ${formData.phoneNumber}</p>
         <p><strong>Message:</strong> ${formData.message || "No message provided"}</p>
-      `;
+      `
     }
 
     await transporter.sendMail({
@@ -408,49 +408,70 @@ app.post("/api/submit-form", async (req, res) => {
       to: process.env.EMAIL_USER, // Send to the same email
       subject: emailSubject,
       html: emailContent,
-    });
+    })
 
     return res.status(200).json({
       success: true,
       message: "Form submitted successfully!",
-    });
+    })
   } catch (error) {
-    console.error("Error submitting form:", error);
+    console.error("Error submitting form:", error)
     return res.status(500).json({
       success: false,
       message: "An error occurred while submitting the form",
       error: error.message,
-    });
+    })
   }
-});
+})
 
 // Add this to serve static files
-app.use("/public", express.static(path.join(__dirname, "public")));
+app.use("/public", express.static(path.join(__dirname, "public")))
 
 // Health check endpoint
 app.get("/health", (req, res) => {
-  res.status(200).json({ status: "ok", message: "Server is running" });
-});
+  res.status(200).json({ status: "ok", message: "Server is running" })
+})
+
+// Serve static files from the React app build directory
+// Add this section to serve your frontend files
+const buildPath = path.join(__dirname, "build")
+if (fs.existsSync(buildPath)) {
+  console.log("Serving static files from:", buildPath)
+  app.use(express.static(buildPath))
+
+  // For any request that doesn't match an API route or static file,
+  // send the React app's index.html
+  app.get("*", (req, res) => {
+    if (!req.path.startsWith("/api") && !req.path.startsWith("/public")) {
+      res.sendFile(path.join(buildPath, "index.html"))
+    }
+  })
+} else {
+  console.log("Build directory not found at:", buildPath)
+  console.log("This server is running in API-only mode")
+}
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error("Unhandled error:", err);
+  console.error("Unhandled error:", err)
   res.status(500).json({
     success: false,
     message: "An unexpected error occurred",
     error: process.env.NODE_ENV === "production" ? null : err.message,
-  });
-});
+  })
+})
 
-// Handle 404 errors
+// Handle 404 errors - This should come after the catch-all route
 app.use((req, res) => {
   res.status(404).json({
     success: false,
     message: "The requested resource was not found",
-  });
-});
+  })
+})
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+  console.log(`Server running on port ${PORT}`)
+})
+
+  
