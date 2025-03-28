@@ -3,7 +3,7 @@ services:
     name: frontend
     env: static
     buildCommand: npm run build
-    staticPublishPath: build
+    staticPublishPath: build  # Make sure this points to the correct build output directory
     routes:
       - type: rewrite
         source: /*

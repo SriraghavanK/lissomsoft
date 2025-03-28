@@ -435,19 +435,35 @@ app.get("/health", (req, res) => {
 // Serve static files from the React app build directory
 // Add this section to serve your frontend files
 const buildPath = path.join(__dirname, "build")
+const altBuildPath = path.join(__dirname, "..", "build")
+const altBuildPath2 = path.join(__dirname, "..", "..", "build")
+
+// Use the first build path that exists
+let actualBuildPath = null
 if (fs.existsSync(buildPath)) {
-  console.log("Serving static files from:", buildPath)
-  app.use(express.static(buildPath))
+  actualBuildPath = buildPath
+} else if (fs.existsSync(altBuildPath)) {
+  actualBuildPath = altBuildPath
+} else if (fs.existsSync(altBuildPath2)) {
+  actualBuildPath = altBuildPath2
+}
+
+if (actualBuildPath) {
+  console.log("Serving static files from:", actualBuildPath)
+  app.use(express.static(actualBuildPath))
 
   // For any request that doesn't match an API route or static file,
   // send the React app's index.html
   app.get("*", (req, res) => {
     if (!req.path.startsWith("/api") && !req.path.startsWith("/public")) {
-      res.sendFile(path.join(buildPath, "index.html"))
+      res.sendFile(path.join(actualBuildPath, "index.html"))
     }
   })
 } else {
-  console.log("Build directory not found at:", buildPath)
+  console.log("Build directory not found. Checked:")
+  console.log("- " + buildPath)
+  console.log("- " + altBuildPath)
+  console.log("- " + altBuildPath2)
   console.log("This server is running in API-only mode")
 }
 
@@ -474,4 +490,3 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
 
-  
