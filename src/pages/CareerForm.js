@@ -243,7 +243,7 @@ const CareerForm = () => {
       submitData.append("message", formData.message)
       submitData.append("resume", fileInputRef.current.files[0])
 
-      const response = await fetch("http://localhost:5000/api/career", {
+      const response = await fetch("https://lissomsoft.onrender.com/api/career", {
         method: "POST",
         body: submitData,
       })
