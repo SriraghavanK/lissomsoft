@@ -78,6 +78,11 @@ const setupEmailTransporter = () => {
   })
 }
 
+// Health check endpoint
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok", message: "Server is running" })
+})
+
 // Contact form submission endpoint
 app.post("/api/contact", async (req, res) => {
   try {
@@ -352,7 +357,6 @@ app.post("/api/submit-form", async (req, res) => {
           formData.organization || "",
           formData.email || "",
           formData.phoneNumber || "",
-
           date,
           time,
         ],
@@ -423,52 +427,40 @@ app.post("/api/submit-form", async (req, res) => {
     })
   }
 })
-app.use(express.static(path.join(__dirname, "build")))
 
-// Catch all other requests and return the index.html
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"))
-})
-// Add this to serve static files
+// Serve static files from the public directory
 app.use("/public", express.static(path.join(__dirname, "public")))
 
-// Health check endpoint
-app.get("/health", (req, res) => {
-  res.status(200).json({ status: "ok", message: "Server is running" })
-})
+// Find the build directory
+const buildPaths = [
+  path.join(__dirname, "build"),
+  path.join(__dirname, "..", "build"),
+  path.join(__dirname, "..", "..", "build"),
+]
 
-// Serve static files from the React app build directory
-// Add this section to serve your frontend files
-const buildPath = path.join(__dirname, "build")
-const altBuildPath = path.join(__dirname, "..", "build")
-const altBuildPath2 = path.join(__dirname, "..", "..", "build")
-
-// Use the first build path that exists
 let actualBuildPath = null
-if (fs.existsSync(buildPath)) {
-  actualBuildPath = buildPath
-} else if (fs.existsSync(altBuildPath)) {
-  actualBuildPath = altBuildPath
-} else if (fs.existsSync(altBuildPath2)) {
-  actualBuildPath = altBuildPath2
+for (const buildPath of buildPaths) {
+  if (fs.existsSync(buildPath)) {
+    actualBuildPath = buildPath
+    break
+  }
 }
 
 if (actualBuildPath) {
   console.log("Serving static files from:", actualBuildPath)
+
+  // Serve static files from the React app build directory
   app.use(express.static(actualBuildPath))
 
+  // IMPORTANT: This catch-all route must come after all API routes
   // For any request that doesn't match an API route or static file,
-  // send the React app's index.html
+  // send the React app's index.html to support client-side routing
   app.get("*", (req, res) => {
-    if (!req.path.startsWith("/api") && !req.path.startsWith("/public")) {
-      res.sendFile(path.join(actualBuildPath, "index.html"))
-    }
+    res.sendFile(path.join(actualBuildPath, "index.html"))
   })
 } else {
   console.log("Build directory not found. Checked:")
-  console.log("- " + buildPath)
-  console.log("- " + altBuildPath)
-  console.log("- " + altBuildPath2)
+  buildPaths.forEach((path) => console.log("- " + path))
   console.log("This server is running in API-only mode")
 }
 
@@ -479,14 +471,6 @@ app.use((err, req, res, next) => {
     success: false,
     message: "An unexpected error occurred",
     error: process.env.NODE_ENV === "production" ? null : err.message,
-  })
-})
-
-// Handle 404 errors - This should come after the catch-all route
-app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    message: "The requested resource was not found",
   })
 })
 
