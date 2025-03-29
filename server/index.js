@@ -467,8 +467,11 @@ const buildPaths = [
   path.join(__dirname, "build"),
   path.join(__dirname, "..", "build"),
   path.join(__dirname, "..", "..", "build"),
+  path.join(__dirname, "..", "dist", "public"),
   path.join(process.cwd(), "build"),
+  path.join(process.cwd(), "dist", "public"),
   path.resolve("build"),
+  path.resolve("dist/public")
 ];
 
 console.log("Current directory:", process.cwd());
@@ -491,8 +494,12 @@ if (actualBuildPath) {
   // IMPORTANT: This catch-all route must come after all API routes
   // For any request that doesn't match an API route or static file,
   // send the React app's index.html to support client-side routing
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(actualBuildPath, "index.html"));
+  app.get("/*", (req, res) => {
+    res.sendFile(path.join(actualBuildPath, "index.html"), (err) => {
+      if (err) {
+        res.status(500).send(err);
+      }
+    });
   });
 } else {
   console.log("Build directory not found. Checked:");
