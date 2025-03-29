@@ -1,4 +1,3 @@
-// career-form.js
 "use client"
 
 import { useState, useRef, useEffect } from "react"
@@ -15,20 +14,68 @@ const CareerForm = () => {
     message: "",
   })
 
-  // Form validation state - similar to Angular's form validation
+  // Advanced validation state - Angular-like approach
   const [formValidation, setFormValidation] = useState({
-    fullName: { touched: false, dirty: false, valid: false, error: "" },
-    email: { touched: false, dirty: false, valid: false, error: "" },
-    position: { touched: false, dirty: false, valid: false, error: "" },
-    location: { touched: false, dirty: false, valid: false, error: "" },
-    experience: { touched: false, dirty: false, valid: false, error: "" },
-    resume: { touched: false, dirty: false, valid: false, error: "" },
+    fullName: {
+      touched: false,
+      dirty: false,
+      valid: false,
+      errors: {
+        required: true,
+        minLength: true,
+      },
+    },
+    email: {
+      touched: false,
+      dirty: false,
+      valid: false,
+      errors: {
+        required: true,
+        pattern: true,
+      },
+    },
+    position: {
+      touched: false,
+      dirty: false,
+      valid: false,
+      errors: {
+        required: true,
+      },
+    },
+    location: {
+      touched: false,
+      dirty: false,
+      valid: false,
+      errors: {
+        required: true,
+      },
+    },
+    experience: {
+      touched: false,
+      dirty: false,
+      valid: false,
+      errors: {
+        required: true,
+      },
+    },
+    resume: {
+      touched: false,
+      dirty: false,
+      valid: false,
+      errors: {
+        required: true,
+        fileType: false,
+        fileSize: false,
+      },
+    },
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState(false)
+  const [submissionStatus, setSubmissionStatus] = useState(null) // null, 'success', or 'error'
   const fileInputRef = useRef(null)
   const [fileName, setFileName] = useState("No file chosen")
+  const [fileError, setFileError] = useState("")
 
   const positions = [
     "Frontend Developer",
@@ -47,67 +94,39 @@ const CareerForm = () => {
     validateForm()
   }, [formData, fileName])
 
-  // Validate the entire form
+  // Validate the entire form with detailed error checking
   const validateForm = () => {
     const newValidation = { ...formValidation }
 
-    // Validate fullName
-    if (formData.fullName.trim()) {
-      newValidation.fullName.valid = true
-      newValidation.fullName.error = ""
-    } else {
-      newValidation.fullName.valid = false
-      newValidation.fullName.error = "Full name is required"
-    }
+    // Validate fullName with multiple rules
+    const nameValue = formData.fullName.trim()
+    newValidation.fullName.errors.required = nameValue === ""
+    newValidation.fullName.errors.minLength = nameValue.length < 3
+    newValidation.fullName.valid = !Object.values(newValidation.fullName.errors).some((error) => error)
 
-    // Validate email
+    // Validate email with pattern
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!formData.email.trim()) {
-      newValidation.email.valid = false
-      newValidation.email.error = "Email is required"
-    } else if (!emailRegex.test(formData.email)) {
-      newValidation.email.valid = false
-      newValidation.email.error = "Please enter a valid email address"
-    } else {
-      newValidation.email.valid = true
-      newValidation.email.error = ""
-    }
+    const emailValue = formData.email.trim()
+    newValidation.email.errors.required = emailValue === ""
+    newValidation.email.errors.pattern = !emailRegex.test(emailValue) && emailValue !== ""
+    newValidation.email.valid = !Object.values(newValidation.email.errors).some((error) => error)
 
     // Validate position
-    if (formData.position) {
-      newValidation.position.valid = true
-      newValidation.position.error = ""
-    } else {
-      newValidation.position.valid = false
-      newValidation.position.error = "Please select a position"
-    }
+    newValidation.position.errors.required = !formData.position
+    newValidation.position.valid = !Object.values(newValidation.position.errors).some((error) => error)
 
     // Validate location
-    if (formData.location.trim()) {
-      newValidation.location.valid = true
-      newValidation.location.error = ""
-    } else {
-      newValidation.location.valid = false
-      newValidation.location.error = "Location is required"
-    }
+    const locationValue = formData.location.trim()
+    newValidation.location.errors.required = locationValue === ""
+    newValidation.location.valid = !Object.values(newValidation.location.errors).some((error) => error)
 
     // Validate experience
-    if (formData.experience) {
-      newValidation.experience.valid = true
-      newValidation.experience.error = ""
-    } else {
-      newValidation.experience.valid = false
-      newValidation.experience.error = "Please select your experience level"
-    }
+    newValidation.experience.errors.required = !formData.experience
+    newValidation.experience.valid = !Object.values(newValidation.experience.errors).some((error) => error)
 
     // Validate resume
-    if (fileName !== "No file chosen") {
-      newValidation.resume.valid = true
-      newValidation.resume.error = ""
-    } else {
-      newValidation.resume.valid = false
-      newValidation.resume.error = "Please upload your resume"
-    }
+    newValidation.resume.errors.required = fileName === "No file chosen"
+    newValidation.resume.valid = !Object.values(newValidation.resume.errors).some((error) => error)
 
     setFormValidation(newValidation)
   }
@@ -151,59 +170,61 @@ const CareerForm = () => {
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0] || null
+    setFileError("")
 
     if (file) {
       // Validate file type
       const validTypes = [".pdf", ".doc", ".docx"]
       const fileExtension = file.name.substring(file.name.lastIndexOf(".")).toLowerCase()
+      const newValidation = { ...formValidation }
 
       if (!validTypes.includes(fileExtension)) {
         setFileName("Invalid file type")
-        setFormValidation((prev) => ({
-          ...prev,
-          resume: {
-            ...prev.resume,
-            touched: true,
-            dirty: true,
-            valid: false,
-            error: "Only PDF, DOC, and DOCX files are allowed",
-          },
-        }))
+        setFileError("Only PDF, DOC, and DOCX files are allowed")
+        newValidation.resume.errors.fileType = true
+        newValidation.resume.valid = false
         if (fileInputRef.current) fileInputRef.current.value = ""
-        return
-      }
-
-      // Validate file size (10MB max)
-      if (file.size > 10 * 1024 * 1024) {
+      } else if (file.size > 10 * 1024 * 1024) {
+        // Validate file size (10MB max)
         setFileName("File too large")
-        setFormValidation((prev) => ({
-          ...prev,
-          resume: {
-            ...prev.resume,
-            touched: true,
-            dirty: true,
-            valid: false,
-            error: "File size must be less than 10MB",
-          },
-        }))
+        setFileError("File size must be less than 10MB")
+        newValidation.resume.errors.fileSize = true
+        newValidation.resume.valid = false
         if (fileInputRef.current) fileInputRef.current.value = ""
-        return
+      } else {
+        setFileName(file.name)
+        newValidation.resume.errors.required = false
+        newValidation.resume.errors.fileType = false
+        newValidation.resume.errors.fileSize = false
+        newValidation.resume.valid = true
       }
 
-      setFileName(file.name)
+      setFormValidation({
+        ...newValidation,
+        resume: {
+          ...newValidation.resume,
+          touched: true,
+          dirty: true,
+        },
+      })
     } else {
       setFileName("No file chosen")
+      setFormValidation((prev) => ({
+        ...prev,
+        resume: {
+          ...prev.resume,
+          touched: true,
+          dirty: true,
+          errors: {
+            ...prev.resume.errors,
+            required: true,
+            fileType: false,
+            fileSize: false,
+          },
+          valid: false,
+        },
+      }))
     }
-
-    // Mark resume as touched and dirty
-    setFormValidation((prev) => ({
-      ...prev,
-      resume: {
-        ...prev.resume,
-        touched: true,
-        dirty: true,
-      },
-    }))
   }
 
   const handleSubmit = async (e) => {
@@ -250,6 +271,7 @@ const CareerForm = () => {
 
       if (response.ok) {
         toast.success("Application submitted successfully!")
+        setSubmissionStatus("success")
         // Reset form
         setFormData({
           fullName: "",
@@ -271,17 +293,19 @@ const CareerForm = () => {
             touched: false,
             dirty: false,
             valid: false,
-            error: "",
+            errors: { ...formValidation[key].errors },
           }
         })
         setFormValidation(resetValidation)
         setFormSubmitted(false)
       } else {
         const error = await response.json()
+        setSubmissionStatus("error")
         throw new Error(error.message || "Failed to submit application")
       }
     } catch (error) {
       console.error("Error submitting form:", error)
+      setSubmissionStatus("error")
       toast.error(error instanceof Error ? error.message : "Failed to submit application")
     } finally {
       setIsSubmitting(false)
@@ -319,10 +343,53 @@ const CareerForm = () => {
                   Fill out the form below to apply for a position at Lissomsoft
                 </p>
 
-                <form onSubmit={handleSubmit} noValidate>
+                {/* Validation Summary */}
+                {formSubmitted && !isFormValid() && (
+                  <div className="alert alert-danger mb-4">
+                    <h5 className="alert-heading mb-2">Please fix the following errors:</h5>
+                    <ul className="mb-0 ps-3">
+                      {formValidation.fullName.errors.required && <li>Full name is required</li>}
+                      {formValidation.fullName.errors.minLength && <li>Full name must be at least 3 characters</li>}
+                      {formValidation.email.errors.required && <li>Email is required</li>}
+                      {formValidation.email.errors.pattern && <li>Email format is invalid</li>}
+                      {formValidation.position.errors.required && <li>Position selection is required</li>}
+                      {formValidation.location.errors.required && <li>Location is required</li>}
+                      {formValidation.experience.errors.required && <li>Experience selection is required</li>}
+                      {formValidation.resume.errors.required && <li>Resume upload is required</li>}
+                      {formValidation.resume.errors.fileType && <li>Invalid resume file type</li>}
+                      {formValidation.resume.errors.fileSize && <li>Resume file is too large</li>}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Submission Status Alert */}
+                {submissionStatus === "success" && (
+                  <div className="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                    <strong>Success!</strong> Your application has been submitted successfully.
+                    <button
+                      type="button"
+                      className="btn-close"
+                      onClick={() => setSubmissionStatus(null)}
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                )}
+                {submissionStatus === "error" && (
+                  <div className="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                    <strong>Error!</strong> There was a problem submitting your application. Please try again.
+                    <button
+                      type="button"
+                      className="btn-close"
+                      onClick={() => setSubmissionStatus(null)}
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                )}
+
+                <form onSubmit={handleSubmit} noValidate className="needs-validation">
                   <div className="row">
                     <div className="col-md-6 mb-3">
-                      <label htmlFor="fullName" className="form-label">
+                      <label htmlFor="fullName" className="form-label fw-semibold">
                         Full name <span className="text-danger">*</span>
                       </label>
                       <input
@@ -336,12 +403,17 @@ const CareerForm = () => {
                         required
                       />
                       {shouldShowError("fullName") && (
-                        <div className="invalid-feedback">{formValidation.fullName.error}</div>
+                        <div className="invalid-feedback d-block">
+                          {formValidation.fullName.errors.required && <div>Full name is required</div>}
+                          {!formValidation.fullName.errors.required && formValidation.fullName.errors.minLength && (
+                            <div>Full name must be at least 3 characters</div>
+                          )}
+                        </div>
                       )}
                     </div>
 
                     <div className="col-md-6 mb-3">
-                      <label htmlFor="email" className="form-label">
+                      <label htmlFor="email" className="form-label fw-semibold">
                         Email <span className="text-danger">*</span>
                       </label>
                       <input
@@ -354,13 +426,20 @@ const CareerForm = () => {
                         onBlur={handleInputBlur}
                         required
                       />
-                      {shouldShowError("email") && <div className="invalid-feedback">{formValidation.email.error}</div>}
+                      {shouldShowError("email") && (
+                        <div className="invalid-feedback d-block">
+                          {formValidation.email.errors.required && <div>Email is required</div>}
+                          {!formValidation.email.errors.required && formValidation.email.errors.pattern && (
+                            <div>Please enter a valid email address</div>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
 
                   <div className="row">
                     <div className="col-md-6 mb-3">
-                      <label htmlFor="position" className="form-label">
+                      <label htmlFor="position" className="form-label fw-semibold">
                         Position <span className="text-danger">*</span>
                       </label>
                       <select
@@ -380,12 +459,12 @@ const CareerForm = () => {
                         ))}
                       </select>
                       {shouldShowError("position") && (
-                        <div className="invalid-feedback">{formValidation.position.error}</div>
+                        <div className="invalid-feedback d-block">Please select a position</div>
                       )}
                     </div>
 
                     <div className="col-md-6 mb-3">
-                      <label htmlFor="location" className="form-label">
+                      <label htmlFor="location" className="form-label fw-semibold">
                         Location <span className="text-danger">*</span>
                       </label>
                       <input
@@ -399,13 +478,13 @@ const CareerForm = () => {
                         required
                       />
                       {shouldShowError("location") && (
-                        <div className="invalid-feedback">{formValidation.location.error}</div>
+                        <div className="invalid-feedback d-block">Location is required</div>
                       )}
                     </div>
                   </div>
 
                   <div className="mb-3">
-                    <label htmlFor="experience" className="form-label">
+                    <label htmlFor="experience" className="form-label fw-semibold">
                       Year of Experience <span className="text-danger">*</span>
                     </label>
                     <select
@@ -425,47 +504,49 @@ const CareerForm = () => {
                       ))}
                     </select>
                     {shouldShowError("experience") && (
-                      <div className="invalid-feedback">{formValidation.experience.error}</div>
+                      <div className="invalid-feedback d-block">Please select your experience level</div>
                     )}
                   </div>
 
                   <div className="mb-3">
-                    <label htmlFor="resume" className="form-label">
+                    <label htmlFor="resume" className="form-label fw-semibold">
                       Resume <span className="text-danger">*</span>
                     </label>
-                    <div className="input-group">
+                    <div className={`input-group ${shouldShowError("resume") ? "has-validation" : ""}`}>
                       <input
                         type="file"
-                        className="form-control"
+                        className="form-control d-none"
                         id="resume"
                         name="resume"
                         ref={fileInputRef}
                         onChange={handleFileChange}
                         accept=".pdf,.doc,.docx"
-                        style={{ display: "none" }}
                       />
                       <button
                         type="button"
-                        className="btn btn-outline-primary"
+                        className={`btn ${shouldShowError("resume") ? "btn-outline-danger" : "btn-outline-primary"}`}
                         onClick={() => fileInputRef.current?.click()}
                       >
                         Choose File
                       </button>
                       <span
-                        className={`input-group-text flex-grow-1 ${shouldShowError("resume") ? "border-danger" : ""}`}
+                        className={`input-group-text flex-grow-1 ${shouldShowError("resume") ? "border-danger text-danger" : ""}`}
                       >
                         {fileName}
                       </span>
                     </div>
                     {shouldShowError("resume") && (
-                      <div className="text-danger mt-1 small">{formValidation.resume.error}</div>
+                      <div className="text-danger mt-1 small">
+                        {formValidation.resume.errors.required && "Please upload your resume"}
+                        {fileError && fileError}
+                      </div>
                     )}
-                    <small className="text-muted">Accepted formats: PDF, DOC, DOCX (Max 10MB)</small>
+                    <small className="text-muted d-block mt-1">Accepted formats: PDF, DOC, DOCX (Max 10MB)</small>
                   </div>
 
                   <div className="mb-4">
-                    <label htmlFor="message" className="form-label">
-                      Your message
+                    <label htmlFor="message" className="form-label fw-semibold">
+                      Your message <span className="text-muted">(optional)</span>
                     </label>
                     <textarea
                       className="form-control"
