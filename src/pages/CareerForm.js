@@ -2,6 +2,32 @@
 
 import { useState, useRef, useEffect } from "react"
 import { toast } from "react-hot-toast"
+// Icons for validation feedback
+const CheckIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    fill="currentColor"
+    className="bi bi-check-circle-fill text-success"
+    viewBox="0 0 16 16"
+  >
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+  </svg>
+)
+
+const CrossIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    fill="currentColor"
+    className="bi bi-x-circle-fill text-danger"
+    viewBox="0 0 16 16"
+  >
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+  </svg>
+)
 
 const CareerForm = () => {
   // Form data state
@@ -125,8 +151,10 @@ const CareerForm = () => {
     newValidation.experience.valid = !Object.values(newValidation.experience.errors).some((error) => error)
 
     // Validate resume
-    newValidation.resume.errors.required = fileName === "No file chosen"
-    newValidation.resume.valid = !Object.values(newValidation.resume.errors).some((error) => error)
+    const hasFile = fileName !== "No file chosen" && fileName !== "Invalid file type" && fileName !== "File too large"
+    newValidation.resume.errors.required = !hasFile
+    newValidation.resume.valid =
+      hasFile && !newValidation.resume.errors.fileType && !newValidation.resume.errors.fileSize
 
     setFormValidation(newValidation)
   }
@@ -145,12 +173,13 @@ const CareerForm = () => {
       [name]: value,
     })
 
-    // Mark field as dirty (value changed)
+    // Mark field as dirty and touched as soon as user starts typing
     setFormValidation((prev) => ({
       ...prev,
       [name]: {
         ...prev[name],
         dirty: true,
+        touched: true,
       },
     }))
   }
@@ -230,7 +259,7 @@ const CareerForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    // Mark all fields as touched
+    // Force validation before submission
     const allTouched = {}
     Object.keys(formValidation).forEach((key) => {
       allTouched[key] = {
@@ -242,12 +271,14 @@ const CareerForm = () => {
     setFormValidation(allTouched)
     setFormSubmitted(true)
 
-    // Validate form before submission
+    // Re-validate form before submission
     validateForm()
 
     // Don't submit if form is invalid
     if (!isFormValid()) {
-      toast.error("Please fix all errors before submitting")
+      console.log("Form validation failed:", getValidationStatus())
+      const invalidFields = Object.keys(formValidation).filter((field) => !formValidation[field].valid)
+      toast.error(`Please fix errors in: ${invalidFields.join(", ")}`)
       return
     }
 
@@ -314,21 +345,46 @@ const CareerForm = () => {
 
   // Helper function to determine if field should show error
   const shouldShowError = (fieldName) => {
-    return (formValidation[fieldName].touched || formSubmitted) && !formValidation[fieldName].valid
+    return (
+      (formValidation[fieldName].dirty || formValidation[fieldName].touched || formSubmitted) &&
+      !formValidation[fieldName].valid
+    )
+  }
+
+  // Helper function to get detailed validation status
+  const getValidationStatus = () => {
+    const status = {}
+    Object.keys(formValidation).forEach((field) => {
+      status[field] = {
+        valid: formValidation[field].valid,
+        errors: formValidation[field].errors,
+      }
+    })
+    return status
   }
 
   // Helper function to get field class based on validation state
   const getFieldClass = (fieldName) => {
-    if (!formValidation[fieldName].touched && !formSubmitted) return "form-control"
+    if (!formValidation[fieldName].dirty && !formValidation[fieldName].touched && !formSubmitted) return "form-control"
     if (formValidation[fieldName].valid) return "form-control is-valid"
     return "form-control is-invalid"
   }
 
   // Helper function to get select field class based on validation state
   const getSelectClass = (fieldName) => {
-    if (!formValidation[fieldName].touched && !formSubmitted) return "form-select"
+    if (!formValidation[fieldName].dirty && !formValidation[fieldName].touched && !formSubmitted) return "form-select"
     if (formValidation[fieldName].valid) return "form-select is-valid"
     return "form-select is-invalid"
+  }
+
+  // Helper function to render validation icon
+  const getValidationIcon = (fieldName) => {
+    // Show validation icon as soon as user starts typing or field is dirty
+    if (formValidation[fieldName].dirty || formValidation[fieldName].touched || formSubmitted) {
+      if (formValidation[fieldName].valid) return <CheckIcon />
+      return <CrossIcon />
+    }
+    return null
   }
 
   return (
@@ -392,16 +448,19 @@ const CareerForm = () => {
                       <label htmlFor="fullName" className="form-label fw-semibold">
                         Full name <span className="text-danger">*</span>
                       </label>
-                      <input
-                        type="text"
-                        className={getFieldClass("fullName")}
-                        id="fullName"
-                        name="fullName"
-                        value={formData.fullName}
-                        onChange={handleInputChange}
-                        onBlur={handleInputBlur}
-                        required
-                      />
+                      <div className="input-group">
+                        <input
+                          type="text"
+                          className={getFieldClass("fullName")}
+                          id="fullName"
+                          name="fullName"
+                          value={formData.fullName}
+                          onChange={handleInputChange}
+                          onBlur={handleInputBlur}
+                          required
+                        />
+                        <span className="input-group-text">{getValidationIcon("fullName")}</span>
+                      </div>
                       {shouldShowError("fullName") && (
                         <div className="invalid-feedback d-block">
                           {formValidation.fullName.errors.required && <div>Full name is required</div>}
@@ -416,16 +475,19 @@ const CareerForm = () => {
                       <label htmlFor="email" className="form-label fw-semibold">
                         Email <span className="text-danger">*</span>
                       </label>
-                      <input
-                        type="email"
-                        className={getFieldClass("email")}
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        onBlur={handleInputBlur}
-                        required
-                      />
+                      <div className="input-group">
+                        <input
+                          type="email"
+                          className={getFieldClass("email")}
+                          id="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          onBlur={handleInputBlur}
+                          required
+                        />
+                        <span className="input-group-text">{getValidationIcon("email")}</span>
+                      </div>
                       {shouldShowError("email") && (
                         <div className="invalid-feedback d-block">
                           {formValidation.email.errors.required && <div>Email is required</div>}
@@ -442,22 +504,25 @@ const CareerForm = () => {
                       <label htmlFor="position" className="form-label fw-semibold">
                         Position <span className="text-danger">*</span>
                       </label>
-                      <select
-                        className={getSelectClass("position")}
-                        id="position"
-                        name="position"
-                        value={formData.position}
-                        onChange={handleInputChange}
-                        onBlur={handleInputBlur}
-                        required
-                      >
-                        <option value="">Select the position</option>
-                        {positions.map((pos) => (
-                          <option key={pos} value={pos}>
-                            {pos}
-                          </option>
-                        ))}
-                      </select>
+                      <div className="input-group">
+                        <select
+                          className={getSelectClass("position")}
+                          id="position"
+                          name="position"
+                          value={formData.position}
+                          onChange={handleInputChange}
+                          onBlur={handleInputBlur}
+                          required
+                        >
+                          <option value="">Select the position</option>
+                          {positions.map((pos) => (
+                            <option key={pos} value={pos}>
+                              {pos}
+                            </option>
+                          ))}
+                        </select>
+                        <span className="input-group-text">{getValidationIcon("position")}</span>
+                      </div>
                       {shouldShowError("position") && (
                         <div className="invalid-feedback d-block">Please select a position</div>
                       )}
@@ -467,16 +532,19 @@ const CareerForm = () => {
                       <label htmlFor="location" className="form-label fw-semibold">
                         Location <span className="text-danger">*</span>
                       </label>
-                      <input
-                        type="text"
-                        className={getFieldClass("location")}
-                        id="location"
-                        name="location"
-                        value={formData.location}
-                        onChange={handleInputChange}
-                        onBlur={handleInputBlur}
-                        required
-                      />
+                      <div className="input-group">
+                        <input
+                          type="text"
+                          className={getFieldClass("location")}
+                          id="location"
+                          name="location"
+                          value={formData.location}
+                          onChange={handleInputChange}
+                          onBlur={handleInputBlur}
+                          required
+                        />
+                        <span className="input-group-text">{getValidationIcon("location")}</span>
+                      </div>
                       {shouldShowError("location") && (
                         <div className="invalid-feedback d-block">Location is required</div>
                       )}
@@ -487,22 +555,25 @@ const CareerForm = () => {
                     <label htmlFor="experience" className="form-label fw-semibold">
                       Year of Experience <span className="text-danger">*</span>
                     </label>
-                    <select
-                      className={getSelectClass("experience")}
-                      id="experience"
-                      name="experience"
-                      value={formData.experience}
-                      onChange={handleInputChange}
-                      onBlur={handleInputBlur}
-                      required
-                    >
-                      <option value="">Select Year of Experience</option>
-                      {experienceYears.map((exp) => (
-                        <option key={exp} value={exp}>
-                          {exp}
-                        </option>
-                      ))}
-                    </select>
+                    <div className="input-group">
+                      <select
+                        className={getSelectClass("experience")}
+                        id="experience"
+                        name="experience"
+                        value={formData.experience}
+                        onChange={handleInputChange}
+                        onBlur={handleInputBlur}
+                        required
+                      >
+                        <option value="">Select Year of Experience</option>
+                        {experienceYears.map((exp) => (
+                          <option key={exp} value={exp}>
+                            {exp}
+                          </option>
+                        ))}
+                      </select>
+                      <span className="input-group-text">{getValidationIcon("experience")}</span>
+                    </div>
                     {shouldShowError("experience") && (
                       <div className="invalid-feedback d-block">Please select your experience level</div>
                     )}
@@ -534,6 +605,7 @@ const CareerForm = () => {
                       >
                         {fileName}
                       </span>
+                      <span className="input-group-text">{getValidationIcon("resume")}</span>
                     </div>
                     {shouldShowError("resume") && (
                       <div className="text-danger mt-1 small">
@@ -543,6 +615,22 @@ const CareerForm = () => {
                     )}
                     <small className="text-muted d-block mt-1">Accepted formats: PDF, DOC, DOCX (Max 10MB)</small>
                   </div>
+
+                  {process.env.NODE_ENV !== "production" && (
+                    <div className="mb-3">
+                      <button
+                        type="button"
+                        className="btn btn-outline-secondary btn-sm"
+                        onClick={() => {
+                          console.log("Form validation status:", getValidationStatus())
+                          console.log("Form data:", formData)
+                          console.log("File name:", fileName)
+                        }}
+                      >
+                        Debug Form
+                      </button>
+                    </div>
+                  )}
 
                   <div className="mb-4">
                     <label htmlFor="message" className="form-label fw-semibold">
@@ -560,7 +648,7 @@ const CareerForm = () => {
                   </div>
 
                   <div className="d-grid">
-                    <button type="submit" className="btn btn-primary btn-lg" disabled={isSubmitting}>
+                    <button type="submit" className="btn btn-primary btn-lg" disabled={isSubmitting || !isFormValid()}>
                       {isSubmitting ? (
                         <>
                           <span
@@ -570,6 +658,8 @@ const CareerForm = () => {
                           ></span>
                           Submitting...
                         </>
+                      ) : !isFormValid() ? (
+                        "Complete All Required Fields"
                       ) : (
                         "Submit Application"
                       )}
