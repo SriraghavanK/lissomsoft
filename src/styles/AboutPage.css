@@ -14,8 +14,8 @@
 }
 
 body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
-    "Helvetica Neue", sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: var(--text-color);
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -180,27 +180,51 @@ h2.fw-bold {
   font-size: 1rem;
   color: #555;
 }
-/* CEO Section */
+/* CEO Section with Large Bubble Effect */
 .ceo-image-container {
   position: relative;
   width: 380px;
   height: 380px;
   border-radius: 50%;
-  /* Remove overflow: hidden to allow the animation to overflow */
+  /* Remove overflow: hidden to allow bubble to expand outside */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.large-bubble {
+  position: absolute;
+  /* top: 50%;
+  left: 50%; */
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(74, 144, 226, 0.4),
+    rgba(80, 227, 194, 0.4)
+  );
+  box-shadow: 0 0 20px rgba(74, 144, 226, 0.3);
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .ceo-image-border {
   position: absolute;
   width: 100%;
   height: 100%;
-  /* Center the element */
-  top: 2%;
-  left: 3%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(74, 144, 226, 0.18), rgba(80, 227, 194, 0.18));
-  padding: 5px;
-  z-index: 5;
+  background: linear-gradient(
+    135deg,
+    rgba(74, 144, 226, 0.18),
+    rgba(80, 227, 194, 0.18)
+  );
+  z-index: 0;
+  pointer-events: none;
 }
 
 .ceo-image-bg {
@@ -209,8 +233,8 @@ h2.fw-bold {
   background: none !important;
   border-radius: 50%;
   position: absolute;
-  top: -5%;
-  left: -5%;
+  top: 0;
+  left: 0;
   z-index: 0;
 }
 
@@ -220,9 +244,8 @@ h2.fw-bold {
   border-radius: 50%;
   z-index: 1;
   object-fit: cover;
-  margin-left: 15px;
-  margin-top: 15px;
   position: relative;
+  margin: 0;
 }
 
 /* Additional responsive styles */
@@ -256,6 +279,12 @@ h2.fw-bold {
   .team-image-container {
     margin-bottom: 2rem;
   }
+
+  .large-bubble {
+    /* top: 50%;
+    left: 50%; */
+    transform: translate(-50%, -50%);
+  }
 }
 
 @media (max-width: 767.98px) {
@@ -279,6 +308,12 @@ h2.fw-bold {
   .ceo-image-container {
     width: 180px;
     height: 180px;
+  }
+
+  .large-bubble {
+    /* top: 50%;
+    left: 50%; */
+    transform: translate(-50%, -50%);
   }
 }
 
@@ -306,11 +341,18 @@ h2.fw-bold {
     width: 100%;
     margin-bottom: 10px;
   }
+
+  .large-bubble {
+    /* top: 50%;
+    left: 50%; */
+    transform: translate(-50%, -50%);
+  }
 }
 
 /* Stats Section */
 .stat-card {
-  transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+  transition: transform var(--transition-speed) ease,
+    box-shadow var(--transition-speed) ease;
 }
 
 .stat-card:hover {
@@ -321,7 +363,11 @@ h2.fw-bold {
 .counter-number {
   font-size: 3rem;
   font-weight: 700;
-  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(
+    45deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -352,7 +398,8 @@ h2.fw-bold {
 
 /* Credo Section */
 .credo-card {
-  transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+  transition: transform var(--transition-speed) ease,
+    box-shadow var(--transition-speed) ease;
   overflow: hidden;
 }
 
@@ -390,7 +437,8 @@ h2.fw-bold {
 
 /* Testimonials Section */
 .testimonial-card {
-  transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+  transition: transform var(--transition-speed) ease,
+    box-shadow var(--transition-speed) ease;
 }
 
 .testimonial-card:hover {
@@ -807,4 +855,3 @@ h2.fw-bold {
     margin-bottom: 1rem;
   }
 }
-

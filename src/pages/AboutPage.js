@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { motion, useAnimation, AnimatePresence } from "framer-motion"
+import { motion, useAnimation } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { Parallax } from "react-parallax"
 import { Swiper, SwiperSlide } from "swiper/react"
@@ -105,78 +105,6 @@ const AboutPage = () => {
     }
   }, [controls, missionInView])
 
-  // Team Modal state
-  const [selectedTeamMember, setSelectedTeamMember] = useState(null)
-
-  const openTeamModal = (member) => {
-    setSelectedTeamMember(member)
-    document.body.style.overflow = "hidden"
-  }
-
-  const closeTeamModal = () => {
-    setSelectedTeamMember(null)
-    document.body.style.overflow = ""
-  }
-
-  const leadershipTeam = [
-    {
-      id: 1,
-      name: "Amit Bansal",
-      position: "Director - BFSI - Risk Management",
-      bio: "Expert in financial risk management with over 15 years of experience in the banking sector. Passionate about helping businesses navigate complex financial landscapes and mitigate risks effectively.",
-      skills: ["Risk Assessment", "Financial Modeling", "Regulatory Compliance", "Strategic Planning"],
-      achievements: [
-        "Developed a risk management framework that reduced financial losses by 30%.",
-        "Led a team that successfully implemented a new compliance program.",
-        "Advised senior management on key risk issues and opportunities.",
-      ],
-      image: "https://www.lissomsoft.com/assets/leardership/amit%20Bansal.png",
-      linkedin: "https://www.linkedin.com/",
-    },
-    {
-      id: 2,
-      name: "Satish R",
-      position: "Director - Product Development",
-      bio: "Leads our product development team with a focus on creating innovative, user-friendly solutions. Dedicated to delivering high-quality products that meet the needs of our clients and exceed their expectations.",
-      skills: ["Product Strategy", "Agile Development", "User Experience (UX)", "Team Leadership"],
-      achievements: [
-        "Launched a new product that generated $1 million in revenue in its first year.",
-        "Improved the user experience of an existing product, resulting in a 20% increase in user engagement.",
-        "Built and mentored a high-performing product development team.",
-      ],
-      image: "https://www.lissomsoft.com/assets/leardership/satish.jpg",
-      linkedin: "https://www.linkedin.com/",
-    },
-    {
-      id: 3,
-      name: "Murali T",
-      position: "Director - Technology Services",
-      bio: "Technology expert with deep knowledge in cloud computing and digital transformation. Committed to helping businesses leverage technology to achieve their goals and stay ahead of the competition.",
-      skills: ["Cloud Computing", "Digital Transformation", "IT Strategy", "Cybersecurity"],
-      achievements: [
-        "Led a digital transformation project that reduced IT costs by 25%.",
-        "Implemented a cloud computing solution that improved scalability and reliability.",
-        "Developed a cybersecurity strategy that protected the company from cyber threats.",
-      ],
-      image: "https://www.lissomsoft.com/assets/leardership/murali.jpg",
-      linkedin: "https://www.linkedin.com/in/murali-t-39642315/",
-    },
-    {
-      id: 4,
-      name: "Venkatesh S",
-      position: "Director - Business Development",
-      bio: "Drives our business growth strategy with a focus on building strong client relationships. Passionate about helping businesses succeed and creating win-win partnerships.",
-      skills: ["Business Development", "Sales Management", "Strategic Partnerships", "Client Relationship Management"],
-      achievements: [
-        "Increased sales by 40% in the last year.",
-        "Developed and implemented a new sales strategy that improved customer acquisition.",
-        "Built strong relationships with key clients and partners.",
-      ],
-      image: "https://www.lissomsoft.com/assets/leardership/venkat.jpg",
-      linkedin: "https://www.linkedin.com/in/venkatesh-s-a97385238/",
-    },
-  ]
-
   return (
     <div className={`about-page ${darkMode ? "dark-theme" : ""}`}>
       {/* Progress bar */}
@@ -269,21 +197,35 @@ const AboutPage = () => {
               transition={{ duration: 0.8 }}
             >
               <div className="d-flex justify-content-center">
-                <div className="position-relative ceo-image-container">
-                  {/* Circular border with gradient - modified for bubble effect */}
+                <div className="position-relative ceo-image-container" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                  {/* Single large bubble animation */}
                   <motion.div
-                    className="ceo-image-border"
+                    className="large-bubble"
+                    initial={{ scale: 0.5, opacity: 0.2 }}
                     animate={{
-                      scale: [0.8, 1.2],
-                      opacity: [0.5, 1],
+                      scale: [0.5, 1.2, 0.5],
+                      opacity: [0.2, 0.6, 0.2],
                     }}
                     transition={{
                       duration: 4,
-                      repeat: Number.POSITIVE_INFINITY, // Ensure infinite repetition
-                      repeatType: "loop", // Loop the animation seamlessly
+                      repeat: Number.POSITIVE_INFINITY,
+                      repeatType: "loop",
                       ease: "easeInOut",
                     }}
-                  ></motion.div>
+                    style={{
+                      position: "absolute",
+                      // top: "50%",
+                      // left: "50%",
+                      width: "100%",
+                      height: "100%",
+                      borderRadius: "50%",
+                      background: "linear-gradient(135deg, rgba(74, 144, 226, 0.4), rgba(80, 227, 194, 0.4))",
+                      boxShadow: "0 0 20px rgba(74, 144, 226, 0.3)",
+                      transform: "translate(-50%, -50%)",
+                      zIndex: 2,
+                      pointerEvents: "none"
+                    }}
+                  />
 
                   {/* Background circle with gradient */}
                   <div className="ceo-image-bg"></div>
@@ -292,6 +234,7 @@ const AboutPage = () => {
                     src="https://www.lissomsoft.com/assets/leardership/ceo.webp"
                     alt="CEO Ganesh Gopalan"
                     className="ceo-image"
+                    style={{ margin: 0 }}
                   />
                 </div>
               </div>
@@ -541,7 +484,7 @@ const AboutPage = () => {
                 innovation, maintaining integrity in all our dealings, and striving for excellence in everything we do.
               </p>
               <div className="mt-4">
-                <Link to="#" className="btn btn-primary px-4 py-2 btn-with-icon">
+                <Link to="/about/values" className="btn btn-primary px-4 py-2 btn-with-icon">
                   <span>Learn More</span>
                   <i className="fas fa-arrow-right ms-2"></i>
                 </Link>
@@ -674,7 +617,7 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Leadership Team Section - Updated with TeamPage styling */}
+      {/* Leadership Team Section */}
       <section className="py-5 bg-light section-leadership" id="leadership" ref={teamRef}>
         <div className="container py-5">
           <motion.div
@@ -693,52 +636,167 @@ const AboutPage = () => {
             </p>
           </motion.div>
 
-          <div className="row g-4 team-cards-container">
-            {/* Leadership cards with TeamPage styling */}
-            {leadershipTeam.map((member, index) => (
-              <div className="col-xl-3 col-lg-3  col-md-6 col-sm-12" key={member.id}>
-                <motion.div
-                  className="card border-0 shadow-sm h-100 team-card text-center"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={teamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ y: -10, boxShadow: "0 10px 25px rgba(0, 0, 0, 0.1)" }}
-                >
-                  <div className="position-relative mx-auto mt-4 team-image-container">
-                    <div className="team-image-border"></div>
-                    <img
-                      src={member.image || "/placeholder.svg"}
-                      alt={member.name}
-                      className="team-image"
-                      onError={(e) => {
-                        e.target.src = "https://www.lissomsoft.com/assets/placeholder.jpg"
-                      }}
-                    />
-                  </div>
+          <div className="row g-4">
+            {/* Leadership cards with enhanced design */}
+            <div className="col-lg-3 col-md-6">
+              <motion.div
+                className="card border-0 shadow-sm h-100 team-card text-center"
+                initial={{ opacity: 0, y: 30 }}
+                animate={teamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+              >
+                <div className="position-relative mx-auto mt-4 team-image-container">
+                  <div className="team-image-border"></div>
+                  <img
+                    src="https://www.lissomsoft.com/assets/leardership/amit%20Bansal.png"
+                    alt="Amit Bansal"
+                    className="team-image"
+                  />
+                </div>
 
-                  <div className="card-body p-4">
-                    <h3 className="h5 mb-1">{member.name}</h3>
-                    <p className="text-primary fw-bold small mb-3">{member.position}</p>
-                    <p className="small text-muted mb-3 team-bio-preview">
-                      {member.bio.length > 100 ? `${member.bio.substring(0, 100)}...` : member.bio}
-                    </p>
-                    <div className="team-social">
-                      <a href={member.linkedin} className="social-icon" target="_blank" rel="noopener noreferrer">
-                        <i className="fab fa-linkedin-in"></i>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="card-footer bg-transparent border-0 pb-4">
-                    <button
-                      className="btn btn-sm btn-outline-primary rounded-pill px-3"
-                      onClick={() => openTeamModal(member)}
+                <div className="card-body p-4">
+                  <h3 className="h5 mb-1">Amit Bansal</h3>
+                  <p className="text-primary fw-bold small mb-3">Director - BFSI - Risk Management</p>
+                  <p className="small text-muted mb-3">
+                    Expert in financial risk management with over 15 years of experience in the banking sector.
+                  </p>
+                  <div className="team-social" style={{ opacity: 1, transform: "translateY(0)" }}>
+                    <a
+                      href="https://www.linkedin.com/"
+                      className="social-icon"
+                      style={{ background: "rgba(0, 119, 182, 0.2)", border: "1px solid #0077b6" }}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      View Profile
-                    </button>
+                      <i className="fab fa-linkedin-in"></i>
+                    </a>
                   </div>
-                </motion.div>
-              </div>
-            ))}
+                </div>
+                <div className="card-footer bg-transparent border-0 pb-4">
+                  <button className="btn btn-sm btn-outline-primary rounded-pill px-3">View Profile</button>
+                </div>
+              </motion.div>
+            </div>
+
+            <div className="col-lg-3 col-md-6">
+              <motion.div
+                className="card border-0 shadow-sm h-100 team-card text-center"
+                initial={{ opacity: 0, y: 30 }}
+                animate={teamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <div className="position-relative mx-auto mt-4 team-image-container">
+                  <div className="team-image-border"></div>
+                  <img
+                    src="https://www.lissomsoft.com/assets/leardership/satish.jpg"
+                    alt="Satish R"
+                    className="team-image"
+                  />
+                </div>
+
+                <div className="card-body p-4">
+                  <h3 className="h5 mb-1">Satish R</h3>
+                  <p className="text-primary fw-bold small mb-3">Director - Product Development</p>
+                  <p className="small text-muted mb-3">
+                    Leads our product development team with a focus on creating innovative, user-friendly solutions.
+                  </p>
+                  <div className="team-social" style={{ opacity: 1, transform: "translateY(0)" }}>
+                    <a
+                      href="https://www.linkedin.com/"
+                      className="social-icon"
+                      style={{ background: "rgba(0, 119, 182, 0.2)", border: "1px solid #0077b6" }}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i className="fab fa-linkedin-in"></i>
+                    </a>
+                  </div>
+                </div>
+                <div className="card-footer bg-transparent border-0 pb-4">
+                  <button className="btn btn-sm btn-outline-primary rounded-pill px-3">View Profile</button>
+                </div>
+              </motion.div>
+            </div>
+
+            <div className="col-lg-3 col-md-6">
+              <motion.div
+                className="card border-0 shadow-sm h-100 team-card text-center"
+                initial={{ opacity: 0, y: 30 }}
+                animate={teamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <div className="position-relative mx-auto mt-4 team-image-container">
+                  <div className="team-image-border"></div>
+                  <img
+                    src="https://www.lissomsoft.com/assets/leardership/murali.jpg"
+                    alt="Murali T"
+                    className="team-image"
+                  />
+                </div>
+
+                <div className="card-body p-4">
+                  <h3 className="h5 mb-1">Murali T</h3>
+                  <p className="text-primary fw-bold small mb-3">Director - Technology Services</p>
+                  <p className="small text-muted mb-3">
+                    Technology expert with deep knowledge in cloud computing and digital transformation.
+                  </p>
+                  <div className="team-social" style={{ opacity: 1, transform: "translateY(0)" }}>
+                    <a
+                      href="https://www.linkedin.com/in/murali-t-39642315/"
+                      className="social-icon"
+                      style={{ background: "rgba(0, 119, 182, 0.2)", border: "1px solid #0077b6" }}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i className="fab fa-linkedin-in"></i>
+                    </a>
+                  </div>
+                </div>
+                <div className="card-footer bg-transparent border-0 pb-4">
+                  <button className="btn btn-sm btn-outline-primary rounded-pill px-3">View Profile</button>
+                </div>
+              </motion.div>
+            </div>
+
+            <div className="col-lg-3 col-md-6">
+              <motion.div
+                className="card border-0 shadow-sm h-100 team-card text-center"
+                initial={{ opacity: 0, y: 30 }}
+                animate={teamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                <div className="position-relative mx-auto mt-4 team-image-container">
+                  <div className="team-image-border"></div>
+                  <img
+                    src="https://www.lissomsoft.com/assets/leardership/venkat.jpg"
+                    alt="Venkatesh S"
+                    className="team-image"
+                  />
+                </div>
+
+                <div className="card-body p-4">
+                  <h3 className="h5 mb-1">Venkatesh S</h3>
+                  <p className="text-primary fw-bold small mb-3">Director - Business Development</p>
+                  <p className="small text-muted mb-3">
+                    Drives our business growth strategy with a focus on building strong client relationships.
+                  </p>
+                  <div className="team-social" style={{ opacity: 1, transform: "translateY(0)" }}>
+                    <a
+                      href="https://www.linkedin.com/in/venkatesh-s-a97385238/"
+                      className="social-icon"
+                      style={{ background: "rgba(0, 119, 182, 0.2)", border: "1px solid #0077b6" }}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i className="fab fa-linkedin-in"></i>
+                    </a>
+                  </div>
+                </div>
+                <div className="card-footer bg-transparent border-0 pb-4">
+                  <button className="btn btn-sm btn-outline-primary rounded-pill px-3">View Profile</button>
+                </div>
+              </motion.div>
+            </div>
           </div>
 
           {/* Add a "Meet the entire team" button */}
@@ -773,487 +831,32 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Team Member Profile Modal - Updated with TeamPage styling */}
-      <AnimatePresence>
-        {selectedTeamMember && (
-          <motion.div
-            className="team-modal-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={closeTeamModal}
-          >
-            <motion.div
-              className="team-modal-content"
-              initial={{ opacity: 0, y: 50, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 50, scale: 0.9 }}
-              transition={{ type: "spring", damping: 25 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button className="team-modal-close" onClick={closeTeamModal}>
-                <i className="fas fa-times"></i>
-              </button>
-
-              <div className="team-modal-container">
-                <div className="team-modal-image-section">
-                  <div className="team-modal-image-container">
-                    <div className="team-modal-image-wrapper">
-                      <img
-                        src={selectedTeamMember.image || "/placeholder.svg"}
-                        alt={selectedTeamMember.name}
-                        className="team-modal-image"
-                        onError={(e) => {
-                          e.target.src = "https://www.lissomsoft.com/assets/placeholder.jpg"
-                        }}
-                      />
-                    </div>
-                    <div className="team-modal-social">
-                      <a
-                        href={selectedTeamMember.linkedin}
-                        className="social-icon"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <i className="fab fa-linkedin-in"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="team-modal-content-section">
-                  <div className="team-modal-body">
-                    <h2 className="team-modal-name">{selectedTeamMember.name}</h2>
-                    <p className="team-modal-position">{selectedTeamMember.position}</p>
-
-                    <div className="team-modal-bio">
-                      <h4>About</h4>
-                      <p>{selectedTeamMember.bio}</p>
-                    </div>
-
-                    <div className="team-modal-skills">
-                      <h4>Skills</h4>
-                      <div className="skill-tags">
-                        {selectedTeamMember.skills &&
-                          selectedTeamMember.skills.map((skill, index) => (
-                            <span key={index} className="skill-tag">
-                              {skill}
-                            </span>
-                          ))}
-                      </div>
-                    </div>
-
-                    {selectedTeamMember.achievements && (
-                      <div className="team-modal-achievements">
-                        <h4>Key Achievements</h4>
-                        <ul>
-                          {selectedTeamMember.achievements.map((achievement, index) => (
-                            <li key={index}>{achievement}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Custom CSS */}
-      <style jsx>{`
-        /* Progress Bar */
-        .scroll-progress {
-          position: fixed;
-          top: 0;
-          left: 0;
-          height: 4px;
-          background: linear-gradient(90deg, #0077b6, #00a8e8);
-          z-index: 9999;
-          transition: width 0.2s ease;
-        }
-
-        /* Team Cards - Matching TeamPage styling */
-        .team-cards-container {
-          margin: 0 -10px;
-        }
-
-        .team-card {
-          border-radius: 12px;
-          overflow: hidden;
-          transition: all 0.3s ease;
-        }
-
-        .team-card:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .team-image-container {
-          position: relative;
-          width: 120px;
-          height: 120px;
-          border-radius: 50%;
-          overflow: hidden;
-          margin-bottom: 1rem;
-        }
-
-        .team-image-border {
-          position: absolute;
-            // top: -5px;
-            // left: -5px;
-            // right: -5px;
-            // bottom: -5px;
-          border: 2px solid #0077b6;
-          border-radius: 50%;
-          opacity: 0.5;
-          animation: pulse 2s infinite;
-        }
-
-        .team-image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          border-radius: 50%;
-        }
-
-        .team-social {
-          display: flex;
-          justify-content: center;
-          gap: 10px;
-        }
-
-        .social-icon {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          background: rgba(0, 119, 182, 0.1);
-          color: #0077b6;
-          transition: all 0.3s ease;
-        }
-
-        .social-icon:hover {
-          background: #0077b6;
-          color: white;
-          transform: translateY(-3px);
-        }
-
-        .team-bio-preview {
-          display: -webkit-box;
-          -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-          height: 60px;
-        }
-
-        /* Team Modal - Matching TeamPage styling */
-        .team-modal-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.7);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 9999;
-          padding: 15px;
-          overflow-y: auto;
-        }
-
-        .team-modal-content {
-          background: white;
-          border-radius: 12px;
-          width: 100%;
-          max-width: 800px;
-          max-height: 90vh;
-          overflow: auto;
-          position: relative;
-          box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .team-modal-container {
-          display: flex;
-          flex-direction: column;
-        }
-
-        @media (min-width: 768px) {
-          .team-modal-container {
-            flex-direction: row;
-          }
-        }
-
-        .team-modal-image-section {
-          background: linear-gradient(135deg, #0077b6, #00a8e8);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 20px;
-        }
-
-        @media (min-width: 768px) {
-          .team-modal-image-section {
-            width: 40%;
-          }
-          
-          .team-modal-content-section {
-            width: 60%;
-          }
-        }
-
-        .dark-theme .team-modal-content {
-          background: #2d2d2d;
-          color: #f5f5f5;
-        }
-
-        .team-modal-close {
-          position: absolute;
-          top: 15px;
-          right: 15px;
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          background: rgba(0, 0, 0, 0.1);
-          border: none;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #333;
-          font-size: 1rem;
-          cursor: pointer;
-          z-index: 10;
-          transition: all 0.3s ease;
-        }
-
-        .dark-theme .team-modal-close {
-          background: rgba(255, 255, 255, 0.1);
-          color: #f5f5f5;
-        }
-
-        .team-modal-close:hover {
-          background: #0077b6;
-          color: white;
-        }
-
-        .team-modal-image-container {
-          position: relative;
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          padding: 20px;
-        }
-
-        .team-modal-image-wrapper {
-          width: 180px;
-          height: 180px;
-          border-radius: 50%;
-          overflow: hidden;
-          border: 5px solid rgba(255, 255, 255, 0.3);
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .team-modal-image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-
-        .team-modal-social {
-          margin-top: 20px;
-          width: 100%;
-          display: flex;
-          justify-content: center;
-          gap: 15px;
-        }
-
-        .team-modal-social .social-icon {
-          width: 40px;
-          height: 40px;
-          background: rgba(255, 255, 255, 0.2);
-          color: white;
-          border: 1px solid rgba(255, 255, 255, 0.3);
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .team-modal-social .social-icon:hover {
-          background: white;
-          color: #0077b6;
-          transform: translateY(-5px);
-        }
-
-        .team-modal-body {
-          padding: 25px;
-          overflow-y: auto;
-        }
-
-        .team-modal-name {
-          font-size: 1.8rem;
-          font-weight: 700;
-          margin-bottom: 5px;
-          color: #0077b6;
-        }
-
-        .dark-theme .team-modal-name {
-          color: #00a8e8;
-        }
-
-        .team-modal-position {
-          font-size: 1rem;
-          color: #666;
-          margin-bottom: 20px;
-        }
-
-        .dark-theme .team-modal-position {
-          color: #aaa;
-        }
-
-        .team-modal-bio,
-        .team-modal-skills,
-        .team-modal-achievements {
-          margin-bottom: 20px;
-        }
-
-        .team-modal-bio h4,
-        .team-modal-skills h4,
-        .team-modal-achievements h4 {
-          font-size: 1.2rem;
-          font-weight: 600;
-          margin-bottom: 10px;
-          color: #333;
-        }
-
-        .dark-theme .team-modal-bio h4,
-        .dark-theme .team-modal-skills h4,
-        .dark-theme .team-modal-achievements h4 {
-          color: #f5f5f5;
-        }
-
-        .skill-tags {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
-        }
-
-        .skill-tag {
-          background: rgba(0, 119, 182, 0.1);
-          color: #0077b6;
-          padding: 6px 14px;
-          border-radius: 20px;
-          font-size: 0.85rem;
-          font-weight: 500;
-          transition: all 0.3s ease;
-        }
-
-        .skill-tag:hover {
-          background: rgba(0, 119, 182, 0.2);
-          transform: translateY(-2px);
-        }
-
-        .dark-theme .skill-tag {
-          background: rgba(0, 168, 232, 0.2);
-          color: #00a8e8;
-        }
-
-        .team-modal-achievements ul {
-          padding-left: 20px;
-        }
-
-        .team-modal-achievements li {
-          margin-bottom: 8px;
-        }
-
-        @keyframes pulse {
-          0% {
-            transform: scale(1);
-            opacity: 0.5;
-          }
-          50% {
-            transform: scale(1.05);
-            opacity: 0.3;
-          }
-          100% {
-            transform: scale(1);
-            opacity: 0.5;
-          }
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 991px) {
-          .team-modal-image-wrapper {
-            width: 150px;
-            height: 150px;
-          }
-          
-          .team-image-container {
-            width: 100px;
-            height: 100px;
-          }
-        }
-
-        @media (max-width: 767px) {
-          .team-modal-container {
-            flex-direction: column;
-          }
-          
-          .team-modal-image-section,
-          .team-modal-content-section {
-            width: 100%;
-          }
-          
-          .team-modal-image-container {
-            padding: 15px;
-          }
-          
-          .team-modal-body {
-            padding: 20px;
-          }
-          
-          .team-modal-name {
-            font-size: 1.5rem;
-          }
-        }
-
-        @media (max-width: 576px) {
-          .team-modal-image-wrapper {
-            width: 120px;
-            height: 120px;
-          }
-          
-          .team-modal-overlay {
-            padding: 10px;
-          }
-          
-          .team-modal-content {
-            max-height: 95vh;
-          }
-          
-          .team-modal-body {
-            padding: 15px;
-          }
-          
-          .team-modal-name {
-            font-size: 1.3rem;
-          }
-          
-          .team-modal-position {
-            font-size: 0.9rem;
-          }
-          
-          .skill-tag {
-            padding: 4px 10px;
-            font-size: 0.75rem;
-          }
-        }
-      `}</style>
+    
     </div>
   )
 }
 
 export default AboutPage
 
+{
+  /* Responsive fixes */
+}
+;<style jsx>{`
+  @media (max-width: 768px) {
+    .hero-section .row {
+      flex-direction: column-reverse;
+    }
+    
+    .hero-image-container {
+      margin-bottom: 2rem;
+    }
+    
+    .section-leadership .team-card {
+      margin-bottom: 2rem;
+    }
+    
+    .ceo-image-container {
+      margin: 0 auto 2rem;
+    }
+  }
+`}</style>
