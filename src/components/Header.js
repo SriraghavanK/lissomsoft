@@ -939,6 +939,8 @@ const Header = () => {
                         <motion.a
                           href="https://www.linkedin.com/company/lissomsoft-technologies/"
                           className="social-icon"
+                          target="_blank"
+                        rel="noopener noreferrer"
                           whileHover={{
                             y: -5,
                             backgroundColor: "#0077b6",
@@ -951,6 +953,8 @@ const Header = () => {
                         <motion.a
                           href="https://www.youtube.com/@lissomsoft-therisktechcomp2928/featured"
                           className="social-icon"
+                          target="_blank"
+                        rel="noopener noreferrer"
                           whileHover={{
                             y: -5,
                             backgroundColor: "#FF0000",
@@ -963,6 +967,8 @@ const Header = () => {
                         <motion.a
                           href="https://api.whatsapp.com/send?phone=9361829552"
                           className="social-icon"
+                          target="_blank"
+                        rel="noopener noreferrer"
                           whileHover={{
                             y: -5,
                             backgroundColor: "#25D366",
@@ -975,6 +981,8 @@ const Header = () => {
                         <motion.a
                           href="https://www.facebook.com/lissomsoft"
                           className="social-icon"
+                          target="_blank"
+                        rel="noopener noreferrer"
                           whileHover={{
                             y: -5,
                             backgroundColor: "#4267B2",
@@ -1004,6 +1012,8 @@ const Header = () => {
                         <motion.a
                           href="https://www.linkedin.com/company/lissomsoft-technologies/"
                           className="social-icon"
+                          target="_blank"
+                        rel="noopener noreferrer"
                           whileHover={{
                             y: -5,
                             backgroundColor: "#0077b6",
@@ -1016,6 +1026,8 @@ const Header = () => {
                         <motion.a
                           href="https://api.whatsapp.com/send?phone=9361829552"
                           className="social-icon"
+                          target="_blank"
+                        rel="noopener noreferrer"
                           whileHover={{
                             y: -5,
                             backgroundColor: "#25D366",
@@ -1028,6 +1040,8 @@ const Header = () => {
                         <motion.a
                           href="https://www.facebook.com/lissomsoft"
                           className="social-icon"
+                          target="_blank"
+                        rel="noopener noreferrer"
                           whileHover={{
                             y: -5,
                             backgroundColor: "#4267B2",
@@ -1040,6 +1054,8 @@ const Header = () => {
                         <motion.a
                           href="https://www.youtube.com/@lissomsoft-therisktechcomp2928/featured"
                           className="social-icon"
+                          target="_blank"
+                        rel="noopener noreferrer"
                           whileHover={{
                             y: -5,
                             backgroundColor: "#FF0000",
@@ -1520,6 +1536,8 @@ const Header = () => {
                       <motion.a
                         href="https://www.linkedin.com/company/lissomsoft-technologies/"
                         className="social-icon"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         whileHover={{
                           y: -5,
                           backgroundColor: "#0077b6",
@@ -1532,6 +1550,8 @@ const Header = () => {
                       <motion.a
                         href="https://www.youtube.com/@lissomsoft-therisktechcomp2928/featured"
                         className="social-icon"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         whileHover={{
                           y: -5,
                           backgroundColor: "#FF0000",
@@ -1544,6 +1564,8 @@ const Header = () => {
                       <motion.a
                         href="https://api.whatsapp.com/send?phone=9361829552"
                         className="social-icon"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         whileHover={{
                           y: -5,
                           backgroundColor: "#25D366",
@@ -1556,6 +1578,8 @@ const Header = () => {
                       <motion.a
                         href="https://www.facebook.com/lissomsoft"
                         className="social-icon"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         whileHover={{
                           y: -5,
                           backgroundColor: "#4267B2",
@@ -1577,6 +1601,8 @@ const Header = () => {
                       <motion.a
                         href="https://www.linkedin.com/company/lissomsoft-technologies/"
                         className="social-icon"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         whileHover={{
                           y: -5,
                           backgroundColor: "#0077b6",
@@ -1589,6 +1615,8 @@ const Header = () => {
                       <motion.a
                         href="https://api.whatsapp.com/send?phone=9361829552"
                         className="social-icon"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         whileHover={{
                           y: -5,
                           backgroundColor: "#25D366",
@@ -1601,6 +1629,8 @@ const Header = () => {
                       <motion.a
                         href="https://www.facebook.com/lissomsoft"
                         className="social-icon"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         whileHover={{
                           y: -5,
                           backgroundColor: "#4267B2",
@@ -1610,9 +1640,12 @@ const Header = () => {
                       >
                         <i className="fab fa-facebook"></i>
                       </motion.a>
+
                       <motion.a
                         href="https://www.youtube.com/@lissomsoft-therisktechcomp2928/featured"
                         className="social-icon"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         whileHover={{
                           y: -5,
                           backgroundColor: "#FF0000",
@@ -2443,7 +2476,7 @@ const styles = `
   }
   
   /* Responsive Design */
-  @media (max-width: 992px) {
+  @media (max-width: 1100px) {
     .desktop-nav {
       display: none;
     }
