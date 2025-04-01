@@ -421,26 +421,26 @@ const Header = () => {
       opacity: 0,
       x: "100%",
       transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 40,
+        type: "tween", 
+        duration: 0.25,
+        ease: "easeOut"
       },
     },
     open: {
       opacity: 1,
       x: "0%",
       transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 40,
-        staggerChildren: 0.07,
-        delayChildren: 0.1,
+        type: "tween",
+        duration: 0.25,
+        ease: "easeOut",
+        staggerChildren: 0.05,
+        delayChildren: 0.05,
       },
     },
   };
 
   const mobileItemVariants = {
-    closed: { opacity: 0, x: 20 },
+    closed: { opacity: 0, x: 10 },
     open: { opacity: 1, x: 0 },
   };
 
@@ -1883,7 +1883,27 @@ const styles = `
   .navbar-brand:hover .logo {
     transform: rotate(5deg);
   }
-  
+  /* Add hardware acceleration for smoother animations */
+.mobile-menu-overlay, 
+.premium-hamburger, 
+.hamburger-line {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  perspective: 1000px;
+}
+
+/* Optimize hamburger button transitions */
+.hamburger-line {
+  transition: all 0.2s ease-in-out; /* Faster transition */
+  will-change: transform, opacity;
+}
+
+/* Optimize mobile menu transition */
+.mobile-menu-overlay {
+  transition: transform 0.25s ease-out;
+  will-change: transform, opacity;
+}
   .brand-text {
     color: #0077b6;
     letter-spacing: 1px;
@@ -2145,13 +2165,13 @@ const styles = `
   
   .btn-pulse-ring {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 0%;
+    left: 0%;
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
     border-radius: 30px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(0, 0, 0, 0.16)
     z-index: -1;
   }
   
