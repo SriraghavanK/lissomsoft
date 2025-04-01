@@ -28,6 +28,7 @@ const CareerPage = () => {
   // Images array for the carousel
   const carouselImages = [
     "https://www.lissomsoft.com/assets/team/group%20photo%201.jpeg",
+    require("../assets/groupphoto.jpg"),
     "https://www.lissomsoft.com/assets/team/group%20photo%203.jpeg",
     "https://www.lissomsoft.com/assets/team/award%201.jpeg",
     "https://www.lissomsoft.com/assets/team/award%202.jpeg",
@@ -36,7 +37,7 @@ const CareerPage = () => {
     require("../assets/waterfallgroup.jpg"),
     require("../assets/cricket.jpg"),
     require("../assets/groupphoto2.jpg"),
-    require("../assets/groupphoto.jpg"),
+   
    
   ]
 
