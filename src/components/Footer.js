@@ -5,7 +5,7 @@ import { motion, useAnimation } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 
 const Footer = () => {
-  const controls = useAnimation();
+  // const controls = useAnimation();
   const location = useLocation();
   const isSmartGrcPage =
     location.pathname.includes("smart-grc") ||
