@@ -666,7 +666,7 @@ const MySmartGrcPage = () => {
 
   const handleRequestCall = () => {
     // Initiate call functionality
-    window.location.href = "tel:+1234567890" // Replace with actual phone number
+    window.location.href = "tel:+91 93618 29552" // Replace with actual phone number
   }
 
   return (
