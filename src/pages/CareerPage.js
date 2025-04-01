@@ -33,9 +33,11 @@ const CareerPage = () => {
     "https://www.lissomsoft.com/assets/team/award%202.jpeg",
     "https://www.lissomsoft.com/assets/Team%20Images/team4.jpg",
     "https://www.lissomsoft.com/assets/team/award%204.jpeg",
-    "https://www.lissomsoft.com/assets/Team%20Images/team9.jpg",
-    "https://www.lissomsoft.com/assets/Team%20Images/team10.jpg",
-    // "https://imgs.search.brave.com/ZbYl_8LVY0HgXnoSjhK1X8hLzROPdenPsxG46-TC1Es/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJzLmNvbS9p/bWFnZXMvZmVhdHVy/ZWQvNGstc3BhY2Ut/OXcyN2RxbWM0bnJz/M3h3ZC5qcGc",
+    require("../assets/waterfallgroup.jpg"),
+    require("../assets/cricket.jpg"),
+    require("../assets/groupphoto2.jpg"),
+    require("../assets/groupphoto.jpg"),
+   
   ]
 
   // State for thumbs swiper
@@ -406,7 +408,7 @@ const CareerPage = () => {
         <div className="container py-3">
           <div className="row align-items-center">
             <div className="col-lg-6 mb-4 mb-lg-0">
-              <h5 className="mb-4">
+              <h6 className="mb-4">
                 Embark on an exhilarating journey with Lissomsoft, where innovation and passion drive our pursuit of
                 excellence! Explore a realm of opportunities, mastering cutting-edge technologies like AI/ML,
                 React/Angular, and the prowess of platforms such as WordPress, Figma, Webflow. Join our dynamic
@@ -415,7 +417,7 @@ const CareerPage = () => {
                 business automation. Immerse yourself in continuous learning, inclusivity, and abundant resources that
                 allow you to shine. Become a trailblazer, sculpt the digital landscape, and propel your career to new
                 heights with us!
-              </h5>
+              </h6>
             </div>
             <div className="col-lg-6">
               <img
@@ -543,9 +545,9 @@ const CareerPage = () => {
                           loading="lazy"
                           style={{
                             width: "100%",
-                            height: "112%",
+                            height: "100%",
                             
-                            objectFit: "cover",
+                            objectFit: "contain",
                            
                           }}
                         />

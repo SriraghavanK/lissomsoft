@@ -1,63 +1,75 @@
-"use client"
+"use client";
 
-import { Link, useLocation } from "react-router-dom"
-import { motion, useAnimation } from "framer-motion"
-import { useEffect, useState, useRef } from "react"
+import { Link, useLocation } from "react-router-dom";
+import { motion, useAnimation } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
 
 const Footer = () => {
-  const controls = useAnimation()
-  const location = useLocation()
-  const isSmartGrcPage = location.pathname.includes("smart-grc") || location.pathname.includes("mysmartgrc")
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const footerRef = useRef(null)
+  const controls = useAnimation();
+  const location = useLocation();
+  const isSmartGrcPage =
+    location.pathname.includes("smart-grc") ||
+    location.pathname.includes("mysmartgrc");
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const footerRef = useRef(null);
   const [footerRect, setFooterRect] = useState({
     top: 0,
     left: 0,
     width: 0,
     height: 0,
-  })
-
+  });
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
   useEffect(() => {
     const updateFooterRect = () => {
       if (footerRef.current) {
-        const rect = footerRef.current.getBoundingClientRect()
+        const rect = footerRef.current.getBoundingClientRect();
         setFooterRect({
           top: rect.top + window.scrollY,
           left: rect.left,
           width: rect.width,
           height: rect.height,
-        })
+        });
       }
-    }
+    };
 
-    updateFooterRect()
-    window.addEventListener("resize", updateFooterRect)
-    window.addEventListener("scroll", updateFooterRect)
+    updateFooterRect();
+    window.addEventListener("resize", updateFooterRect);
+    window.addEventListener("scroll", updateFooterRect);
 
     return () => {
-      window.removeEventListener("resize", updateFooterRect)
-      window.removeEventListener("scroll", updateFooterRect)
-    }
-  }, [])
+      window.removeEventListener("resize", updateFooterRect);
+      window.removeEventListener("scroll", updateFooterRect);
+    };
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (footerRef.current) {
-        const rect = footerRef.current.getBoundingClientRect()
-        if (e.clientY >= rect.top && e.clientY <= rect.bottom && e.clientX >= rect.left && e.clientX <= rect.right) {
+        const rect = footerRef.current.getBoundingClientRect();
+        if (
+          e.clientY >= rect.top &&
+          e.clientY <= rect.bottom &&
+          e.clientX >= rect.left &&
+          e.clientX <= rect.right
+        ) {
           setMousePosition({
             x: e.clientX - rect.left,
             y: e.clientY - rect.top,
-          })
+          });
         }
       }
-    }
+    };
 
-    window.addEventListener("mousemove", handleMouseMove)
+    window.addEventListener("mousemove", handleMouseMove);
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove)
-    }
-  }, [])
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
 
   // Add this CSS before the export
   const styles = `
@@ -729,71 +741,71 @@ const Footer = () => {
         max-width: 1140px;
       }
     }
-  `
+  `;
 
   // Add this before the return statement
   useEffect(() => {
     // Add the styles to the document
-    const styleElement = document.createElement("style")
-    styleElement.innerHTML = styles
-    document.head.appendChild(styleElement)
+    const styleElement = document.createElement("style");
+    styleElement.innerHTML = styles;
+    document.head.appendChild(styleElement);
 
     // Create particles
-    createParticles()
+    createParticles();
 
     return () => {
-      document.head.removeChild(styleElement)
-    }
-  }, [])
+      document.head.removeChild(styleElement);
+    };
+  }, []);
 
   const createParticles = () => {
-    const container = document.createElement("div")
-    container.className = "particles-container"
+    const container = document.createElement("div");
+    container.className = "particles-container";
 
     if (footerRef.current) {
-      footerRef.current.appendChild(container)
+      footerRef.current.appendChild(container);
 
       for (let i = 0; i < 50; i++) {
-        const particle = document.createElement("div")
-        particle.className = "particle"
+        const particle = document.createElement("div");
+        particle.className = "particle";
 
         // Random position
-        const posX = Math.random() * 100
-        const posY = Math.random() * 100
-        particle.style.left = `${posX}%`
-        particle.style.bottom = `${posY}%`
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        particle.style.left = `${posX}%`;
+        particle.style.bottom = `${posY}%`;
 
         // Random size
-        const size = Math.random() * 4 + 1
-        particle.style.width = `${size}px`
-        particle.style.height = `${size}px`
+        const size = Math.random() * 4 + 1;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
 
         // Random opacity
-        particle.style.opacity = Math.random() * 0.5 + 0.1
+        particle.style.opacity = Math.random() * 0.5 + 0.1;
 
         // Animation
-        const duration = Math.random() * 20 + 10
-        particle.style.animation = `float-up ${duration}s linear infinite`
-        particle.style.animationDelay = `${Math.random() * 10}s`
+        const duration = Math.random() * 20 + 10;
+        particle.style.animation = `float-up ${duration}s linear infinite`;
+        particle.style.animationDelay = `${Math.random() * 10}s`;
 
-        container.appendChild(particle)
+        container.appendChild(particle);
       }
     }
-  }
+  };
 
   // Reduce text length for mobile displays
   const getResponsiveText = (text, maxLength = 100) => {
     if (window.innerWidth <= 767.98 && text.length > maxLength) {
-      return text.substring(0, maxLength) + "..."
+      return text.substring(0, maxLength) + "...";
     }
-    return text
-  }
+    return text;
+  };
 
   function handleHashLinkClick(e, hashId) {
-    e.preventDefault()
-    const element = document.getElementById(hashId.replace("#", ""))
+    e.preventDefault();
+    const element = document.getElementById(hashId.replace("#", ""));
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+      element.scrollIntoView({ behavior: "smooth" });
     }
   }
 
@@ -842,8 +854,8 @@ const Footer = () => {
               <span className="ms-2 fw-bold text-white">My Smart GRC</span>
             </motion.div>
             <p className="text-light">
-              MySmartGRC is a comprehensive risk management solution that helps organizations identify, assess, and
-              mitigate risks effectively.
+              MySmartGRC is a comprehensive risk management solution that helps
+              organizations identify, assess, and mitigate risks effectively.
             </p>
             <div className="social-icons mt-4">
               {[
@@ -909,7 +921,13 @@ const Footer = () => {
                   }}
                   viewport={{ once: true }}
                 >
-                  <a href={link.path} onClick={(e) => handleHashLinkClick(e, link.path)}>
+                  <a
+                    href={link.path}
+                    onClick={(e) => {
+                      handleHashLinkClick(e, link.path);
+                      scrollToTop();
+                    }}
+                  >
                     {link.name}
                   </a>
                 </motion.li>
@@ -941,7 +959,9 @@ const Footer = () => {
                   }}
                   viewport={{ once: true }}
                 >
-                  <Link to={link.path}>{link.name}</Link>
+                  <Link to={link.path} onClick={scrollToTop}>
+                    {link.name}
+                  </Link>
                 </motion.li>
               ))}
             </ul>
@@ -982,7 +1002,11 @@ const Footer = () => {
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              <Link to="/contact" className="contact-button">
+              <Link
+                to="/contact"
+                className="contact-button"
+                onClick={scrollToTop}
+              >
                 Get in Touch
               </Link>
             </motion.div>
@@ -1005,7 +1029,9 @@ const Footer = () => {
             transition={{ delay: 0.7, duration: 0.5 }}
             viewport={{ once: true }}
           >
-            <p className="mb-0 copyright-text">© {new Date().getFullYear()} Lissomsoft. All rights reserved.</p>
+            <p className="mb-0 copyright-text">
+              © {new Date().getFullYear()} Lissomsoft. All rights reserved.
+            </p>
           </motion.div>
           <motion.div
             className="col-md-6 text-center text-md-end mt-3 mt-md-0"
@@ -1066,7 +1092,9 @@ const Footer = () => {
             >
               <div className="logo-box">
                 <img
-                  src={require("../assets/LISSOMSOFT.png") || "/placeholder.svg"}
+                  src={
+                    require("../assets/LISSOMSOFT.png") || "/placeholder.svg"
+                  }
                   style={{ width: "70px", height: "45px" }}
                   alt="LISSOMSOFT Logo"
                 />
@@ -1074,8 +1102,9 @@ const Footer = () => {
               <span className="ms-2 fw-bold text-white">LISSOMSOFT</span>
             </motion.div>
             <p className="text-light">
-              Lissomsoft provides innovative solutions for business risk management, digital transformation, cloud
-              services, and growth marketing.
+              Lissomsoft provides innovative solutions for business risk
+              management, digital transformation, cloud services, and growth
+              marketing.
             </p>
             <div className="social-icons mt-4">
               {[
@@ -1132,7 +1161,7 @@ const Footer = () => {
               title: "Company",
               links: [
                 { name: "About Us", path: "/about" },
-                { name: "Our Team", path: "/about#team" },
+                { name: "Clients", path: "/client" },
                 { name: "Careers", path: "/about#careers" },
                 { name: "Partners", path: "/partners" },
               ],
@@ -1146,7 +1175,9 @@ const Footer = () => {
               transition={{ delay: 0.2 + 0.1 * sectionIndex, duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <h5 className="text-white mb-4 footer-heading">{section.title}</h5>
+              <h5 className="text-white mb-4 footer-heading">
+                {section.title}
+              </h5>
               <ul className="list-unstyled footer-links">
                 {section.links.map((link, linkIndex) => (
                   <motion.li
@@ -1160,7 +1191,9 @@ const Footer = () => {
                     }}
                     viewport={{ once: true }}
                   >
-                    <Link to={link.path}>{link.name}</Link>
+                    <Link to={link.path} onClick={scrollToTop}>
+                      {link.name}
+                    </Link>
                   </motion.li>
                 ))}
               </ul>
@@ -1202,7 +1235,11 @@ const Footer = () => {
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              <Link to="/contact" className="contact-button ">
+              <Link
+                to="/contact"
+                className="contact-button "
+                onClick={scrollToTop}
+              >
                 Get in Touch
               </Link>
             </motion.div>
@@ -1225,7 +1262,9 @@ const Footer = () => {
             transition={{ delay: 0.7, duration: 0.5 }}
             viewport={{ once: true }}
           >
-            <p className="mb-0 copyright-text">© {new Date().getFullYear()} Lissomsoft. All rights reserved.</p>
+            <p className="mb-0 copyright-text">
+              © {new Date().getFullYear()} Lissomsoft. All rights reserved.
+            </p>
           </motion.div>
           <motion.div
             className="col-md-6 text-center text-md-end mt-3 mt-md-0"
@@ -1256,8 +1295,7 @@ const Footer = () => {
         </svg>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
-
+export default Footer;

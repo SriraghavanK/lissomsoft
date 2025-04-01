@@ -15,6 +15,12 @@ import "@fortawesome/fontawesome-free/css/all.min.css"
 import "../styles/AboutPage.css"
 
 const AboutPage = () => {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+  } 
   // Animation controls
   const controls = useAnimation()
   const [statsRef, statsInView] = useInView({ threshold: 0.1, triggerOnce: true })
@@ -801,7 +807,7 @@ const AboutPage = () => {
 
           {/* Add a "Meet the entire team" button */}
           <div className="text-center mt-5">
-            <Link to="/team" className="btn btn-primary btn-lg px-5 py-3 btn-with-icon">
+            <Link to="/team" className="btn btn-primary btn-lg px-5 py-3 btn-with-icon" onClick={scrollToTop}>
               <span>Meet the Entire Team</span>
               <i className="fas fa-users ms-2"></i>
             </Link>
@@ -823,7 +829,7 @@ const AboutPage = () => {
               Contact us today to learn how Lissomsoft can help your business navigate risks, embrace digital
               transformation, and achieve sustainable growth.
             </p>
-            <Link to="/contact" className="btn btn-light btn-lg px-5 py-3 btn-with-icon">
+            <Link to="/contact" className="btn btn-light btn-lg px-5 py-3 btn-with-icon" onClick={scrollToTop}>
               <span>Get in Touch</span>
               <i className="fas fa-arrow-right ms-2"></i>
             </Link>

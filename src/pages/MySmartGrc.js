@@ -205,51 +205,51 @@ const MySmartGrcPage = () => {
 
   // Form validation functions
   const validateField = (name, value) => {
-    let error = "";
-    
+    let error = ""
+
     switch (name) {
       case "name":
         if (!value.trim()) {
-          error = "Name is required";
+          error = "Name is required"
         } else if (value.trim().length < 2) {
-          error = "Name must be at least 2 characters";
+          error = "Name must be at least 2 characters"
         }
-        break;
-      
+        break
+
       case "email":
         if (!value.trim()) {
-          error = "Email is required";
+          error = "Email is required"
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-          error = "Please enter a valid email address";
+          error = "Please enter a valid email address"
         }
-        break;
-      
+        break
+
       case "phone":
         if (!value.trim()) {
-          error = "Phone number is required";
+          error = "Phone number is required"
         } else if (!/^[0-9+\-\s()]{10,15}$/.test(value)) {
-          error = "Please enter a valid phone number";
+          error = "Please enter a valid phone number"
         }
-        break;
-      
+        break
+
       case "company":
         if (!value.trim()) {
-          error = "Company name is required";
+          error = "Company name is required"
         }
-        break;
-      
+        break
+
       case "agreeTerms":
         if (!value) {
-          error = "You must agree to the terms";
+          error = "You must agree to the terms"
         }
-        break;
-      
+        break
+
       default:
-        break;
+        break
     }
-    
-    return error;
-  };
+
+    return error
+  }
 
   const validateForm = () => {
     const errors = {
@@ -257,44 +257,44 @@ const MySmartGrcPage = () => {
       email: validateField("email", formData.email),
       phone: validateField("phone", formData.phone),
       company: validateField("company", formData.company),
-      agreeTerms: validateField("agreeTerms", formData.agreeTerms)
-    };
-    
-    setFormErrors(errors);
-    
+      agreeTerms: validateField("agreeTerms", formData.agreeTerms),
+    }
+
+    setFormErrors(errors)
+
     // Return true if no errors (all values are empty strings)
-    return Object.values(errors).every(error => error === "");
-  };
+    return Object.values(errors).every((error) => error === "")
+  }
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target
-    const newValue = type === "checkbox" ? checked : value;
-    
+    const newValue = type === "checkbox" ? checked : value
+
     setFormData({
       ...formData,
       [name]: newValue,
-    });
-    
+    })
+
     // Clear the error for this field when user starts typing
     setFormErrors({
       ...formErrors,
       [name]: "",
-    });
+    })
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    
+    e.preventDefault()
+
     // Validate form
-    const isValid = validateForm();
+    const isValid = validateForm()
     if (!isValid) {
-      return;
+      return
     }
-    
+
     // Set loading state
-    setFormSubmitting(true);
-    setFormSubmitStatus(null);
-    
+    setFormSubmitting(true)
+    setFormSubmitStatus(null)
+
     try {
       // Submit to backend
       const response = await fetch("https://lissomsoft.onrender.com/api/submit-form", {
@@ -306,20 +306,20 @@ const MySmartGrcPage = () => {
           ...formData,
           sheet: "Sheet3", // Specify Sheet 3
         }),
-      });
+      })
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new Error(`HTTP error! Status: ${response.status}`)
       }
 
-      const data = await response.json();
+      const data = await response.json()
 
       if (data.success) {
-        setFormSubmitStatus({ 
-          success: true, 
-          message: "Thank you for your interest! We'll contact you soon." 
-        });
-        
+        setFormSubmitStatus({
+          success: true,
+          message: "Thank you for your interest! We'll contact you soon.",
+        })
+
         // Reset form
         setFormData({
           name: "",
@@ -328,21 +328,21 @@ const MySmartGrcPage = () => {
           email: "",
           message: "",
           agreeTerms: false,
-        });
+        })
       } else {
         setFormSubmitStatus({
           success: false,
-          message: data.message || "There was an error submitting the form. Please try again."
-        });
+          message: data.message || "There was an error submitting the form. Please try again.",
+        })
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error("Error submitting form:", error)
       setFormSubmitStatus({
         success: false,
-        message: "There was an error connecting to the server. Please try again later."
-      });
+        message: "There was an error connecting to the server. Please try again later.",
+      })
     } finally {
-      setFormSubmitting(false);
+      setFormSubmitting(false)
     }
   }
 
@@ -546,6 +546,21 @@ const MySmartGrcPage = () => {
       background-color: #f8d7da;
       border-color: #f5c6cb;
       color: #721c24;
+    }
+
+    /* Fix for experts section on medium screens */
+    @media (min-width: 768px) and (max-width: 991px) {
+      #mysmartgrc-experts .card {
+        max-width: 100%;
+        overflow: hidden;
+      }
+      #mysmartgrc-experts .position-relative {
+        max-width: 100%;
+      }
+      #mysmartgrc-experts img {
+        max-width: 120px;
+        max-height: 120px;
+      }
     }
 `
 
@@ -777,19 +792,21 @@ const MySmartGrcPage = () => {
                     <h4 className="text-center mb-4">
                       Fill out the form to get started on optimizing your risk strategy today!
                     </h4>
-                    
+
                     {/* Form status message */}
                     {formSubmitStatus && (
-                      <div className={`form-status ${formSubmitStatus.success ? 'form-status-success' : 'form-status-error'}`}>
+                      <div
+                        className={`form-status ${formSubmitStatus.success ? "form-status-success" : "form-status-error"}`}
+                      >
                         {formSubmitStatus.message}
                       </div>
                     )}
-                    
+
                     <form onSubmit={handleSubmit}>
                       <div className="mb-3">
                         <input
                           type="text"
-                          className={`form-control ${formErrors.name ? 'input-error' : ''}`}
+                          className={`form-control ${formErrors.name ? "input-error" : ""}`}
                           placeholder="Name"
                           name="name"
                           value={formData.name}
@@ -801,7 +818,7 @@ const MySmartGrcPage = () => {
                       <div className="mb-3">
                         <input
                           type="tel"
-                          className={`form-control ${formErrors.phone ? 'input-error' : ''}`}
+                          className={`form-control ${formErrors.phone ? "input-error" : ""}`}
                           placeholder="Phone Number"
                           name="phone"
                           value={formData.phone}
@@ -813,7 +830,7 @@ const MySmartGrcPage = () => {
                       <div className="mb-3">
                         <input
                           type="text"
-                          className={`form-control ${formErrors.company ? 'input-error' : ''}`}
+                          className={`form-control ${formErrors.company ? "input-error" : ""}`}
                           placeholder="Company"
                           name="company"
                           value={formData.company}
@@ -825,7 +842,7 @@ const MySmartGrcPage = () => {
                       <div className="mb-3">
                         <input
                           type="email"
-                          className={`form-control ${formErrors.email ? 'input-error' : ''}`}
+                          className={`form-control ${formErrors.email ? "input-error" : ""}`}
                           placeholder="Email"
                           name="email"
                           value={formData.email}
@@ -847,7 +864,7 @@ const MySmartGrcPage = () => {
                       <div className="mb-3 form-check">
                         <input
                           type="checkbox"
-                          className={`form-check-input ${formErrors.agreeTerms ? 'input-error' : ''}`}
+                          className={`form-check-input ${formErrors.agreeTerms ? "input-error" : ""}`}
                           id="agreeTerms"
                           name="agreeTerms"
                           checked={formData.agreeTerms}
@@ -867,11 +884,7 @@ const MySmartGrcPage = () => {
                         {formErrors.agreeTerms && <div className="form-error">{formErrors.agreeTerms}</div>}
                       </div>
                       <motion.div className="text-center" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                        <button 
-                          type="submit" 
-                          className="btn btn-primary px-4 py-2"
-                          disabled={formSubmitting}
-                        >
+                        <button type="submit" className="btn btn-primary px-4 py-2" disabled={formSubmitting}>
                           {formSubmitting ? "Submitting..." : "Submit"}
                         </button>
                       </motion.div>
@@ -1689,13 +1702,13 @@ const MySmartGrcPage = () => {
           <div className="row justify-content-center">
             {experts.map((expert, index) => (
               <motion.div
-                className="col-md-3 col-sm-6 mb-4 text-center"
+                className="col-lg-3 col-md-6 col-sm-6 mb-4 text-center"
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 * index }}
               >
-                <div className="position-relative" style={{ height: "320px", perspective: "1000px" }}>
+                <div className="position-relative" style={{ height: "320px", perspective: "1000px", maxWidth: "100%" }}>
                   <motion.div
                     className="card border-0 shadow-sm h-100 w-100"
                     style={{
@@ -1904,11 +1917,11 @@ const MySmartGrcPage = () => {
                     <button className="btn-close" onClick={() => setShowDemoModal(false)} aria-label="Close"></button>
                   </div>
 
-                  <h4 className="text-center mb-4" style={{color:"#333"}}>
+                  <h4 className="text-center mb-4" style={{ color: "#333" }}>
                     Fill out the form below to get started on optimizing your risk strategy today!
                   </h4>
 
-                  <form onSubmit={handleDemoSubmit} style={{color:"black"}}>
+                  <form onSubmit={handleDemoSubmit} style={{ color: "black" }}>
                     <div className="mb-3">
                       <label htmlFor="firstName" className="form-label">
                         First name
@@ -2013,3 +2026,4 @@ const MySmartGrcPage = () => {
 }
 
 export default MySmartGrcPage
+

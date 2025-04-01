@@ -45,7 +45,8 @@
     "swiper": "^11.2.5",
     "url": "^0.11.4",
     "util": "^0.12.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "wouter": "^3.6.0"
   },
   "scripts": {
     "start": "react-scripts start",

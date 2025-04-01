@@ -147,7 +147,7 @@ const CloudServicesPage = () => {
       title: "Adopt Tailored Cloud Services for Seamless Scalability and 24/7 Accessibility.",
       subtitle:
         "At Lissomsoft, we guide your cloud transition, architect the framework, and ensure seamless data migration.",
-      buttonText: "Read More",
+      buttonText: "Want to Learn More? Contact Us!",
       buttonLink: "/contact",
       imageSrc: "https://www.lissomsoft.com/assets/tab/cloud%20services.jpg",
     },

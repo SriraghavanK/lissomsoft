@@ -1,14 +1,19 @@
 import { useEffect } from "react";
 import ServicePage from "./ServicePage";
-
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  })
+}
 const DigitalTransformationPage = () => {
   // Page-specific data
   const pageData = {
     hero: {
       title: "Digital Reinvention: Navigating Tomorrow's Business Landscape.",
       subtitle: "From Agility to Automation, We Drive Your Digital Transformation.",
-      buttonText: "Read More",
-      buttonLink: "https://lissomsoft.com/smart-grc/home",
+      buttonText: "Want to Learn More? Contact Us!",
+      buttonLink: "/contact",
       imageSrc: "https://www.lissomsoft.com/assets/tab/dital-transformation.jpg",
     },
     overview: {
@@ -68,7 +73,8 @@ const DigitalTransformationPage = () => {
       title: "Initiate Your Digital Transformation with Lissomsoft!",
       subtitle: "Take the first step towards a more efficient, innovative business model",
       buttonText: "Contact us",
-      buttonLink: "/contact"
+      buttonLink: "/contact",
+      onClick:scrollToTop
     },
     stats: [
       { icon: "fa-code", value: "200+", label: "Projects Delivered" },

@@ -11,7 +11,12 @@ const HomePage = () => {
   const [isTransitioning, setIsTransitioning] = useState(false)
   const servicesRef = useRef(null)
   const [isVisible, setIsVisible] = useState({})
-
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+  }
   const heroContent = {
     risk: {
       title: "Conquer Business Risks Like a Seasoned Climber",
@@ -358,7 +363,7 @@ const HomePage = () => {
               </h2>
               <p className="section-description">{serviceContent[activeService].description}</p>
            
-              <Link to={serviceContent[activeService].ctaLink} className="btn btn-primary-modern mb-5">
+              <Link to={serviceContent[activeService].ctaLink} className="btn btn-primary-modern mb-5"  onClick={scrollToTop}>
                 {serviceContent[activeService].ctaText}
                 <i className="fas fa-arrow-right ms-2"></i>
               </Link>
@@ -598,7 +603,7 @@ const HomePage = () => {
                     <span>Tailored strategies</span>
                   </div>
                 </div>
-                <Link to="/about" className="btn btn-primary-modern btn-lg">
+                <Link to="/about" className="btn btn-primary-modern btn-lg"  onClick={scrollToTop}>
                   Learn more about Lissomsoft
                   <i className="fas fa-arrow-right ms-2"></i>
                 </Link>
@@ -661,7 +666,7 @@ const HomePage = () => {
                 <h2 className="display-5 fw-bolder mb-4">Ready to Transform Your Business?</h2>
                 <p className="lead mb-4">Partner with Lissomsoft and unlock your organization's full potential</p>
                 <div className="d-flex flex-column flex-md-row justify-content-center gap-3">
-                  <Link to="/contact" className="btn btn-light btn-lg px-4 py-3">
+                  <Link to="/contact" className="btn btn-light btn-lg px-4 py-3"  onClick={scrollToTop}>
                     <i className="fas fa-envelope me-2"></i>
                     Contact Us
                   </Link>
@@ -745,8 +750,8 @@ const HomePage = () => {
               >
                 <div className="card-body p-4 p-md-5 text-center">
                   <h3 className="mb-4 fs-4 fs-md-3">Ready to embark on this journey with Lissomsoft today!</h3>
-                  <Link to="/contact" className="btn btn-primary-modern btn-lg px-5 py-3">
-                    <i className="fas fa-paper-plane me-2"></i>
+                  <Link to="/contact" className="btn btn-primary-modern btn-lg px-5 py-3"  onClick={scrollToTop}>
+                    <i className="fas fa-paper-plane me-2" ></i>
                     Contact us
                   </Link>
                 </div>

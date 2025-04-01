@@ -1,30 +1,36 @@
-"use client";
+"use client"
 
-import { useState, useEffect, useRef } from "react";
-import HeroSection from "../components/Herosection";
-import "../styles/ClientPage.css";
-import cloud from '../Client Logo/clients-logo/1cloudhub.png'
-import gac from '../Client Logo/clients-logo/gac.png'
-import ibis from '../Client Logo/clients-logo/ibis.png'
-import indinfravit from '../Client Logo/clients-logo/indinfravit.png'
-import interglobe from '../Client Logo/clients-logo/interglobe.png'
-import lonestar from '../Client Logo/clients-logo/lonestar.png'
-import premier from '../Client Logo/clients-logo/premier.png'
-import radiance from '../Client Logo/clients-logo/radiance-renewables-logo.png'
-import sicagen from '../Client Logo/clients-logo/sicagen.png'
-import stanleyblack from '../Client Logo/clients-logo/stanleyblack.png'
-import tatamotors from '../Client Logo/clients-logo/tata-motors.png'
-import thesecureinn from '../Client Logo/clients-logo/the-secure-inn.png'
-import utkarsh from '../Client Logo/clients-logo/utkarsh.png'
-import { Link } from "react-router-dom";
+import { useState, useEffect, useRef } from "react"
+import HeroSection from "../components/Herosection"
+import "../styles/ClientPage.css"
+import cloud from "../Client Logo/clients-logo/1cloudhub.png"
+import gac from "../Client Logo/clients-logo/gac.png"
+import indinfravit from "../Client Logo/clients-logo/indinfravit.png"
+import interglobe from "../Client Logo/clients-logo/interglobe.png"
+import lonestar from "../Client Logo/clients-logo/lonestar.png"
+import premier from "../Client Logo/clients-logo/premier.png"
+import radiance from "../Client Logo/clients-logo/radiance-renewables-logo.png"
+import sicagen from "../Client Logo/clients-logo/sicagen.png"
+import stanleyblack from "../Client Logo/clients-logo/stanleyblack.png"
+import tatamotors from "../Client Logo/clients-logo/tata-motors.png"
+import thesecureinn from "../Client Logo/clients-logo/the-secure-inn.png"
+import { Link } from "react-router-dom"
 
 const ClientPage = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const industriesRef = useRef(null);
-  const clientsRef = useRef(null);
-  const [activeIndustry, setActiveIndustry] = useState(null);
-  const [clientsVisible, setClientsVisible] = useState(false);
-  const [hoveredClient, setHoveredClient] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false)
+  const industriesRef = useRef(null)
+  const clientsRef = useRef(null)
+  const [activeIndustry, setActiveIndustry] = useState(null)
+  const [clientsVisible, setClientsVisible] = useState(false)
+  const [hoveredClient, setHoveredClient] = useState(null)
+
+  // Add scroll restoration function
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+  }
 
   const industries = [
     {
@@ -83,7 +89,7 @@ const ClientPage = () => {
       color: "#845ef7",
       description: "Advanced IT solutions and services",
     },
-  ];
+  ]
 
   // Enhanced client logos data with more details and images from lissomsoft.com
   const clients = [
@@ -146,201 +152,192 @@ const ClientPage = () => {
     {
       id: 9,
       name: "Cloud Hub",
-      logo:cloud,
+      logo: cloud,
       industry: "Technology",
       description: "Digital innovation for enterprise solutions",
     },
     {
       id: 10,
       name: "GAC",
-      logo:gac,
+      logo: gac,
       industry: "Technology",
       description: "Digital innovation for enterprise solutions",
     },
     {
       id: 11,
       name: "indinfravit",
-      logo:indinfravit,
+      logo: indinfravit,
       industry: "Technology",
       description: "Digital innovation for enterprise solutions",
     },
     {
       id: 12,
       name: "interglobe",
-      logo:interglobe,
+      logo: interglobe,
       industry: "Technology",
       description: "Digital innovation for enterprise solutions",
     },
     {
       id: 13,
       name: "lonestar",
-      logo:lonestar,
+      logo: lonestar,
       industry: "Technology",
       description: "Digital innovation for enterprise solutions",
     },
     {
       id: 14,
       name: "premier",
-      logo:premier,
+      logo: premier,
       industry: "Technology",
       description: "Digital innovation for enterprise solutions",
     },
     {
       id: 15,
       name: "radiance",
-      logo:radiance,
+      logo: radiance,
       industry: "Technology",
       description: "Digital innovation for enterprise solutions",
     },
     {
       id: 16,
       name: "sicagen",
-      logo:sicagen,
+      logo: sicagen,
       industry: "Technology",
       description: "Digital innovation for enterprise solutions",
     },
     {
       id: 17,
       name: "stanleyblack",
-      logo:stanleyblack,
+      logo: stanleyblack,
       industry: "Technology",
       description: "Digital innovation for enterprise solutions",
     },
     {
       id: 18,
       name: "tata-motors",
-      logo:tatamotors,
+      logo: tatamotors,
       industry: "Technology",
       description: "Digital innovation for enterprise solutions",
     },
     {
       id: 19,
       name: "the-secure-inn",
-      logo:thesecureinn,
+      logo: thesecureinn,
       industry: "Technology",
       description: "Digital innovation for enterprise solutions",
     },
- 
-  ];
+  ]
 
   // Initialize animations and scroll effects
   useEffect(() => {
-    setIsLoaded(true);
+    setIsLoaded(true)
 
     // Initialize industry cards animation
     const observerOptions = {
       threshold: 0.2,
       rootMargin: "0px 0px -100px 0px",
-    };
+    }
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("industry-visible");
+          entry.target.classList.add("industry-visible")
 
           // If the clients section becomes visible, trigger the clients animation
           if (entry.target.id === "clients-section") {
-            setClientsVisible(true);
+            setClientsVisible(true)
           }
         }
-      });
-    }, observerOptions);
+      })
+    }, observerOptions)
 
     // Observe all industry cards
     document.querySelectorAll(".industry-card").forEach((card) => {
-      observer.observe(card);
-    });
+      observer.observe(card)
+    })
 
     // Observe the clients section
     if (clientsRef.current) {
-      observer.observe(clientsRef.current);
+      observer.observe(clientsRef.current)
     }
 
     // Create particles for the prestigious clientele section
-    createParticles();
+    createParticles()
 
     // Add scroll animations for client logos
-    animateOnScroll();
+    animateOnScroll()
 
-    return () => observer.disconnect();
-  }, []);
+    return () => observer.disconnect()
+  }, [])
 
   // Create floating particles effect
   const createParticles = () => {
-    const clientsSection = clientsRef.current;
-    if (!clientsSection) return;
+    const clientsSection = clientsRef.current
+    if (!clientsSection) return
 
-    const particlesContainer = document.createElement("div");
-    particlesContainer.className = "clients-particles-container";
+    const particlesContainer = document.createElement("div")
+    particlesContainer.className = "clients-particles-container"
 
     for (let i = 0; i < 30; i++) {
-      const particle = document.createElement("div");
-      particle.className = "client-particle";
+      const particle = document.createElement("div")
+      particle.className = "client-particle"
 
       // Random positions and sizes
-      const size = Math.random() * 10 + 5;
-      particle.style.width = `${size}px`;
-      particle.style.height = `${size}px`;
-      particle.style.left = `${Math.random() * 100}%`;
-      particle.style.top = `${Math.random() * 100}%`;
+      const size = Math.random() * 10 + 5
+      particle.style.width = `${size}px`
+      particle.style.height = `${size}px`
+      particle.style.left = `${Math.random() * 100}%`
+      particle.style.top = `${Math.random() * 100}%`
 
       // Random animation duration and delay
-      particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
-      particle.style.animationDelay = `${Math.random() * 5}s`;
+      particle.style.animationDuration = `${Math.random() * 10 + 10}s`
+      particle.style.animationDelay = `${Math.random() * 5}s`
 
       // Random opacity
-      particle.style.opacity = `${Math.random() * 0.5 + 0.1}`;
+      particle.style.opacity = `${Math.random() * 0.5 + 0.1}`
 
       // Random color based on client colors
-      const colors = [
-        "#0088cc",
-        "#00cc88",
-        "#ffaa00",
-        "#ff6b6b",
-        "#6c63ff",
-        "#ffd93d",
-      ];
-      particle.style.backgroundColor =
-        colors[Math.floor(Math.random() * colors.length)];
+      const colors = ["#0088cc", "#00cc88", "#ffaa00", "#ff6b6b", "#6c63ff", "#ffd93d"]
+      particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]
 
-      particlesContainer.appendChild(particle);
+      particlesContainer.appendChild(particle)
     }
 
-    clientsSection.appendChild(particlesContainer);
-    clientsSection.style.position = 'relative'; // Ensure the section has relative positioning
-  };
+    clientsSection.appendChild(particlesContainer)
+    clientsSection.style.position = "relative" // Ensure the section has relative positioning
+  }
 
   // Add scroll animations for client logos
   const animateOnScroll = () => {
-    const clientCards = document.querySelectorAll(".client-logo-card");
+    const clientCards = document.querySelectorAll(".client-logo-card")
 
     clientCards.forEach((card, index) => {
       // Add staggered animation delay
-      card.style.setProperty("--delay", `${index * 0.15}s`);
+      card.style.setProperty("--delay", `${index * 0.15}s`)
 
       // Add random initial transform for more dynamic entrance
-      const randomX = Math.random() * 40 - 20;
-      const randomY = Math.random() * 40 + 20;
-      card.style.setProperty("--initialX", `${randomX}px`);
-      card.style.setProperty("--initialY", `${randomY}px`);
-    });
-  };
+      const randomX = Math.random() * 40 - 20
+      const randomY = Math.random() * 40 + 20
+      card.style.setProperty("--initialX", `${randomX}px`)
+      card.style.setProperty("--initialY", `${randomY}px`)
+    })
+  }
 
   // Handle industry card hover effects
   const handleIndustryHover = (industry) => {
-    setActiveIndustry(industry);
-  };
+    setActiveIndustry(industry)
+  }
 
   // Handle client card hover effects
   const handleClientHover = (client) => {
-    setHoveredClient(client);
-  };
+    setHoveredClient(client)
+  }
 
   // Handle client card click - could add modal or redirect
   const handleClientClick = (client) => {
-    console.log(`Clicked on ${client.name}`);
+    console.log(`Clicked on ${client.name}`)
     // Could add modal or redirect functionality here
-  };
+  }
 
   return (
     <div className={`client-page ${isLoaded ? "loaded" : ""}`}>
@@ -356,9 +353,7 @@ const ClientPage = () => {
       {/* Industries Section */}
       <section className="industries-section" ref={industriesRef}>
         <div className="container">
-          <h2 className="section-title text-center mb-5">
-            Industries We Serve
-          </h2>
+          <h2 className="section-title text-center mb-5">Industries We Serve</h2>
           <div className="row g-4">
             {industries.map((industry, index) => (
               <div key={industry.id} className="col-md-6 col-lg-3">
@@ -408,11 +403,7 @@ const ClientPage = () => {
       </section>
 
       {/* Enhanced Prestigious Clientele Section */}
-      <section
-        className="prestigious-clientele-section"
-        ref={clientsRef}
-        id="clients-section"
-      >
+      <section className="prestigious-clientele-section" ref={clientsRef} id="clients-section">
         <div className="container">
           <h2 className="section-title text-center mb-5">
             <span className="text-gradient">Prestigious Clientele</span>
@@ -420,13 +411,11 @@ const ClientPage = () => {
 
           {/* Client logos grid with enhanced animations */}
           <div className="clients-container">
-            <div className="row g-4 justify-content-center">
+            <div className="row g-2 g-md-4 justify-content-center">
               {clients.map((client, index) => (
                 <div key={client.id} className="col-6 col-md-4 col-lg-3">
                   <div
-                    className={`client-logo-card ${
-                      clientsVisible ? "animate-in" : ""
-                    }`}
+                    className={`client-logo-card ${clientsVisible ? "animate-in" : ""}`}
                     style={{
                       "--delay": `${index * 0.15}s`,
                       "--accent-color": "#0088cc",
@@ -442,15 +431,17 @@ const ClientPage = () => {
                           alt={client.name}
                           className="client-logo img-fluid"
                           style={{
-                            maxWidth: "120%", // Increase from default
-                            maxHeight: "120px", // Set a specific height
+                            maxWidth: "100%",
+                            maxHeight: "100%",
                             objectFit: "contain",
-                            filter: "contrast(1.2) brightness(0.9)", // Enhance contrast
-                            padding: "10px",
+                            filter: "contrast(1.2) brightness(0.9)",
+                            padding: "5px",
+                            margin: "0 auto",
+                            display: "block",
                           }}
                           onError={(e) => {
-                            e.target.onerror = null;
-                            e.target.src = "/placeholder.svg";
+                            e.target.onerror = null
+                            e.target.src = "/placeholder.svg"
                           }}
                         />
                       </div>
@@ -504,7 +495,9 @@ const ClientPage = () => {
           <div className="client-cta">
             <h3>Ready to join our prestigious client list?</h3>
             <p>Let's discuss how we can help transform your business</p>
-            <Link to="/contact" className="btn btn-light btn-lg px-4 py-3">  <i className="fas fa-envelope me-2"></i>Contact Us Today</Link>
+            <Link to="/contact" className="btn btn-light btn-lg px-4 py-3" onClick={scrollToTop}>
+              <i className="fas fa-envelope me-2"></i>Contact Us Today
+            </Link>
           </div>
         </div>
 
@@ -531,7 +524,8 @@ const ClientPage = () => {
         </div>
       </section>
     </div>
-  );
-};
+  )
+}
 
-export default ClientPage;
+export default ClientPage
+

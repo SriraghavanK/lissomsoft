@@ -9,6 +9,12 @@ const PartnersPage = () => {
   const [isVisible, setIsVisible] = useState({});
   const [activePartnerType, setActivePartnerType] = useState("referral");
   const servicesRef = useRef(null);
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+  }
 
   // Hero content for the partners page
   const heroContent = {
@@ -300,7 +306,7 @@ const PartnersPage = () => {
                   <span>Tailored strategies</span>
                 </div>
               </div>
-              <Link to="/contact" className="btn btn-primary-modern">
+              <Link to="/contact" className="btn btn-primary-modern" onClick={scrollToTop}>
                 Let's Talk Partnership
                 <i className="fas fa-arrow-right ms-2"></i>
               </Link>
@@ -427,7 +433,7 @@ const PartnersPage = () => {
                 )}
               </ul>
 
-              <Link to="/contact" className="btn btn-primary-modern">
+              <Link to="/contact" className="btn btn-primary-modern" onClick={scrollToTop}>
                 Apply for {partnershipModels[activePartnerType].title} Program
                 <i className="fas fa-arrow-right ms-2"></i>
               </Link>
@@ -626,7 +632,7 @@ const PartnersPage = () => {
                 for rapid value delivery but also extending the power of their
                 technology expertise to expand their businesses.
               </p>
-              <Link to="/contact" className="btn btn-light">
+              <Link to="/contact" className="btn btn-light" onClick={scrollToTop}>
                 Join Our Partner Network
                 <i className="fas fa-arrow-right ms-2"></i>
               </Link>
@@ -667,6 +673,7 @@ const PartnersPage = () => {
                     <Link
                       to="/contact"
                       className="btn btn-primary-modern btn-lg"
+                      onClick={scrollToTop}
                     >
                       <i className="fas fa-handshake me-2"></i>
                       Become a Partner

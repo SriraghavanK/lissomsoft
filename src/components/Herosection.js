@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import "./Herosection.css"
 
-const HeroSection = ({ title, subtitle, buttonText, buttonLink, imageSrc }) => {
+const HeroSection = ({ title, subtitle, buttonText, buttonLink, imageSrc, target }) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const heroRef = useRef(null)
@@ -21,6 +21,15 @@ const HeroSection = ({ title, subtitle, buttonText, buttonLink, imageSrc }) => {
     const handleMouseMove = (e) => {
       if (!heroRef.current) return
 
+      // Check if we're on mobile/tablet - disable 3D effect if window width is less than 992px
+      if (window.innerWidth < 19922) {
+        // Reset any transform to ensure stability on mobile
+        if (heroRef.current) {
+          heroRef.current.style.transform = "none"
+        }
+        return
+      }
+
       const { clientX, clientY } = e
       const rect = heroRef.current.getBoundingClientRect()
 
@@ -33,6 +42,13 @@ const HeroSection = ({ title, subtitle, buttonText, buttonLink, imageSrc }) => {
       // Apply 3D rotation effect
       if (heroRef.current) {
         heroRef.current.style.transform = `perspective(1000px) rotateX(${y * -3}deg) rotateY(${x * 3}deg)`
+      }
+    }
+
+    // Add a resize handler to ensure 3D effects are disabled on mobile
+    const handleResize = () => {
+      if (window.innerWidth < 992 && heroRef.current) {
+        heroRef.current.style.transform = "none"
       }
     }
 
@@ -128,6 +144,8 @@ const HeroSection = ({ title, subtitle, buttonText, buttonLink, imageSrc }) => {
 
     // Initialize everything
     document.addEventListener("mousemove", handleMouseMove)
+    window.addEventListener("resize", handleResize)
+    handleResize() // Call once on initial load
     initParticles()
     setTimeout(animateWords, 500)
 
@@ -138,6 +156,7 @@ const HeroSection = ({ title, subtitle, buttonText, buttonLink, imageSrc }) => {
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove)
+      window.removeEventListener("resize", handleResize)
       clearInterval(interval)
     }
   }, [title])
@@ -202,15 +221,15 @@ const HeroSection = ({ title, subtitle, buttonText, buttonLink, imageSrc }) => {
                 {/* Animated CTA button */}
                 <div className="hero-cta">
                   <Link to={buttonLink} className="btn btn-hero p-3">
-                    <span className="btn-text ps-2">{buttonText}</span>
+                    <span className="btn-text ps-2" target={target} rel="noopener noreferrer">
+                      {buttonText}
+                    </span>
                     <span className="btn-icon">
                       <i className="fas fa-arrow-right"></i>
                     </span>
                     <span className="btn-background"></span>
                   </Link>
                 </div>
-
-         
               </div>
             </div>
 

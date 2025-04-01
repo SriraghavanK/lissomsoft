@@ -78,7 +78,7 @@ const GrowthMarketingPage = () => {
       title: "Amplify your brand and propel sales Momentum.",
       subtitle:
         "Boost online presence, engage B2B social media, and empower sales force for topline growth.",
-      buttonText: "Read More",
+      buttonText: "Want to Grow More? Contact Us!",
       buttonLink: "/contact",
       imageSrc: "https://www.lissomsoft.com/assets/tab/growth-marketing.jpg",
     },

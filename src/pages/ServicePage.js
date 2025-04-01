@@ -1,122 +1,112 @@
-"use client";
+"use client"
 
-import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import HeroSection from "../components/Herosection";
+import { useState, useEffect, useRef } from "react"
+import { Link } from "react-router-dom"
+import HeroSection from "../components/Herosection"
 
-const ServicePage = ({
-  pageData,
-  serviceCategories = null,
-  accordionData = null,
-}) => {
-  const [activeTab, setActiveTab] = useState("overview");
-  const [activeService, setActiveService] = useState(
-    serviceCategories ? serviceCategories[0].id : null
-  );
-  const [isVisible, setIsVisible] = useState({});
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const overviewRef = useRef(null);
-  const approachRef = useRef(null);
-  const servicesRef = useRef(null);
-  const navRef = useRef(null);
-
+const ServicePage = ({ pageData, serviceCategories = null, accordionData = null }) => {
+  const [activeTab, setActiveTab] = useState("overview")
+  const [activeService, setActiveService] = useState(serviceCategories ? serviceCategories[0].id : null)
+  const [isVisible, setIsVisible] = useState({})
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const overviewRef = useRef(null)
+  const approachRef = useRef(null)
+  const servicesRef = useRef(null)
+  const navRef = useRef(null)
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+  }
   useEffect(() => {
     const handleScroll = () => {
-      const elements = document.querySelectorAll(".animate-on-scroll");
+      const elements = document.querySelectorAll(".animate-on-scroll")
 
       elements.forEach((element) => {
-        const rect = element.getBoundingClientRect();
-        const isElementVisible = rect.top < window.innerHeight - 100;
+        const rect = element.getBoundingClientRect()
+        const isElementVisible = rect.top < window.innerHeight - 100
 
         if (isElementVisible) {
-          element.classList.add("animate-slide-up");
-          setIsVisible((prev) => ({ ...prev, [element.dataset.id]: true }));
+          element.classList.add("animate-slide-up")
+          setIsVisible((prev) => ({ ...prev, [element.dataset.id]: true }))
         }
-      });
+      })
 
       // Update active tab based on scroll position
       if (overviewRef.current && approachRef.current && servicesRef.current) {
-        const overviewRect = overviewRef.current.getBoundingClientRect();
-        const approachRect = approachRef.current.getBoundingClientRect();
-        const servicesRect = servicesRef.current.getBoundingClientRect();
+        const overviewRect = overviewRef.current.getBoundingClientRect()
+        const approachRect = approachRef.current.getBoundingClientRect()
+        const servicesRect = servicesRef.current.getBoundingClientRect()
 
-        const scrollPosition = window.scrollY + 100; // Adding offset for the sticky header
+        const scrollPosition = window.scrollY + 100 // Adding offset for the sticky header
 
         if (servicesRect.top <= scrollPosition) {
-          setActiveTab(pageData.servicesTabId || "services");
+          setActiveTab(pageData.servicesTabId || "services")
         } else if (approachRect.top <= scrollPosition) {
-          setActiveTab("approach");
+          setActiveTab("approach")
         } else {
-          setActiveTab("overview");
+          setActiveTab("overview")
         }
       }
-    };
+    }
 
     // Initialize Bootstrap components
     if (typeof window !== "undefined" && window.bootstrap) {
       // Initialize tooltips
-      const tooltipTriggerList = [].slice.call(
-        document.querySelectorAll('[data-bs-toggle="tooltip"]')
-      );
-      tooltipTriggerList.map(
-        (tooltipTriggerEl) => new window.bootstrap.Tooltip(tooltipTriggerEl)
-      );
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+      tooltipTriggerList.map((tooltipTriggerEl) => new window.bootstrap.Tooltip(tooltipTriggerEl))
     }
 
     // Initial check
-    handleScroll();
+    handleScroll()
 
     // Add scroll event listener
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll)
 
     // Add resize listener to close mobile menu on resize
     const handleResize = () => {
       if (window.innerWidth > 768 && mobileMenuOpen) {
-        setMobileMenuOpen(false);
+        setMobileMenuOpen(false)
       }
-    };
+    }
 
     // Close mobile menu when clicking outside
     const handleClickOutside = (event) => {
-      if (
-        navRef.current &&
-        !navRef.current.contains(event.target) &&
-        mobileMenuOpen
-      ) {
-        setMobileMenuOpen(false);
+      if (navRef.current && !navRef.current.contains(event.target) && mobileMenuOpen) {
+        setMobileMenuOpen(false)
       }
-    };
+    }
 
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("click", handleClickOutside)
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize)
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, [pageData.servicesTabId, mobileMenuOpen]);
+      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("resize", handleResize)
+      document.removeEventListener("click", handleClickOutside)
+    }
+  }, [pageData.servicesTabId, mobileMenuOpen])
 
   // Smooth scroll to section
   const scrollToSection = (sectionId) => {
-    let ref;
-    if (sectionId === "overview") ref = overviewRef;
-    else if (sectionId === "approach") ref = approachRef;
-    else if (sectionId === "services" || sectionId === "consulting-services")
-      ref = servicesRef;
+    let ref
+    if (sectionId === "overview") ref = overviewRef
+    else if (sectionId === "approach") ref = approachRef
+    else if (sectionId === "services" || sectionId === "consulting-services") ref = servicesRef
 
     if (ref && ref.current) {
-      ref.current.scrollIntoView({ behavior: "smooth" });
-      setActiveTab(sectionId);
-      setMobileMenuOpen(false); // Close mobile menu after clicking
+      ref.current.scrollIntoView({ behavior: "smooth" })
+      setActiveTab(sectionId)
+      setMobileMenuOpen(false) // Close mobile menu after clicking
     }
-  };
+  }
 
   // Function to handle service category selection
   const handleServiceSelect = (serviceId) => {
-    setActiveService(serviceId);
-  };
+    setActiveService(serviceId)
+  }
 
   return (
     <div className="service-page">
@@ -127,6 +117,7 @@ const ServicePage = ({
         buttonText={pageData.hero.buttonText}
         buttonLink={pageData.hero.buttonLink}
         imageSrc={pageData.hero.imageSrc}
+        target={pageData.hero.target}
       />
 
       {/* Navigation Tabs - Scrollable */}
@@ -142,30 +133,20 @@ const ServicePage = ({
                   aria-label="Toggle navigation"
                   type="button"
                 >
-                  <i
-                    className={`fas ${
-                      mobileMenuOpen ? "fa-times" : "fa-bars"
-                    } me-2`}
-                  ></i>
+                  <i className={`fas ${mobileMenuOpen ? "fa-times" : "fa-bars"} me-2`}></i>
                   <span>
                     {activeTab === "overview"
                       ? "Overview"
                       : activeTab === "approach"
-                      ? "Approach"
-                      : pageData.servicesTabName || "Services"}
+                        ? "Approach"
+                        : pageData.servicesTabName || "Services"}
                   </span>
                 </button>
 
-                <ul
-                  className={`nav nav-tabs nav-fill scrollable-tabs ${
-                    mobileMenuOpen ? "mobile-open" : ""
-                  }`}
-                >
+                <ul className={`nav nav-tabs nav-fill scrollable-tabs ${mobileMenuOpen ? "mobile-open" : ""}`}>
                   <li className="nav-item">
                     <button
-                      className={`nav-link ${
-                        activeTab === "overview" ? "active" : ""
-                      }`}
+                      className={`nav-link ${activeTab === "overview" ? "active" : ""}`}
                       onClick={() => scrollToSection("overview")}
                     >
                       <i className="fas fa-info-circle me-2 d-none d-md-inline"></i>
@@ -174,9 +155,7 @@ const ServicePage = ({
                   </li>
                   <li className="nav-item">
                     <button
-                      className={`nav-link ${
-                        activeTab === "approach" ? "active" : ""
-                      }`}
+                      className={`nav-link ${activeTab === "approach" ? "active" : ""}`}
                       onClick={() => scrollToSection("approach")}
                     >
                       <i className="fas fa-route me-2 d-none d-md-inline"></i>
@@ -186,14 +165,9 @@ const ServicePage = ({
                   <li className="nav-item">
                     <button
                       className={`nav-link ${
-                        activeTab === "services" ||
-                        activeTab === "consulting-services"
-                          ? "active"
-                          : ""
+                        activeTab === "services" || activeTab === "consulting-services" ? "active" : ""
                       }`}
-                      onClick={() =>
-                        scrollToSection(pageData.servicesTabId || "services")
-                      }
+                      onClick={() => scrollToSection(pageData.servicesTabId || "services")}
                     >
                       <i className="fas fa-cogs me-2 d-none d-md-inline"></i>
                       {pageData.servicesTabName || "Services"}
@@ -210,20 +184,13 @@ const ServicePage = ({
       <section id="overview" ref={overviewRef} className="py-5">
         <div className="container py-4">
           <div className="row align-items-center">
-            <div
-              className="col-lg-6 mb-4 mb-lg-0 animate-on-scroll"
-              data-id="overview-content"
-            >
+            <div className="col-lg-6 mb-4 mb-lg-0 animate-on-scroll" data-id="overview-content">
               <div className="section-header mb-4">
                 <h2 className="fw-bold mb-3 position-relative service-title">
                   {pageData.overview.title}
                   <span className="title-underline"></span>
                 </h2>
-                {pageData.overview.subtitle && (
-                  <h3 className="h4 mb-4 text-secondary">
-                    {pageData.overview.subtitle}
-                  </h3>
-                )}
+                {pageData.overview.subtitle && <h3 className="h4 mb-4 text-secondary">{pageData.overview.subtitle}</h3>}
               </div>
               <div className="overview-content">
                 {typeof pageData.overview.content === "string" ? (
@@ -251,11 +218,7 @@ const ServicePage = ({
                 </div>
               )}
             </div>
-            <div
-              className="col-lg-6 animate-on-scroll"
-              data-id="overview-image"
-              style={{ animationDelay: "0.3s" }}
-            >
+            <div className="col-lg-6 animate-on-scroll" data-id="overview-image" style={{ animationDelay: "0.3s" }}>
               <div className="image-container position-relative">
                 <img
                   src={pageData.overview.image || "/placeholder.svg"}
@@ -274,10 +237,7 @@ const ServicePage = ({
       <section id="approach" ref={approachRef} className="py-5 bg-light">
         <div className="container py-4">
           <div className="row">
-            <div
-              className="col-12 text-center mb-5 animate-on-scroll"
-              data-id="approach-title"
-            >
+            <div className="col-12 text-center mb-5 animate-on-scroll" data-id="approach-title">
               <h2 className="fw-bold position-relative d-inline-block">
                 Approach
                 <span className="title-underline"></span>
@@ -291,10 +251,7 @@ const ServicePage = ({
             <div className="row">
               {pageData.approach.approaches.map((approach, index) => (
                 <div key={index} className="col-lg-6 mb-5 mb-lg-0">
-                  <div
-                    className="approach-item text-center animate-on-scroll"
-                    data-id={`approach-item-${index}`}
-                  >
+                  <div className="approach-item text-center animate-on-scroll" data-id={`approach-item-${index}`}>
                     <div className="approach-image-container mb-4">
                       <img
                         src={approach.image || "/placeholder.svg"}
@@ -311,10 +268,7 @@ const ServicePage = ({
           ) : (
             // Single approach content
             <div className="row align-items-center">
-              <div
-                className="col-lg-6 mb-4 mb-lg-0 animate-on-scroll"
-                data-id="approach-content"
-              >
+              <div className="col-lg-6 mb-4 mb-lg-0 animate-on-scroll" data-id="approach-content">
                 <div className="approach-content">
                   {typeof pageData.approach.content === "string" ? (
                     <p className="lead mb-4">{pageData.approach.content}</p>
@@ -325,14 +279,9 @@ const ServicePage = ({
                 {pageData.approach.steps && (
                   <div className="approach-steps mt-4">
                     {pageData.approach.steps.map((step, index) => (
-                      <div
-                        key={index}
-                        className="approach-step mb-3 d-flex align-items-start"
-                      >
+                      <div key={index} className="approach-step mb-3 d-flex align-items-start">
                         <div className="step-number me-3">
-                          <span className="badge bg-primary rounded-circle">
-                            {index + 1}
-                          </span>
+                          <span className="badge bg-primary rounded-circle">{index + 1}</span>
                         </div>
                         <div className="step-text">{step}</div>
                       </div>
@@ -340,11 +289,7 @@ const ServicePage = ({
                   </div>
                 )}
               </div>
-              <div
-                className="col-lg-6 animate-on-scroll"
-                data-id="approach-image"
-                style={{ animationDelay: "0.3s" }}
-              >
+              <div className="col-lg-6 animate-on-scroll" data-id="approach-image" style={{ animationDelay: "0.3s" }}>
                 <div className="approach-image-container text-center">
                   <img
                     src={pageData.approach.image || "/placeholder.svg"}
@@ -359,17 +304,10 @@ const ServicePage = ({
       </section>
 
       {/* Services Section */}
-      <section
-        id={pageData.servicesTabId || "services"}
-        ref={servicesRef}
-        className="py-5"
-      >
+      <section id={pageData.servicesTabId || "services"} ref={servicesRef} className="py-5">
         <div className="container py-4">
           <div className="row">
-            <div
-              className="col-12 text-center mb-5 animate-on-scroll"
-              data-id="services-title"
-            >
+            <div className="col-12 text-center mb-5 animate-on-scroll" data-id="services-title">
               <h2 className="fw-bold position-relative d-inline-block">
                 {pageData.servicesTabName || "Services"}
                 <span className="title-underline"></span>
@@ -379,10 +317,7 @@ const ServicePage = ({
 
           {/* Service Categories - Only shown if serviceCategories is provided */}
           {serviceCategories && (
-            <div
-              className="row mb-5 animate-on-scroll"
-              data-id="service-categories"
-            >
+            <div className="row mb-5 animate-on-scroll" data-id="service-categories">
               <div className="col-12">
                 <div className="service-categories-wrapper">
                   <div className="scrollable-categories">
@@ -409,27 +344,15 @@ const ServicePage = ({
 
           {/* Accordion for Services */}
           <div className="row">
-            <div
-              className="col-12 animate-on-scroll"
-              data-id="services-accordion"
-            >
-              <div
-                className="accordion custom-accordion"
-                id="servicesAccordion"
-              >
+            <div className="col-12 animate-on-scroll" data-id="services-accordion">
+              <div className="accordion custom-accordion" id="servicesAccordion">
                 {/* If accordionData is provided, use it based on activeService */}
                 {accordionData && activeService
                   ? accordionData[activeService].map((item, index) => (
-                      <div
-                        className="accordion-item"
-                        key={item.id}
-                        style={{ animationDelay: `${index * 0.1}s` }}
-                      >
+                      <div className="accordion-item" key={item.id} style={{ animationDelay: `${index * 0.1}s` }}>
                         <h2 className="accordion-header">
                           <button
-                            className={`accordion-button ${
-                              index !== 0 ? "collapsed" : ""
-                            }`}
+                            className={`accordion-button ${index !== 0 ? "collapsed" : ""}`}
                             type="button"
                             data-bs-toggle="collapse"
                             data-bs-target={`#${item.id}`}
@@ -440,17 +363,11 @@ const ServicePage = ({
                         </h2>
                         <div
                           id={item.id}
-                          className={`accordion-collapse collapse ${
-                            index === 0 ? "show" : ""
-                          }`}
+                          className={`accordion-collapse collapse ${index === 0 ? "show" : ""}`}
                           data-bs-parent="#servicesAccordion"
                         >
                           <div className="accordion-body">
-                            {typeof item.content === "string" ? (
-                              <p>{item.content}</p>
-                            ) : (
-                              item.content
-                            )}
+                            {typeof item.content === "string" ? <p>{item.content}</p> : item.content}
                           </div>
                         </div>
                       </div>
@@ -458,16 +375,10 @@ const ServicePage = ({
                   : // Otherwise use the services from pageData
                     pageData.services &&
                     pageData.services.map((service, index) => (
-                      <div
-                        className="accordion-item"
-                        key={index}
-                        style={{ animationDelay: `${index * 0.1}s` }}
-                      >
+                      <div className="accordion-item" key={index} style={{ animationDelay: `${index * 0.1}s` }}>
                         <h2 className="accordion-header">
                           <button
-                            className={`accordion-button ${
-                              index !== 0 ? "collapsed" : ""
-                            }`}
+                            className={`accordion-button ${index !== 0 ? "collapsed" : ""}`}
                             type="button"
                             data-bs-toggle="collapse"
                             data-bs-target={`#collapse${index}`}
@@ -478,17 +389,11 @@ const ServicePage = ({
                         </h2>
                         <div
                           id={`collapse${index}`}
-                          className={`accordion-collapse collapse ${
-                            index === 0 ? "show" : ""
-                          }`}
+                          className={`accordion-collapse collapse ${index === 0 ? "show" : ""}`}
                           data-bs-parent="#servicesAccordion"
                         >
                           <div className="accordion-body">
-                            {typeof service.content === "string" ? (
-                              <p>{service.content}</p>
-                            ) : (
-                              service.content
-                            )}
+                            {typeof service.content === "string" ? <p>{service.content}</p> : service.content}
                           </div>
                         </div>
                       </div>
@@ -503,16 +408,15 @@ const ServicePage = ({
       <section className="py-5 bg-gradient-primary text-white">
         <div className="container py-4">
           <div className="row justify-content-center">
-            <div
-              className="col-lg-8 text-center animate-on-scroll"
-              data-id="cta-content"
-            >
+            <div className="col-lg-8 text-center animate-on-scroll" data-id="cta-content">
               <div className="cta-content p-4 p-md-5">
                 <h3 className="mb-4 fw-bold">{pageData.cta.title}</h3>
                 <p className="lead mb-4">{pageData.cta.subtitle}</p>
                 <Link
                   to={pageData.cta.buttonLink}
                   className="btn btn-light btn-lg px-4 py-2"
+                  onClick={pageData.cta.onClick || scrollToTop}
+                  target={pageData.cta.target}
                 >
                   {pageData.cta.buttonText}
                   <i className="fas fa-arrow-right ms-2"></i>
@@ -529,10 +433,7 @@ const ServicePage = ({
           <div className="container py-4">
             <div className="row">
               {pageData.stats.map((stat, index) => (
-                <div
-                  key={index}
-                  className="col-6 col-md-3 mb-4 mb-md-0 text-center"
-                >
+                <div key={index} className="col-6 col-md-3 mb-4 mb-md-0 text-center">
                   <div
                     className="stat-item animate-on-scroll"
                     data-id={`stat-${index}`}
@@ -541,9 +442,7 @@ const ServicePage = ({
                     <div className="stat-icon mb-3">
                       <i className={`fas ${stat.icon} fa-2x text-primary`}></i>
                     </div>
-                    <h2 className="display-5 fw-bold mb-0 counter-value">
-                      {stat.value}
-                    </h2>
+                    <h2 className="display-5 fw-bold mb-0 counter-value">{stat.value}</h2>
                     <p className="text-muted mb-0">{stat.label}</p>
                   </div>
                 </div>
@@ -1060,7 +959,8 @@ const ServicePage = ({
         }
       `}</style>
     </div>
-  );
-};
+  )
+}
 
-export default ServicePage;
+export default ServicePage
+
