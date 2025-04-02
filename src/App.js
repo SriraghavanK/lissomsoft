@@ -18,6 +18,7 @@ import PrivacyPolicy from "./pages/privacypolicy"
 import TeamPage from "./pages/TeamPage"
 import CareerForm from "./pages/CareerForm"
 
+
 function App() {
   return (
     <Router>
@@ -41,6 +42,7 @@ function App() {
             <Route path="/privacypolicy" element={<PrivacyPolicy />} />
             <Route path="/team" element={<TeamPage />} />
             <Route path="/careerform" element={<CareerForm />} />
+         
           </Routes>
         </main>
         <Footer />
