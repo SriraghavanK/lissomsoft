@@ -3454,7 +3454,7 @@ const styles = `
   .navbar-nav .nav-link {
     padding: 8px 6px;
     margin: 0 2px;
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
   
   /* Make the nav text smaller */
@@ -3464,7 +3464,7 @@ const styles = `
   
   /* Adjust the brand text */
   .brand-text {
-    font-size: 0.85rem;
+    font-size: 1.2rem;
   }
   
   /* Reduce the logo size slightly */
