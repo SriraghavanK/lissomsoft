@@ -1051,6 +1051,7 @@ const Header = () => {
                         >
                           <i className="fab fa-facebook"></i>
                         </motion.a>
+
                         <motion.a
                           href="https://www.youtube.com/@lissomsoft-therisktechcomp2928/featured"
                           className="social-icon"
@@ -3438,6 +3439,52 @@ const styles = `
   /* SmartGRC specific adjustments */
   .navbar-brand .logo-container .logo {
     height: 32px;
+  }
+}
+
+/* Find the media query for screen widths between 992px and 1199px and add these additional styles */
+
+@media (min-width: 992px)  {
+  /* Make the desktop nav take more width */
+  .desktop-nav {
+    width: 80%;
+  }
+  
+  /* Reduce font size and padding for nav links */
+  .navbar-nav .nav-link {
+    padding: 8px 6px;
+    margin: 0 2px;
+    font-size: 0.8rem;
+  }
+  
+  /* Make the nav text smaller */
+  .nav-text {
+    font-size: 1rem;
+  }
+  
+  /* Adjust the brand text */
+  .brand-text {
+    font-size: 0.85rem;
+  }
+  
+  /* Reduce the logo size slightly */
+  .logo {
+    height: 32px;
+  }
+  
+  /* Adjust the contact button */
+  .contact-btn {
+    padding: 6px 12px !important;
+    margin-left: 5px;
+  }
+  
+  /* Reduce the powered by section */
+  .powered-by {
+    font-size: 0.75rem;
+  }
+  
+  .powered-by img {
+    height: 18px;
   }
 }
 
