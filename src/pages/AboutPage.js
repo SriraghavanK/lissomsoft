@@ -138,16 +138,7 @@ const AboutPage = () => {
                   We aim to turn risks into opportunity and digitally transform startups, small business operations, to
                   scale and grow in today's rapidly evolving technological landscape.
                 </p>
-                <div className="d-flex mt-4 gap-3 flex-wrap">
-                  <Link to="/contact" className="btn btn-primary btn-lg px-4 py-3 fw-bold btn-with-icon">
-                    <span>Get Started</span>
-                    <i className="fas fa-arrow-right ms-2"></i>
-                  </Link>
-                  <Link to="/services" className="btn btn-outline-light btn-lg px-4 py-3 btn-with-icon">
-                    <span>Our Services</span>
-                    <i className="fas fa-list ms-2"></i>
-                  </Link>
-                </div>
+             
               </motion.div>
               <motion.div
                 className="col-lg-6"
@@ -338,7 +329,7 @@ const AboutPage = () => {
                 your growth.
               </p>
               <div className="mt-4">
-                <Link to="/team" className="btn btn-outline-primary px-4 py-2 btn-with-icon">
+                <Link to="/team" className="btn btn-outline-primary px-4 py-2 btn-with-icon" onClick={scrollToTop}>
                   <span>Meet Our Team</span>
                   <i className="fas fa-arrow-right ms-2"></i>
                 </Link>

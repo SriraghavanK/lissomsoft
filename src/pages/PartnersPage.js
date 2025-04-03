@@ -678,10 +678,7 @@ const PartnersPage = () => {
                       <i className="fas fa-handshake me-2"></i>
                       Become a Partner
                     </Link>
-                    <Link to="#" className="btn btn-outline-primary btn-lg">
-                      <i className="fas fa-info-circle me-2"></i>
-                      Learn More About Our Services
-                    </Link>
+                 
                   </div>
                 </div>
               </div>

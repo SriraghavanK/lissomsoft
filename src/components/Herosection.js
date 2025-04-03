@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import "./Herosection.css"
 
-const HeroSection = ({ title, subtitle, buttonText, buttonLink, imageSrc, target }) => {
+const HeroSection = ({ title, subtitle, buttonText, buttonLink, buttonOnClick, imageSrc, target, className }) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const heroRef = useRef(null)
@@ -182,8 +182,37 @@ const HeroSection = ({ title, subtitle, buttonText, buttonLink, imageSrc, target
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  // Determine whether to use Link or button based on whether buttonOnClick is provided
+  const renderButton = () => {
+    if (buttonOnClick) {
+      return (
+        <button onClick={buttonOnClick} className="btn btn-hero p-3">
+          <span className="btn-text ps-2">
+            {buttonText}
+          </span>
+          <span className="btn-icon">
+            <i className="fas fa-arrow-right"></i>
+          </span>
+          <span className="btn-background"></span>
+        </button>
+      );
+    } else {
+      return (
+        <Link to={buttonLink} className="btn btn-hero p-3">
+          <span className="btn-text ps-2" target={target} rel="noopener noreferrer">
+            {buttonText}
+          </span>
+          <span className="btn-icon">
+            <i className="fas fa-arrow-right"></i>
+          </span>
+          <span className="btn-background"></span>
+        </Link>
+      );
+    }
+  };
+
   return (
-    <section className="hero-section" ref={heroRef}>
+    <section className={`hero-section ${className || ''}`} ref={heroRef}>
       {/* Particle background */}
       <canvas ref={canvasRef} className="particle-canvas"></canvas>
 
@@ -220,15 +249,7 @@ const HeroSection = ({ title, subtitle, buttonText, buttonLink, imageSrc, target
 
                 {/* Animated CTA button */}
                 <div className="hero-cta">
-                  <Link to={buttonLink} className="btn btn-hero p-3">
-                    <span className="btn-text ps-2" target={target} rel="noopener noreferrer">
-                      {buttonText}
-                    </span>
-                    <span className="btn-icon">
-                      <i className="fas fa-arrow-right"></i>
-                    </span>
-                    <span className="btn-background"></span>
-                  </Link>
+                  {renderButton()}
                 </div>
               </div>
             </div>
@@ -273,4 +294,3 @@ const HeroSection = ({ title, subtitle, buttonText, buttonLink, imageSrc, target
 }
 
 export default HeroSection
-

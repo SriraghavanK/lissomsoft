@@ -11,7 +11,12 @@ const TeamPage = () => {
     threshold: 0.1,
     triggerOnce: true,
   })
-
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+  } 
   // Theme toggle
   const [darkMode, setDarkMode] = useState(false)
 
@@ -488,7 +493,7 @@ const TeamPage = () => {
                   a dynamic team that's making a difference, we'd love to hear from you.
                 </p>
                 <div className="mt-4">
-                  <Link to="/career" className="btn btn-primary px-4 py-2 btn-with-icon">
+                  <Link to="/career" className="btn btn-primary px-4 py-2 btn-with-icon" onClick={scrollToTop}>
                     <span>View Open Positions</span>
                     <i className="fas fa-arrow-right ms-2"></i>
                   </Link>
