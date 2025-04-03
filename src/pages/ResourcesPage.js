@@ -9,7 +9,11 @@ const ResourcesPage = () => {
   const [isVisible, setIsVisible] = useState({})
   const [isLoading, setIsLoading] = useState(true)
   const resourcesRef = useRef(null)
-
+  const scrollToResources = () => {
+    if (resourcesRef.current) {
+      resourcesRef.current.scrollIntoView({ behavior: "smooth" })
+    }
+  }
   // Hero content for the resources page
   const heroContent = {
     title: "Explore our Info Repository: Lissomsoft's Resource Hub",
@@ -17,8 +21,10 @@ const ResourcesPage = () => {
       "Discover customer success stories, solution overviews, and industry insights to help your business thrive.",
     buttonText: "Browse Resources",
     buttonLink: "#",
+    
     imageSrc:
       "https://imgs.search.brave.com/wDg25Wj1l9ArGdpP2BCO13icKWLezgQVJioRkpDPDmE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by9j/bG9zZS11cC1tYW4t/dXNpbmctZGlnaXRh/bC1kZXZpY2UtaG9t/ZV8yMy0yMTQ5MTA1/OTc1LmpwZz9zZW10/PWFpc19oeWJyaWQ",
+     
   }
 
   // Resource categories
@@ -191,11 +197,7 @@ const ResourcesPage = () => {
     }, 500)
   }
 
-  const scrollToResources = () => {
-    if (resourcesRef.current) {
-      resourcesRef.current.scrollIntoView({ behavior: "smooth" })
-    }
-  }
+ 
 
   // Filter resources based on active tab
   const filteredResources =
@@ -212,7 +214,7 @@ const ResourcesPage = () => {
           buttonLink="#"
           imageSrc={heroContent.imageSrc}
           className="responsive-hero"
-          onClick={scrollToResources}
+          buttonOnClick={scrollToResources} // Add this line to connect the function
         />
 
         {/* Featured Resources Section */}

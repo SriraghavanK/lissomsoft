@@ -421,9 +421,9 @@ const Header = () => {
       opacity: 0,
       x: "100%",
       transition: {
-        type: "tween", 
+        type: "tween",
         duration: 0.25,
-        ease: "easeOut"
+        ease: "easeOut",
       },
     },
     open: {
@@ -940,7 +940,7 @@ const Header = () => {
                           href="https://www.linkedin.com/company/lissomsoft-technologies/"
                           className="social-icon"
                           target="_blank"
-                        rel="noopener noreferrer"
+                          rel="noopener noreferrer"
                           whileHover={{
                             y: -5,
                             backgroundColor: "#0077b6",
@@ -954,7 +954,7 @@ const Header = () => {
                           href="https://www.youtube.com/@lissomsoft-therisktechcomp2928/featured"
                           className="social-icon"
                           target="_blank"
-                        rel="noopener noreferrer"
+                          rel="noopener noreferrer"
                           whileHover={{
                             y: -5,
                             backgroundColor: "#FF0000",
@@ -968,7 +968,7 @@ const Header = () => {
                           href="https://api.whatsapp.com/send?phone=9361829552"
                           className="social-icon"
                           target="_blank"
-                        rel="noopener noreferrer"
+                          rel="noopener noreferrer"
                           whileHover={{
                             y: -5,
                             backgroundColor: "#25D366",
@@ -982,7 +982,7 @@ const Header = () => {
                           href="https://www.facebook.com/lissomsoft"
                           className="social-icon"
                           target="_blank"
-                        rel="noopener noreferrer"
+                          rel="noopener noreferrer"
                           whileHover={{
                             y: -5,
                             backgroundColor: "#4267B2",
@@ -1013,7 +1013,7 @@ const Header = () => {
                           href="https://www.linkedin.com/company/lissomsoft-technologies/"
                           className="social-icon"
                           target="_blank"
-                        rel="noopener noreferrer"
+                          rel="noopener noreferrer"
                           whileHover={{
                             y: -5,
                             backgroundColor: "#0077b6",
@@ -1027,7 +1027,7 @@ const Header = () => {
                           href="https://api.whatsapp.com/send?phone=9361829552"
                           className="social-icon"
                           target="_blank"
-                        rel="noopener noreferrer"
+                          rel="noopener noreferrer"
                           whileHover={{
                             y: -5,
                             backgroundColor: "#25D366",
@@ -1041,7 +1041,7 @@ const Header = () => {
                           href="https://www.facebook.com/lissomsoft"
                           className="social-icon"
                           target="_blank"
-                        rel="noopener noreferrer"
+                          rel="noopener noreferrer"
                           whileHover={{
                             y: -5,
                             backgroundColor: "#4267B2",
@@ -1051,12 +1051,11 @@ const Header = () => {
                         >
                           <i className="fab fa-facebook"></i>
                         </motion.a>
-
                         <motion.a
                           href="https://www.youtube.com/@lissomsoft-therisktechcomp2928/featured"
                           className="social-icon"
                           target="_blank"
-                        rel="noopener noreferrer"
+                          rel="noopener noreferrer"
                           whileHover={{
                             y: -5,
                             backgroundColor: "#FF0000",
@@ -3391,7 +3390,7 @@ const styles = `
 
 /* Fix 11: Add responsive styles for medium screens */
 /* Media query for screen widths between 992px and 1199px */
-@media (min-width: 992px) and (max-width: 1199px) {
+@media (min-width: 992px) and (max-width: 1499px) {
   /* Adjust logo and brand text */
   .logo {
     height: 35px;
@@ -3439,52 +3438,6 @@ const styles = `
   /* SmartGRC specific adjustments */
   .navbar-brand .logo-container .logo {
     height: 32px;
-  }
-}
-
-/* Find the media query for screen widths between 992px and 1199px and add these additional styles */
-
-@media (min-width: 992px)  {
-  /* Make the desktop nav take more width */
-  .desktop-nav {
-    width: 80%;
-  }
-  
-  /* Reduce font size and padding for nav links */
-  .navbar-nav .nav-link {
-    padding: 8px 6px;
-    margin: 0 2px;
-    font-size: 1rem;
-  }
-  
-  /* Make the nav text smaller */
-  .nav-text {
-    font-size: 1rem;
-  }
-  
-  /* Adjust the brand text */
-  .brand-text {
-    font-size: 1.2rem;
-  }
-  
-  /* Reduce the logo size slightly */
-  .logo {
-    height: 32px;
-  }
-  
-  /* Adjust the contact button */
-  .contact-btn {
-    padding: 6px 12px !important;
-    margin-left: 5px;
-  }
-  
-  /* Reduce the powered by section */
-  .powered-by {
-    font-size: 0.75rem;
-  }
-  
-  .powered-by img {
-    height: 18px;
   }
 }
 
