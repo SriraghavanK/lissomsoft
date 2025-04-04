@@ -20,7 +20,7 @@ const AboutPage = () => {
       top: 0,
       behavior: "smooth",
     })
-  } 
+  }
   // Animation controls
   const controls = useAnimation()
   const [statsRef, statsInView] = useInView({ threshold: 0.1, triggerOnce: true })
@@ -111,6 +111,16 @@ const AboutPage = () => {
     }
   }, [controls, missionInView])
 
+  const [memberProfile, setMemberProfile] = useState(null)
+
+  const openMemberProfile = (member) => {
+    setMemberProfile(member)
+  }
+
+  const closeMemberProfile = () => {
+    setMemberProfile(null)
+  }
+
   return (
     <div className={`about-page ${darkMode ? "dark-theme" : ""}`}>
       {/* Progress bar */}
@@ -138,7 +148,6 @@ const AboutPage = () => {
                   We aim to turn risks into opportunity and digitally transform startups, small business operations, to
                   scale and grow in today's rapidly evolving technological landscape.
                 </p>
-             
               </motion.div>
               <motion.div
                 className="col-lg-6"
@@ -194,7 +203,10 @@ const AboutPage = () => {
               transition={{ duration: 0.8 }}
             >
               <div className="d-flex justify-content-center">
-                <div className="position-relative ceo-image-container" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <div
+                  className="position-relative ceo-image-container"
+                  style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+                >
                   {/* Single large bubble animation */}
                   <motion.div
                     className="large-bubble"
@@ -220,7 +232,7 @@ const AboutPage = () => {
                       boxShadow: "0 0 20px rgba(74, 144, 226, 0.3)",
                       transform: "translate(-50%, -50%)",
                       zIndex: 2,
-                      pointerEvents: "none"
+                      pointerEvents: "none",
                     }}
                   />
 
@@ -480,12 +492,6 @@ const AboutPage = () => {
                 driving force behind every decision we make. We believe in putting our customers first, embracing
                 innovation, maintaining integrity in all our dealings, and striving for excellence in everything we do.
               </p>
-              <div className="mt-4">
-                <Link to="/about/values" className="btn btn-primary px-4 py-2 btn-with-icon">
-                  <span>Learn More</span>
-                  <i className="fas fa-arrow-right ms-2"></i>
-                </Link>
-              </div>
             </motion.div>
             <div className="col-lg-7">
               <div className="row g-4">
@@ -666,11 +672,39 @@ const AboutPage = () => {
                       rel="noopener noreferrer"
                     >
                       <i className="fab fa-linkedin-in"></i>
+                      
                     </a>
+                    
                   </div>
                 </div>
                 <div className="card-footer bg-transparent border-0 pb-4">
-                  <button className="btn btn-sm btn-outline-primary rounded-pill px-3">View Profile</button>
+                  <button
+                    className="btn btn-sm btn-outline-primary rounded-pill px-3"
+                    onClick={() =>
+                      openMemberProfile({
+                        id: 1,
+                        name: "Amit Bansal",
+                        position: "Director - BFSI - Risk Management",
+                        image: "https://www.lissomsoft.com/assets/leardership/amit%20Bansal.png",
+                        bio: "Expert in financial risk management with over 15 years of experience in the banking sector. Amit specializes in developing comprehensive risk frameworks that help financial institutions navigate complex regulatory environments while optimizing business performance.",
+                        linkedin: "https://www.linkedin.com/",
+                        email: "amit@example.com",
+                        skills: [
+                          "Financial Risk Management",
+                          "Regulatory Compliance",
+                          "Banking Operations",
+                          "Strategic Planning",
+                        ],
+                        achievements: [
+                          "Implemented Basel III compliance for major banks",
+                          "Reduced operational risk by 40% for clients",
+                          "Developed proprietary risk assessment methodology",
+                        ],
+                      })
+                    }
+                  >
+                    View Profile
+                  </button>
                 </div>
               </motion.div>
             </div>
@@ -710,7 +744,28 @@ const AboutPage = () => {
                   </div>
                 </div>
                 <div className="card-footer bg-transparent border-0 pb-4">
-                  <button className="btn btn-sm btn-outline-primary rounded-pill px-3">View Profile</button>
+                  <button
+                    className="btn btn-sm btn-outline-primary rounded-pill px-3"
+                    onClick={() =>
+                      openMemberProfile({
+                        id: 2,
+                        name: "Satish R",
+                        position: "Director - Product Development",
+                        image: "https://www.lissomsoft.com/assets/leardership/satish.jpg",
+                        bio: "Leads our product development team with a focus on creating innovative, user-friendly solutions. Satish brings deep technical expertise and a passion for elegant software design that solves real business problems.",
+                        linkedin: "https://www.linkedin.com/",
+                        email: "satish@example.com",
+                        skills: ["Product Strategy", "Software Architecture", "Agile Development", "UX Design"],
+                        achievements: [
+                          "Led development of SmartGRC platform",
+                          "Pioneered microservices architecture adoption",
+                          "Mentored 20+ junior developers",
+                        ],
+                      })
+                    }
+                  >
+                    View Profile
+                  </button>
                 </div>
               </motion.div>
             </div>
@@ -750,7 +805,28 @@ const AboutPage = () => {
                   </div>
                 </div>
                 <div className="card-footer bg-transparent border-0 pb-4">
-                  <button className="btn btn-sm btn-outline-primary rounded-pill px-3">View Profile</button>
+                  <button
+                    className="btn btn-sm btn-outline-primary rounded-pill px-3"
+                    onClick={() =>
+                      openMemberProfile({
+                        id: 3,
+                        name: "Murali T",
+                        position: "Director - Technology Services",
+                        image: "https://www.lissomsoft.com/assets/leardership/murali.jpg",
+                        bio: "Technology expert with deep knowledge in cloud computing and digital transformation. Murali has helped numerous organizations modernize their IT infrastructure and adopt cloud-native solutions that drive business agility and innovation.",
+                        linkedin: "https://www.linkedin.com/in/murali-t-39642315/",
+                        email: "murali@example.com",
+                        skills: ["Cloud Architecture", "DevOps", "IT Strategy", "Digital Transformation"],
+                        achievements: [
+                          "Reduced infrastructure costs by 60% for enterprise clients",
+                          "Implemented CI/CD pipelines for 50+ projects",
+                          "Cloud migration specialist",
+                        ],
+                      })
+                    }
+                  >
+                    View Profile
+                  </button>
                 </div>
               </motion.div>
             </div>
@@ -790,7 +866,28 @@ const AboutPage = () => {
                   </div>
                 </div>
                 <div className="card-footer bg-transparent border-0 pb-4">
-                  <button className="btn btn-sm btn-outline-primary rounded-pill px-3">View Profile</button>
+                  <button
+                    className="btn btn-sm btn-outline-primary rounded-pill px-3"
+                    onClick={() =>
+                      openMemberProfile({
+                        id: 4,
+                        name: "Venkatesh S",
+                        position: "Director - Business Development",
+                        image: "https://www.lissomsoft.com/assets/leardership/venkat.jpg",
+                        bio: "Drives our business growth strategy with a focus on building strong client relationships. Venkatesh has a proven track record of identifying market opportunities and developing strategic partnerships that create value for all stakeholders.",
+                        linkedin: "https://www.linkedin.com/in/venkatesh-s-a97385238/",
+                        email: "venkatesh@example.com",
+                        skills: ["Business Strategy", "Partnership Development", "Market Analysis", "Client Relations"],
+                        achievements: [
+                          "Expanded client base by 200% in 3 years",
+                          "Established key strategic partnerships",
+                          "Developed new market entry strategies",
+                        ],
+                      })
+                    }
+                  >
+                    View Profile
+                  </button>
                 </div>
               </motion.div>
             </div>
@@ -828,7 +925,87 @@ const AboutPage = () => {
         </div>
       </section>
 
-    
+      {memberProfile && (
+        <div
+          className="team-modal-overlay"
+          onClick={(e) => {
+            // Close modal when clicking on the overlay background
+            if (e.target.className === "team-modal-overlay") {
+              closeMemberProfile()
+            }
+          }}
+        >
+          <div className="team-modal-content">
+            <button className="team-modal-close" onClick={closeMemberProfile}>
+              <i className="fas fa-times"></i>
+            </button>
+
+            <div className="team-modal-container">
+              <div className="team-modal-image-section">
+                <div className="team-modal-image-container">
+                  <div className="team-modal-image-wrapper">
+                    <img
+                      src={memberProfile.image || "/placeholder.svg"}
+                      alt={memberProfile.name}
+                      className="team-modal-image"
+                    />
+                  </div>
+
+                  <div className="team-modal-social">
+                    {memberProfile.linkedin && (
+                      <a
+                        href={memberProfile.linkedin}
+                        className="social-icon"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <i className="fab fa-linkedin-in"></i>
+                      </a>
+                    )}
+                    {memberProfile.email && (
+                      <a href={`mailto:${memberProfile.email}`} className="social-icon">
+                        <i className="fas fa-envelope"></i>
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="team-modal-content-section">
+                <div className="team-modal-body">
+                  <h2 className="team-modal-name">{memberProfile.name}</h2>
+                  <p className="team-modal-position">{memberProfile.position}</p>
+
+                  <div className="team-modal-bio">
+                    <h4>About</h4>
+                    <p>{memberProfile.bio}</p>
+                  </div>
+
+                  <div className="team-modal-skills">
+                    <h4>Areas of Expertise</h4>
+                    <div className="skill-tags">
+                      {memberProfile.skills.map((skill) => (
+                        <span key={skill} className="skill-tag">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="team-modal-achievements">
+                    <h4>Key Achievements</h4>
+                    <ul>
+                      {memberProfile.achievements.map((achievement) => (
+                        <li key={achievement}>{achievement}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -856,4 +1033,186 @@ export default AboutPage
       margin: 0 auto 2rem;
     }
   }
+
+  .member-profile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .member-profile {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  /* Team Modal Styles */
+  .team-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .team-modal-content {
+    background: white;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 900px;
+    position: relative;
+  }
+
+  .team-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #666;
+  }
+
+  .team-modal-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .team-modal-image-section {
+    width: 35%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .team-modal-content-section {
+    width: 65%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .team-modal-image-container {
+    text-align: center;
+  }
+
+  .team-modal-image-wrapper {
+    border-radius: 50%;
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+  }
+
+  .team-modal-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .team-modal-social {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .team-modal-body {
+    padding: 10px;
+  }
+
+  .team-modal-name {
+    font-size: 24px;
+    margin-bottom: 5px;
+  }
+
+  .team-modal-position {
+    font-style: italic;
+    color: #777;
+    margin-bottom: 15px;
+  }
+
+  .team-modal-bio {
+    margin-bottom: 15px;
+  }
+
+  .team-modal-bio h4,
+  .team-modal-skills h4,
+  .team-modal-achievements h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .team-modal-skills {
+    margin-bottom: 15px;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .skill-tag {
+    background-color: #e9ecef;
+    color: #495057;
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin: 5px;
+    font-size: 14px;
+  }
+
+  .team-modal-achievements ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+
+  .team-modal-achievements li {
+    margin-bottom: 5px;
+  }
+
+  /* Responsive adjustments for the team modal */
+  @media (max-width: 768px) {
+    .team-modal-content {
+      width: 95%;
+    }
+
+    .team-modal-container {
+      flex-direction: column;
+    }
+
+    .team-modal-image-section,
+    .team-modal-content-section {
+      width: 100%;
+      padding: 10px;
+    }
+
+    .team-modal-image-wrapper {
+      width: 150px;
+      height: 150px;
+    }
+  }
 `}</style>
+

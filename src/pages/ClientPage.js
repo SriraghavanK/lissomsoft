@@ -345,8 +345,8 @@ const ClientPage = () => {
       <HeroSection
         title="Join Our Growing Client Network"
         subtitle="Partnering for Your Success: Our Commitment to Thrive in Digital"
-        buttonText="Get Started"
-        buttonLink="/contact"
+        buttonText="Explore our Clients"
+        buttonLink="#clients-section"
         imageSrc="https://imgs.search.brave.com/6Er4btQX-rdbYpRSJTeK7cU9NBhY9CYxpQWHwGG5jjo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvNTM3/MjUyMjc0L3Bob3Rv/L2hhbmRzaGFraW5n/LmpwZz9zPTYxMng2/MTImdz0wJms9MjAm/Yz1vYVFPNk1FNlJ3/VDNKUEZMWGx3NG94/U1VoVFlYdk5yWEY3/aHh5bmV6M0dBPQ"
       />
 

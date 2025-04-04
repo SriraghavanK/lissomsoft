@@ -467,9 +467,7 @@ const HomePage = () => {
                   <Link to="/mysmartgrc" className="btn btn-primary-modern mb-2 mb-md-0" target="blank">
                     {serviceContent.risk.productCTA}
                   </Link>
-                  <Link to="#" className="btn btn-outline-primary d-flex justify-content-center align-items-center " style={{height:"48px"}}>
-                    {serviceContent.risk.productDemoCTA}
-                  </Link>
+                  
                 </div>
               </div>
             </div>
@@ -670,10 +668,7 @@ const HomePage = () => {
                     <i className="fas fa-envelope me-2"></i>
                     Contact Us
                   </Link>
-                  <Link to="#" className="btn btn-outline-light btn-lg px-4 py-3">
-                    <i className="fas fa-th-list me-2"></i>
-                    Explore Services
-                  </Link>
+                 
                 </div>
               </div>
             </div>

@@ -39,11 +39,18 @@ const ServicePage = ({ pageData, serviceCategories = null, accordionData = null 
         const approachRect = approachRef.current.getBoundingClientRect()
         const servicesRect = servicesRef.current.getBoundingClientRect()
 
-        const scrollPosition = window.scrollY + 100 // Adding offset for the sticky header
+        // Get the viewport height
+        const viewportHeight = window.innerHeight
 
-        if (servicesRect.top <= scrollPosition) {
+        // Calculate which section occupies most of the viewport
+        const overviewVisibleHeight = Math.min(viewportHeight, overviewRect.bottom) - Math.max(0, overviewRect.top)
+        const approachVisibleHeight = Math.min(viewportHeight, approachRect.bottom) - Math.max(0, approachRect.top)
+        const servicesVisibleHeight = Math.min(viewportHeight, servicesRect.bottom) - Math.max(0, servicesRect.top)
+
+        // Set active tab based on which section has the most visible area
+        if (servicesVisibleHeight > approachVisibleHeight && servicesVisibleHeight > overviewVisibleHeight) {
           setActiveTab(pageData.servicesTabId || "services")
-        } else if (approachRect.top <= scrollPosition) {
+        } else if (approachVisibleHeight > overviewVisibleHeight && approachVisibleHeight > servicesVisibleHeight) {
           setActiveTab("approach")
         } else {
           setActiveTab("overview")
@@ -882,26 +889,29 @@ const ServicePage = ({ pageData, serviceCategories = null, accordionData = null 
           
           .service-category-card .card-title {
             font-size: 0.9rem;
+          .service-category-card .card-body {
+            padding: 0.5rem;
           }
           
-          /* Accordion */
-          .custom-accordion .accordion-button {
-            padding: 1rem;
-            font-size: 0.95rem;
+          .service-category-card .card-title {
+            font-size: 0.85rem;
           }
           
-          .custom-accordion .accordion-body {
-            padding: 1rem;
+          .cta-content {
+            padding: 1.5rem !important;
           }
           
-          /* Stats */
-          .stat-item {
-            padding: 1.5rem 0.75rem;
-            margin-bottom: 1rem;
+          .cta-content h3 {
+            font-size: 1.5rem;
           }
           
-          .counter-value {
-            font-size: 1.75rem;
+          .cta-content .lead {
+            font-size: 1rem;
+          }
+          
+          .cta-content .btn {
+            width: 100%;
+            margin-top: 1rem;
           }
         }
         

@@ -37,8 +37,6 @@ const CareerPage = () => {
     require("../assets/waterfallgroup.jpg"),
     require("../assets/cricket.jpg"),
     require("../assets/groupphoto2.jpg"),
-   
-   
   ]
 
   // State for thumbs swiper
@@ -547,9 +545,8 @@ const CareerPage = () => {
                           style={{
                             width: "100%",
                             height: "100%",
-                            
+
                             objectFit: "contain",
-                           
                           }}
                         />
                         <div className="slide-caption">

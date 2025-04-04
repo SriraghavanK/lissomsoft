@@ -182,37 +182,55 @@ const HeroSection = ({ title, subtitle, buttonText, buttonLink, buttonOnClick, i
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // Determine whether to use Link or button based on whether buttonOnClick is provided
+  // Handle smooth scrolling for anchor links
+  const handleAnchorClick = (e) => {
+    e.preventDefault()
+    const targetId = buttonLink.substring(1) // Remove the # from the link
+    const targetElement = document.getElementById(targetId)
+
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
+  // Determine whether to use Link, anchor, or button based on the link type and onClick handler
   const renderButton = () => {
     if (buttonOnClick) {
       return (
         <button onClick={buttonOnClick} className="btn btn-hero p-3">
-          <span className="btn-text ps-2">
-            {buttonText}
-          </span>
+          <span className="btn-text ps-2">{buttonText}</span>
           <span className="btn-icon">
             <i className="fas fa-arrow-right"></i>
           </span>
           <span className="btn-background"></span>
         </button>
-      );
+      )
+    } else if (buttonLink && buttonLink.startsWith("#")) {
+      // Handle anchor links for same-page scrolling
+      return (
+        <a href={buttonLink} className="btn btn-hero p-3" onClick={handleAnchorClick}>
+          <span className="btn-text ps-2">{buttonText}</span>
+          <span className="btn-icon">
+            <i className="fas fa-arrow-right"></i>
+          </span>
+          <span className="btn-background"></span>
+        </a>
+      )
     } else {
       return (
-        <Link to={buttonLink} className="btn btn-hero p-3">
-          <span className="btn-text ps-2" target={target} rel="noopener noreferrer">
-            {buttonText}
-          </span>
+        <Link to={buttonLink} className="btn btn-hero p-3" target={target}>
+          <span className="btn-text ps-2">{buttonText}</span>
           <span className="btn-icon">
             <i className="fas fa-arrow-right"></i>
           </span>
           <span className="btn-background"></span>
         </Link>
-      );
+      )
     }
-  };
+  }
 
   return (
-    <section className={`hero-section ${className || ''}`} ref={heroRef}>
+    <section className={`hero-section ${className || ""}`} ref={heroRef}>
       {/* Particle background */}
       <canvas ref={canvasRef} className="particle-canvas"></canvas>
 
@@ -248,9 +266,7 @@ const HeroSection = ({ title, subtitle, buttonText, buttonLink, buttonOnClick, i
                 <p className="hero-subtitle gradient-text">{subtitle}</p>
 
                 {/* Animated CTA button */}
-                <div className="hero-cta">
-                  {renderButton()}
-                </div>
+                <div className="hero-cta">{renderButton()}</div>
               </div>
             </div>
 
@@ -294,3 +310,4 @@ const HeroSection = ({ title, subtitle, buttonText, buttonLink, buttonOnClick, i
 }
 
 export default HeroSection
+
