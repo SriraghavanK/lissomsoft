@@ -472,6 +472,37 @@ app.post("/api/submit-form", async (req, res) => {
           message: "Please enter a valid phone number",
         })
       }
+    } else if (sheetName === "Sheet5") {
+      if (
+        !formData.firstName ||
+        !formData.lastName ||
+        !formData.businessEmail ||
+        !formData.phoneNumber ||
+        !formData.organization ||
+        !formData.country ||
+        !formData.domain
+      ) {
+        return res.status(400).json({
+          success: false,
+          message: "All required fields must be filled out",
+        })
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(formData.businessEmail)) {
+        return res.status(400).json({
+          success: false,
+          message: "Please enter a valid email address",
+        })
+      }
+
+      const phoneRegex = /^[0-9+\-\s()]{10,15}$/
+      if (!phoneRegex.test(formData.phoneNumber)) {
+        return res.status(400).json({
+          success: false,
+          message: "Please enter a valid phone number",
+        })
+      }
     }
 
     const now = new Date()
@@ -507,11 +538,27 @@ app.post("/api/submit-form", async (req, res) => {
           time,
         ],
       ]
+    } else if (sheetName === "Sheet5") {
+      values = [
+        [
+          formData.firstName || "",
+          formData.lastName || "",
+          formData.businessEmail || "",
+          formData.phoneNumber || "",
+          formData.organization || "",
+          formData.country || "",
+          formData.domain || "",
+          formData.offer || "",
+          formData.agreeComms ? "Yes" : "No",
+          date,
+          time,
+        ],
+      ]
     }
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEETS_SPREADSHEET_ID,
-      range: `${sheetName}!A:H`,
+      range: `${sheetName}!A:K`,
       valueInputOption: "USER_ENTERED",
       requestBody: {
         values: values,
@@ -548,6 +595,21 @@ app.post("/api/submit-form", async (req, res) => {
         <p><strong>Email:</strong> ${formData.email}</p>
         <p><strong>Phone Number:</strong> ${formData.phoneNumber}</p>
       `
+    } else if (sheetName === "Sheet5") {
+      emailSubject = "New Partner Application"
+      emailContent = `
+        <h2>New Partner Application</h2>
+        <p><strong>Date:</strong> ${date}</p>
+        <p><strong>Time:</strong> ${time}</p>
+        <p><strong>Name:</strong> ${formData.firstName} ${formData.lastName}</p>
+        <p><strong>Business Email:</strong> ${formData.businessEmail}</p>
+        <p><strong>Phone Number:</strong> ${formData.phoneNumber}</p>
+        <p><strong>Organization:</strong> ${formData.organization}</p>
+        <p><strong>Country:</strong> ${formData.country}</p>
+        <p><strong>Domain:</strong> ${formData.domain}</p>
+        <p><strong>Offer:</strong> ${formData.offer || "No details provided"}</p>
+        <p><strong>Agreed to Communications:</strong> ${formData.agreeComms ? "Yes" : "No"}</p>
+      `
     }
 
     await transporter.sendMail({
@@ -563,6 +625,101 @@ app.post("/api/submit-form", async (req, res) => {
     })
   } catch (error) {
     console.error("Error submitting form:", error)
+    return res.status(500).json({
+      success: false,
+      message: "An error occurred while submitting the form",
+      error: error.message,
+    })
+  }
+})
+
+// Add the partner form endpoint to handle Sheet5 data
+app.post("/api/partner", async (req, res) => {
+  try {
+    const { firstName, lastName, businessEmail, phoneNumber, organization, country, domain, offer, agreeComms } =
+      req.body
+
+    if (!firstName || !lastName || !businessEmail || !phoneNumber || !organization || !country || !domain) {
+      return res.status(400).json({
+        success: false,
+        message: "All required fields must be filled out",
+      })
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(businessEmail)) {
+      return res.status(400).json({
+        success: false,
+        message: "Please enter a valid email address",
+      })
+    }
+
+    // Phone validation
+    const phoneRegex = /^[0-9+\-\s()]{10,15}$/
+    if (!phoneRegex.test(phoneNumber)) {
+      return res.status(400).json({
+        success: false,
+        message: "Please enter a valid phone number",
+      })
+    }
+
+    const now = new Date()
+    const date = now.toLocaleDateString()
+    const time = now.toLocaleTimeString()
+
+    const sheets = setupGoogleSheets()
+
+    await sheets.spreadsheets.values.append({
+      spreadsheetId: process.env.GOOGLE_SHEETS_SPREADSHEET_ID,
+      range: "Sheet5!A:K",
+      valueInputOption: "USER_ENTERED",
+      requestBody: {
+        values: [
+          [
+            firstName,
+            lastName,
+            businessEmail,
+            phoneNumber,
+            organization,
+            country,
+            domain,
+            offer || "",
+            agreeComms ? "Yes" : "No",
+            date,
+            time,
+          ],
+        ],
+      },
+    })
+
+    const transporter = setupEmailTransporter()
+
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER,
+      subject: "New Partner Application",
+      html: `
+        <h2>New Partner Application</h2>
+        <p><strong>Date:</strong> ${date}</p>
+        <p><strong>Time:</strong> ${time}</p>
+        <p><strong>Name:</strong> ${firstName} ${lastName}</p>
+        <p><strong>Business Email:</strong> ${businessEmail}</p>
+        <p><strong>Phone Number:</strong> ${phoneNumber}</p>
+        <p><strong>Organization:</strong> ${organization}</p>
+        <p><strong>Country:</strong> ${country}</p>
+        <p><strong>Domain:</strong> ${domain}</p>
+        <p><strong>Offer:</strong> ${offer || "No details provided"}</p>
+        <p><strong>Agreed to Communications:</strong> ${agreeComms ? "Yes" : "No"}</p>
+      `,
+    })
+
+    return res.status(200).json({
+      success: true,
+      message: "Form submitted successfully!",
+    })
+  } catch (error) {
+    console.error("Error submitting partner form:", error)
     return res.status(500).json({
       success: false,
       message: "An error occurred while submitting the form",
@@ -756,8 +913,7 @@ app.get("/admin/resumes", async (req, res) => {
 
     // Get resume data from Sheet2
     const response = await sheets.spreadsheets.values.get({
-      spreadsheetId: process.env.GOOGLE_SHEETS_SPREADSHEET_ID,
-      range: "Sheet2!A:K",
+      spreadsheetId: process.env.GOOGLE_SHEETS_SPREADSHEET_ID,      range: "Sheet2!A:K",
     })
 
     const rows = response.data.values || []
@@ -1070,12 +1226,17 @@ app.use((err, req, res, next) => {
 // General error handling middleware
 app.use((err, req, res, next) => {
   console.error("Unhandled error:", err)
-  res.status(500).json({
-    success: false,
-    message: "An unexpected error occurred",
-    error: process.env.NODE_ENV === "production" ? null : err.message,
-    stack: process.env.NODE_ENV === "production" ? null : err.stack,
-  })
+  // Ensure we haven't already sent a response
+  if (!res.headersSent) {
+    // Force JSON response type
+    res.setHeader('Content-Type', 'application/json')
+    res.status(err.status || 500).json({
+      success: false,
+      message: err.message || "An unexpected error occurred",
+      error: process.env.NODE_ENV === "production" ? null : err.message,
+      stack: process.env.NODE_ENV === "production" ? null : err.stack,
+    })
+  }
 })
 
 app.listen(PORT, "0.0.0.0", () => {
@@ -1085,4 +1246,3 @@ app.listen(PORT, "0.0.0.0", () => {
 })
 
 module.exports = app
-

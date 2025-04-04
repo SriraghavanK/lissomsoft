@@ -668,8 +668,8 @@ h2.fw-bold {
 }
 
 .btn-outline-primary:hover {
-  background: linear-gradient(135deg, #4a90e2, #50e3c2);
-  border-color: transparent;
+  
+ 
   color: white;
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
