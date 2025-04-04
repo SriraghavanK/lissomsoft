@@ -14,7 +14,7 @@ const Header = () => {
   const mobileMenuRef = useRef(null)
   const [activeTab, setActiveTab] = useState("risk-assessment")
   const [activeApproachTab, setActiveApproachTab] = useState("methodology")
-  const dropdownTimeoutRef = useRef(null) // Add this for fixing dropdown hover issue
+  // const dropdownTimeoutRef = useRef(null) // Add this for fixing dropdown hover issue
 
   // Fix 1: Update the isSmartGrcPage logic to be more strict and reliable
   const isSmartGrcPage =
@@ -185,25 +185,25 @@ const Header = () => {
   }
 
   // Fix for dropdown hover issue
-  const handleMouseEnter = (id) => {
-    if (dimensions.width > 991) {
-      // Clear any existing timeout
-      if (dropdownTimeoutRef.current) {
-        clearTimeout(dropdownTimeoutRef.current)
-        dropdownTimeoutRef.current = null
-      }
-      setActiveDropdown(id)
-    }
-  }
+  // const handleMouseEnter = (id) => {
+  //   if (dimensions.width > 991) {
+  //     // Clear any existing timeout
+  //     if (dropdownTimeoutRef.current) {
+  //       clearTimeout(dropdownTimeoutRef.current)
+  //       dropdownTimeoutRef.current = null
+  //     }
+  //     setActiveDropdown(id)
+  //   }
+  // }
 
-  const handleMouseLeave = () => {
-    if (dimensions.width > 991) {
-      // Set a timeout to close the dropdown
-      dropdownTimeoutRef.current = setTimeout(() => {
-        setActiveDropdown(null)
-      }, 300) // 300ms delay before closing
-    }
-  }
+  // const handleMouseLeave = () => {
+  //   if (dimensions.width > 991) {
+  //     // Set a timeout to close the dropdown
+  //     dropdownTimeoutRef.current = setTimeout(() => {
+  //       setActiveDropdown(null)
+  //     }, 300) // 300ms delay before closing
+  //   }
+  // }
 
   // Fix 2: Update the toggleDropdown function to properly handle desktop behavior
   const toggleDropdown = (id) => {
@@ -611,8 +611,6 @@ const Header = () => {
                     hidden: { opacity: 0, y: -20 },
                     visible: { opacity: 1, y: 0 },
                   }}
-                  onMouseEnter={() => handleMouseEnter(dropdown.id)}
-                  onMouseLeave={handleMouseLeave}
                 >
                   <a
                     className={`nav-link dropdown fw-semibold ${activeDropdown === dropdown.id ? "active" : ""}`}
@@ -644,8 +642,6 @@ const Header = () => {
                         animate="visible"
                         exit="hidden"
                         variants={dropdownVariants}
-                        onMouseEnter={() => handleMouseEnter(dropdown.id)}
-                        onMouseLeave={handleMouseLeave}
                       >
                         <div className="dropdown-menu-backdrop" onClick={() => setActiveDropdown(null)}></div>
                         <motion.ul className="dropdown-menu custom-dropdown">
@@ -1141,8 +1137,6 @@ const Header = () => {
                   hidden: { opacity: 0, y: -20 },
                   visible: { opacity: 1, y: 0 },
                 }}
-                onMouseEnter={() => handleMouseEnter(dropdown.id)}
-                onMouseLeave={handleMouseLeave}
               >
                 <a
                   className={`nav-link dropdown fw-semibold ${activeDropdown === dropdown.id ? "active" : ""}`}
@@ -1174,8 +1168,6 @@ const Header = () => {
                       animate="visible"
                       exit="hidden"
                       variants={dropdownVariants}
-                      onMouseEnter={() => handleMouseEnter(dropdown.id)}
-                      onMouseLeave={handleMouseLeave}
                     >
                       <div className="dropdown-menu-backdrop" onClick={() => setActiveDropdown(null)}></div>
                       <motion.ul className="dropdown-menu custom-dropdown">
@@ -2836,7 +2828,6 @@ const styles = `
   .mobile-menu-item {
     box-shadow: 0 2px 8px rgba(0, 119, 182, 0.05);
     border: 1px solid rgba(0, 119, 182, 0.1);
-    border-radius: 12px;
   }
   
   /* Enhanced contact button */
