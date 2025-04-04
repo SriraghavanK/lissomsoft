@@ -407,7 +407,7 @@ const CareerPage = () => {
         <div className="container py-3">
           <div className="row align-items-center">
             <div className="col-lg-6 mb-4 mb-lg-0">
-              <h6 className="mb-4">
+              <p className="mb-4" style={{"fontFamily":"poppins", "fontSize":18}}>
                 Embark on an exhilarating journey with Lissomsoft, where innovation and passion drive our pursuit of
                 excellence! Explore a realm of opportunities, mastering cutting-edge technologies like AI/ML,
                 React/Angular, and the prowess of platforms such as WordPress, Figma, Webflow. Join our dynamic
@@ -416,7 +416,7 @@ const CareerPage = () => {
                 business automation. Immerse yourself in continuous learning, inclusivity, and abundant resources that
                 allow you to shine. Become a trailblazer, sculpt the digital landscape, and propel your career to new
                 heights with us!
-              </h6>
+              </p>
             </div>
             <div className="col-lg-6">
               <img
