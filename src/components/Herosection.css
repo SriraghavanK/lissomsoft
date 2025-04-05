@@ -326,7 +326,7 @@
   align-items: center;
   gap: 0.5rem;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  color: white;
+  color: rgb(255, 254, 254);
   font-weight: 600;
   z-index: 20;
   transition: all 0.3s ease;

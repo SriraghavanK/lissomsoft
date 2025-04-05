@@ -1382,7 +1382,7 @@ const Header = () => {
                       {item}
                       {item === "CONTACT" && (
                         <>
-                          <i className="fas fa-arrow-right"></i>
+                          <i className="fas fa-arrow-right" style={{paddingRight:"8px",color:"#007ba7"}}></i>
                           <div className="btn-pulse"></div>
                         </>
                       )}
@@ -2163,14 +2163,15 @@ const styles = `
   }
   
   .mobile-contact-btn {
-    background: linear-gradient(45deg, #0077b6, #00a8e8);
-    color: white !important;
+    
+    color: black !important;
     box-shadow: 0 4px 15px rgba(0, 119, 182, 0.2);
   }
   
   .mobile-contact-btn:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0, 119, 182, 0.3);
+    color:white !important; 
   }
   
   .mobile-menu-footer {
@@ -2527,8 +2528,8 @@ const styles = `
   }
 
   .mobile-contact-btn {
-    background-color: #0077b6;
-    color: #fff;
+    
+    color: #black;
   }
 
   .mobile-contact-btn:hover {
@@ -3182,7 +3183,7 @@ const styles = `
 
 .back-to-lissomsoft-btn {
   position: relative;
-  background: linear-gradient(45deg, #0077b6, #00a8e8);
+
   color: white !important;
   padding: 8px 15px;
   border-radius: 30px;

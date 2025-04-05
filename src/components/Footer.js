@@ -1162,7 +1162,7 @@ const Footer = () => {
               links: [
                 { name: "About Us", path: "/about" },
                 { name: "Clients", path: "/client" },
-                { name: "Careers", path: "/about#careers" },
+                { name: "Careers", path: "/career" },
                 { name: "Partners", path: "/partners" },
               ],
             },
