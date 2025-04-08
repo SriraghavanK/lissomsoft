@@ -62,7 +62,6 @@ const TeamPage = () => {
       bio: "Visionary leader with over 20 years of experience in technology and business management. Ganesh has led multiple successful digital transformation initiatives for Fortune 500 companies and brings a wealth of expertise in strategic planning and execution.",
       linkedin: "https://www.linkedin.com/in/ganesh-gopalan-56aa1416/",
       twitter: "#",
-      email: "ganesh@lissomsoft.com",
       target: "_blank",
       skills: ["Strategic Planning", "Digital Transformation", "Enterprise Architecture", "Risk Management"],
       achievements: [
@@ -79,7 +78,6 @@ const TeamPage = () => {
       bio: "Expert in financial risk management with over 15 years of experience in the banking sector. Amit specializes in developing comprehensive risk frameworks that help financial institutions navigate complex regulatory environments while optimizing business performance.",
       linkedin: "#",
       twitter: "#",
-      email: "amit@lissomsoft.com",
       skills: ["Financial Risk Management", "Regulatory Compliance", "Banking Operations", "Strategic Planning"],
       achievements: [
         "Implemented Basel III compliance for major banks",
@@ -95,7 +93,7 @@ const TeamPage = () => {
       bio: "Leads our product development team with a focus on creating innovative, user-friendly solutions. Satish brings deep technical expertise and a passion for elegant software design that solves real business problems.",
       linkedin: "#",
       twitter: "#",
-      email: "satish@lissomsoft.com",
+    
       skills: ["Product Strategy", "Software Architecture", "Agile Development", "UX Design"],
       achievements: [
         "Led development of SmartGRC platform",
@@ -111,7 +109,7 @@ const TeamPage = () => {
       bio: "Technology expert with deep knowledge in cloud computing and digital transformation. Murali has helped numerous organizations modernize their IT infrastructure and adopt cloud-native solutions that drive business agility and innovation.",
       linkedin: "https://www.linkedin.com/in/murali-t-39642315/",
       twitter: "#",
-      email: "murali@lissomsoft.com",
+  
       skills: ["Cloud Architecture", "DevOps", "IT Strategy", "Digital Transformation"],
       achievements: [
         "Reduced infrastructure costs by 60% for enterprise clients",
@@ -127,7 +125,7 @@ const TeamPage = () => {
       bio: "Drives our business growth strategy with a focus on building strong client relationships. Venkatesh has a proven track record of identifying market opportunities and developing strategic partnerships that create value for all stakeholders.",
       linkedin: "https://www.linkedin.com/in/venkatesh-s-a97385238/",
       twitter: "#",
-      email: "venkatesh@lissomsoft.com",
+      
       skills: ["Business Strategy", "Partnership Development", "Market Analysis", "Client Relations"],
       achievements: [
         "Expanded client base by 200% in 3 years",
@@ -143,7 +141,6 @@ const TeamPage = () => {
       bio: "Experienced Full Stack Developer with over 4 years of expertise in Angular, Java Spring Boot, MySQL, Adobe XD, HTML5, and CSS3. Docker, Apache Kafka, and Tomcat, with hands-on experience in both Windows and Linux Ubuntu environments. Skilled in building dynamic web applications, designing intuitive user interfaces, and delivering clean, maintainable code.",
       linkedin: "https://www.linkedin.com/in/pradeepraj55",
       twitter: "#",
-      email: "pradeep@lissomsoft.com",
       skills: ["Angular", "Java Spring Boot", "MySQL", "Docker", "UI/UX Design"],
       achievements: [
         "Led development of 5 major client projects",
@@ -159,7 +156,6 @@ const TeamPage = () => {
       bio: "Knowledge in Front-end Technologies Like HTML, CSS, JavaScript, Frameworks : Bootstrap, Angular Back-end : JAVA, Core Java, Web API Database: MySQL. Excellent communication skills and ability to understand client requirements. Continuous learner of new technologies, strategies, and tools.",
       linkedin: "https://www.linkedin.com/in/jeshward/",
       twitter: "#",
-      email: "jeshwar@lissomsoft.com",
       skills: ["Angular", "Java", "MySQL", "Bootstrap", "Web API"],
       achievements: [
         "Developed key features for SmartGRC platform",
@@ -175,7 +171,6 @@ const TeamPage = () => {
       bio: "I am a passionate software developer with hands-on experience in building scalable applications using Angular, Spring Boot, and React. I have worked on projects related to Risk Management and Incident Management, developing robust solutions that enhance efficiency and security.",
       linkedin: "https://www.linkedin.com/in/manimaran-p-27101b205/",
       twitter: "#",
-      email: "manimaran@lissomsoft.com",
       skills: ["Angular", "React", "Spring Boot", "Risk Management", "Incident Management"],
       achievements: [
         "Implemented real-time incident tracking system",
@@ -191,7 +186,6 @@ const TeamPage = () => {
       bio: "I am a passionate software developer with hands-on experience in building scalable applications using Angular, Spring Boot, and React. I have worked on projects related to Risk Management and Incident Management, developing robust solutions that enhance efficiency and security.",
       linkedin: "https://www.linkedin.com/in/karthik-g-705306303/",
       twitter: "#",
-      email: "karthik@lissomsoft.com",
       skills: ["Angular", "React", "Spring Boot", "UI/UX Design", "API Development"],
       achievements: [
         "Developed mobile-responsive interfaces",
@@ -207,7 +201,6 @@ const TeamPage = () => {
       bio: "Passionate Full Stack Developer seeking a dynamic role in an organization that values both my professional and personal growth, allowing me to contribute significantly to the company's expansion and align with its objectives.",
       linkedin: "https://www.linkedin.com/in/gowtham-rajendran-41182323a/",
       twitter: "#",
-      email: "gowtham@lissomsoft.com",
       skills: ["JavaScript", "React", "Node.js", "MongoDB", "Express"],
       achievements: [
         "Built RESTful APIs for multiple projects",
@@ -223,7 +216,6 @@ const TeamPage = () => {
       bio: "I am a passionate software developer with hands-on experience in building scalable applications using Angular, Spring Boot, and React. I have worked on projects related to Risk Management and Incident Management, developing robust solutions that enhance efficiency and security.",
       linkedin: "https://www.linkedin.com/in/kabila-kannan-0463b6184/",
       twitter: "#",
-      email: "kabila@lissomsoft.com",
       skills: ["Angular", "React", "Spring Boot", "MySQL", "AWS"],
       achievements: [
         "Implemented CI/CD pipeline",
@@ -239,7 +231,6 @@ const TeamPage = () => {
       bio: "I am a passionate software developer with hands-on experience in building scalable applications using Angular, Spring Boot, and React. I have worked on projects related to Risk Management and Incident Management, developing robust solutions that enhance efficiency and security.",
       linkedin: "https://www.linkedin.com/in/harini-sk-2b0825236/",
       twitter: "#",
-      email: "harini@lissomsoft.com",
       skills: ["Angular", "React", "Spring Boot", "UI Design", "Testing"],
       achievements: [
         "Developed responsive UI components",
@@ -255,7 +246,6 @@ const TeamPage = () => {
       bio: "I am a passionate software developer with hands-on experience in building scalable applications using Angular, Spring Boot, and React. I have worked on projects related to Risk Management and Incident Management, developing robust solutions that enhance efficiency and security.",
       linkedin: "https://www.linkedin.com/in/keerthivasan-r-2a7a011b7/",
       twitter: "#",
-      email: "keerthivasan@lissomsoft.com",
       skills: ["Angular", "React", "Spring Boot", "UI Design", "Testing"],
       achievements: [
         "Developed responsive UI components",
@@ -271,7 +261,6 @@ const TeamPage = () => {
       bio: "I am a passionate software developer with hands-on experience in building scalable applications using Angular, Spring Boot, and React. I have worked on projects related to Risk Management and Incident Management, developing robust solutions that enhance efficiency and security.",
       linkedin: "https://www.linkedin.com/in/rishi-kesh-470575294/",
       twitter: "#",
-      email: "rishi@lissomsoft.com",
       skills: ["Angular", "React", "Spring Boot", "UI Design", "Testing"],
       achievements: [
         "Developed responsive UI components",
@@ -287,7 +276,6 @@ const TeamPage = () => {
       bio: "I am a passionate software developer with hands-on experience in building scalable applications using Angular, Spring Boot, and React. I have worked on projects related to Risk Management and Incident Management, developing robust solutions that enhance efficiency and security.",
       linkedin: "https://www.linkedin.com/in/rishi-kesh-470575294/",
       twitter: "#",
-      email: "rishi@lissomsoft.com",
       skills: ["Angular", "React", "Spring Boot", "UI Design", "Testing"],
       achievements: [
         "Developed responsive UI components",
@@ -451,9 +439,7 @@ const TeamPage = () => {
                       <a href={member.linkedin} className="social-icon" target="_blank" rel="noopener noreferrer">
                         <i className="fab fa-linkedin-in"></i>
                       </a>
-                      <a href={`mailto:${member.email}`} className="social-icon">
-                        <i className="fas fa-envelope"></i>
-                      </a>
+                   
                     </div>
                   </div>
                   <div className="card-footer bg-transparent border-0 pb-4">
@@ -662,9 +648,6 @@ const TeamPage = () => {
                         rel="noopener noreferrer"
                       >
                         <i className="fab fa-linkedin-in"></i>
-                      </a>
-                      <a href={`mailto:${selectedMember.email}`} className="social-icon">
-                        <i className="fas fa-envelope"></i>
                       </a>
                       {selectedMember.twitter !== "#" && (
                         <a
