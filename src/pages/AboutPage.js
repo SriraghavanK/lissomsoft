@@ -688,7 +688,6 @@ const AboutPage = () => {
                         image: "https://www.lissomsoft.com/assets/leardership/amit%20Bansal.png",
                         bio: "Expert in financial risk management with over 15 years of experience in the banking sector. Amit specializes in developing comprehensive risk frameworks that help financial institutions navigate complex regulatory environments while optimizing business performance.",
                         linkedin: "https://www.linkedin.com/",
-                        email: "amit@example.com",
                         skills: [
                           "Financial Risk Management",
                           "Regulatory Compliance",
@@ -754,7 +753,6 @@ const AboutPage = () => {
                         image: "https://www.lissomsoft.com/assets/leardership/satish.jpg",
                         bio: "Leads our product development team with a focus on creating innovative, user-friendly solutions. Satish brings deep technical expertise and a passion for elegant software design that solves real business problems.",
                         linkedin: "https://www.linkedin.com/",
-                        email: "satish@example.com",
                         skills: ["Product Strategy", "Software Architecture", "Agile Development", "UX Design"],
                         achievements: [
                           "Led development of SmartGRC platform",
@@ -815,7 +813,7 @@ const AboutPage = () => {
                         image: "https://www.lissomsoft.com/assets/leardership/murali.jpg",
                         bio: "Technology expert with deep knowledge in cloud computing and digital transformation. Murali has helped numerous organizations modernize their IT infrastructure and adopt cloud-native solutions that drive business agility and innovation.",
                         linkedin: "https://www.linkedin.com/in/murali-t-39642315/",
-                        email: "murali@example.com",
+                      
                         skills: ["Cloud Architecture", "DevOps", "IT Strategy", "Digital Transformation"],
                         achievements: [
                           "Reduced infrastructure costs by 60% for enterprise clients",
@@ -876,7 +874,7 @@ const AboutPage = () => {
                         image: "https://www.lissomsoft.com/assets/leardership/venkat.jpg",
                         bio: "Drives our business growth strategy with a focus on building strong client relationships. Venkatesh has a proven track record of identifying market opportunities and developing strategic partnerships that create value for all stakeholders.",
                         linkedin: "https://www.linkedin.com/in/venkatesh-s-a97385238/",
-                        email: "venkatesh@example.com",
+                        
                         skills: ["Business Strategy", "Partnership Development", "Market Analysis", "Client Relations"],
                         achievements: [
                           "Expanded client base by 200% in 3 years",
@@ -962,11 +960,7 @@ const AboutPage = () => {
                         <i className="fab fa-linkedin-in"></i>
                       </a>
                     )}
-                    {memberProfile.email && (
-                      <a href={`mailto:${memberProfile.email}`} className="social-icon">
-                        <i className="fas fa-envelope"></i>
-                      </a>
-                    )}
+               
                   </div>
                 </div>
               </div>
