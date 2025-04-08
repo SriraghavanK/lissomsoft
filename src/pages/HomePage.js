@@ -743,13 +743,7 @@ const HomePage = () => {
                 className="card border-0 shadow hover-shadow transition-all animate-on-scroll"
                 data-id="contact-card"
               >
-                <div className="card-body p-4 p-md-5 text-center">
-                  <h3 className="mb-4 fs-4 fs-md-3">Ready to embark on this journey with Lissomsoft today!</h3>
-                  <Link to="/contact" className="btn btn-primary-modern btn-lg px-5 py-3"  onClick={scrollToTop}>
-                    <i className="fas fa-paper-plane me-2" ></i>
-                    Contact us
-                  </Link>
-                </div>
+          
               </div>
             </div>
           </div>
