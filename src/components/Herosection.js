@@ -298,13 +298,7 @@ const HeroSection = ({ title, subtitle, buttonText, buttonLink, buttonOnClick, i
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="scroll-indicator">
-        <div className="scroll-text">Scroll to explore</div>
-        <div className="scroll-arrow">
-          <i className="fas fa-chevron-down"></i>
-        </div>
-      </div>
+   
     </section>
   )
 }
