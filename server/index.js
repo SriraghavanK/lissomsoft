@@ -246,9 +246,9 @@ app.post("/api/contact", async (req, res) => {
     }
 
     const now = new Date()
-    // Format date and time in Indian Standard Time (IST)
+    // Calculate IST by adding 5 hours and 30 minutes to UTC
+    const istTime = new Date(now.getTime() + 5.5 * 60 * 60 * 1000)
     const options = {
-      timeZone: "Asia/Kolkata",
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
@@ -257,8 +257,8 @@ app.post("/api/contact", async (req, res) => {
       second: "2-digit",
       hour12: true,
     }
-    const istDateTime = now.toLocaleString("en-IN", options)
-    const [date, time] = istDateTime.split(", ")
+    const formattedDate = istTime.toLocaleDateString("en-IN", options)
+    const formattedTime = istTime.toLocaleTimeString("en-IN", options)
 
     const sheets = setupGoogleSheets()
 
@@ -267,7 +267,7 @@ app.post("/api/contact", async (req, res) => {
       range: "Sheet1!A:G",
       valueInputOption: "USER_ENTERED",
       requestBody: {
-        values: [[firstName, lastName, email, phone, message || "No message", date, time]],
+        values: [[firstName, lastName, email, phone, message || "No message", formattedDate, formattedTime]],
       },
     })
 
@@ -279,8 +279,8 @@ app.post("/api/contact", async (req, res) => {
       subject: "New Contact Form Submission",
       html: `
         <h2>New Contact Form Submission</h2>
-        <p><strong>Date:</strong> ${date}</p>
-        <p><strong>Time:</strong> ${time}</p>
+        <p><strong>Date:</strong> ${formattedDate}</p>
+        <p><strong>Time:</strong> ${formattedTime}</p>
         <p><strong>Name:</strong> ${firstName} ${lastName}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Phone:</strong> ${phone}</p>
@@ -330,9 +330,9 @@ app.post("/api/career", upload.single("resume"), async (req, res) => {
     }
 
     const now = new Date()
-    // Format date and time in Indian Standard Time (IST)
+    // Calculate IST by adding 5 hours and 30 minutes to UTC
+    const istTime = new Date(now.getTime() + 5.5 * 60 * 60 * 1000)
     const options = {
-      timeZone: "Asia/Kolkata",
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
@@ -341,8 +341,8 @@ app.post("/api/career", upload.single("resume"), async (req, res) => {
       second: "2-digit",
       hour12: true,
     }
-    const istDateTime = now.toLocaleString("en-IN", options)
-    const [date, time] = istDateTime.split(", ")
+    const formattedDate = istTime.toLocaleDateString("en-IN", options)
+    const formattedTime = istTime.toLocaleTimeString("en-IN", options)
 
     const sheets = setupGoogleSheets()
 
@@ -390,7 +390,7 @@ app.post("/api/career", upload.single("resume"), async (req, res) => {
             resumeFileType,
             resumeFileSize,
             resumeLink,
-            `${date} ${time}`,
+            `${formattedDate} ${formattedTime}`,
           ],
         ],
       },
@@ -404,7 +404,7 @@ app.post("/api/career", upload.single("resume"), async (req, res) => {
       subject: "New Career Application Submission",
       html: `
         <h2>New Career Application Submission</h2>
-        <p><strong>Date:</strong> ${date} ${time}</p>
+        <p><strong>Date:</strong> ${formattedDate} ${formattedTime}</p>
         <p><strong>Name:</strong> ${fullName}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Position:</strong> ${position}</p>
@@ -528,9 +528,9 @@ app.post("/api/submit-form", async (req, res) => {
     }
 
     const now = new Date()
-    // Format date and time in Indian Standard Time (IST)
+    // Calculate IST by adding 5 hours and 30 minutes to UTC
+    const istTime = new Date(now.getTime() + 5.5 * 60 * 60 * 1000)
     const options = {
-      timeZone: "Asia/Kolkata",
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
@@ -539,8 +539,8 @@ app.post("/api/submit-form", async (req, res) => {
       second: "2-digit",
       hour12: true,
     }
-    const istDateTime = now.toLocaleString("en-IN", options)
-    const [date, time] = istDateTime.split(", ")
+    const formattedDate = istTime.toLocaleDateString("en-IN", options)
+    const formattedTime = istTime.toLocaleTimeString("en-IN", options)
 
     const sheets = setupGoogleSheets()
 
@@ -555,8 +555,8 @@ app.post("/api/submit-form", async (req, res) => {
           formData.email || "",
           formData.message || "",
           formData.agreeTerms ? "Yes" : "No",
-          date,
-          time,
+          formattedDate,
+          formattedTime,
         ],
       ]
     } else if (sheetName === "Sheet4") {
@@ -567,8 +567,8 @@ app.post("/api/submit-form", async (req, res) => {
           formData.organization || "",
           formData.email || "",
           formData.phoneNumber || "",
-          date,
-          time,
+          formattedDate,
+          formattedTime,
         ],
       ]
     } else if (sheetName === "Sheet5") {
@@ -583,8 +583,8 @@ app.post("/api/submit-form", async (req, res) => {
           formData.domain || "",
           formData.offer || "",
           formData.agreeComms ? "Yes" : "No",
-          date,
-          time,
+          formattedDate,
+          formattedTime,
         ],
       ]
     }
@@ -607,8 +607,8 @@ app.post("/api/submit-form", async (req, res) => {
       emailSubject = "New Smartgrc Contact Form Submission"
       emailContent = `
         <h2>New Smartgrc Contact Form Submission</h2>
-        <p><strong>Date:</strong> ${date}</p>
-        <p><strong>Time:</strong> ${time}</p>
+        <p><strong>Date:</strong> ${formattedDate}</p>
+        <p><strong>Time:</strong> ${formattedTime}</p>
         <p><strong>Name:</strong> ${formData.name}</p>
         <p><strong>Company:</strong> ${formData.company}</p>
         <p><strong>Email:</strong> ${formData.email}</p>
@@ -620,8 +620,8 @@ app.post("/api/submit-form", async (req, res) => {
       emailSubject = "New Demo Request"
       emailContent = `
         <h2>New Demo Request</h2>
-        <p><strong>Date:</strong> ${date}</p>
-        <p><strong>Time:</strong> ${time}</p>
+        <p><strong>Date:</strong> ${formattedDate}</p>
+        <p><strong>Time:</strong> ${formattedTime}</p>
         <p><strong>Name:</strong> ${formData.firstName}</p>
         <p><strong>Title/Designation:</strong> ${formData.titleDesignation || "N/A"}</p>
         <p><strong>Organization:</strong> ${formData.organization || "N/A"}</p>
@@ -632,8 +632,8 @@ app.post("/api/submit-form", async (req, res) => {
       emailSubject = "New Partner Application"
       emailContent = `
         <h2>New Partner Application</h2>
-        <p><strong>Date:</strong> ${date}</p>
-        <p><strong>Time:</strong> ${time}</p>
+        <p><strong>Date:</strong> ${formattedDate}</p>
+        <p><strong>Time:</strong> ${formattedTime}</p>
         <p><strong>Name:</strong> ${formData.firstName} ${formData.lastName}</p>
         <p><strong>Business Email:</strong> ${formData.businessEmail}</p>
         <p><strong>Phone Number:</strong> ${formData.phoneNumber}</p>
@@ -698,9 +698,9 @@ app.post("/api/partner", async (req, res) => {
     }
 
     const now = new Date()
-    // Format date and time in Indian Standard Time (IST)
+    // Calculate IST by adding 5 hours and 30 minutes to UTC
+    const istTime = new Date(now.getTime() + 5.5 * 60 * 60 * 1000)
     const options = {
-      timeZone: "Asia/Kolkata",
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
@@ -709,8 +709,8 @@ app.post("/api/partner", async (req, res) => {
       second: "2-digit",
       hour12: true,
     }
-    const istDateTime = now.toLocaleString("en-IN", options)
-    const [date, time] = istDateTime.split(", ")
+    const formattedDate = istTime.toLocaleDateString("en-IN", options)
+    const formattedTime = istTime.toLocaleTimeString("en-IN", options)
 
     const sheets = setupGoogleSheets()
 
@@ -730,8 +730,8 @@ app.post("/api/partner", async (req, res) => {
             domain,
             offer || "",
             agreeComms ? "Yes" : "No",
-            date,
-            time,
+            formattedDate,
+            formattedTime,
           ],
         ],
       },
@@ -745,8 +745,8 @@ app.post("/api/partner", async (req, res) => {
       subject: "New Partner Application",
       html: `
         <h2>New Partner Application</h2>
-        <p><strong>Date:</strong> ${date}</p>
-        <p><strong>Time:</strong> ${time}</p>
+        <p><strong>Date:</strong> ${formattedDate}</p>
+        <p><strong>Time:</strong> ${formattedTime}</p>
         <p><strong>Name:</strong> ${firstName} ${lastName}</p>
         <p><strong>Business Email:</strong> ${businessEmail}</p>
         <p><strong>Phone Number:</strong> ${phoneNumber}</p>
