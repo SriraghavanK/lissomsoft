@@ -246,8 +246,19 @@ app.post("/api/contact", async (req, res) => {
     }
 
     const now = new Date()
-    const date = now.toLocaleDateString()
-    const time = now.toLocaleTimeString()
+    // Format date and time in Indian Standard Time (IST)
+    const options = {
+      timeZone: "Asia/Kolkata",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    }
+    const istDateTime = now.toLocaleString("en-IN", options)
+    const [date, time] = istDateTime.split(", ")
 
     const sheets = setupGoogleSheets()
 
@@ -319,8 +330,19 @@ app.post("/api/career", upload.single("resume"), async (req, res) => {
     }
 
     const now = new Date()
-    const date = now.toLocaleDateString()
-    const time = now.toLocaleTimeString()
+    // Format date and time in Indian Standard Time (IST)
+    const options = {
+      timeZone: "Asia/Kolkata",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    }
+    const istDateTime = now.toLocaleString("en-IN", options)
+    const [date, time] = istDateTime.split(", ")
 
     const sheets = setupGoogleSheets()
 
@@ -506,8 +528,19 @@ app.post("/api/submit-form", async (req, res) => {
     }
 
     const now = new Date()
-    const date = now.toLocaleDateString()
-    const time = now.toLocaleTimeString()
+    // Format date and time in Indian Standard Time (IST)
+    const options = {
+      timeZone: "Asia/Kolkata",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    }
+    const istDateTime = now.toLocaleString("en-IN", options)
+    const [date, time] = istDateTime.split(", ")
 
     const sheets = setupGoogleSheets()
 
@@ -665,8 +698,19 @@ app.post("/api/partner", async (req, res) => {
     }
 
     const now = new Date()
-    const date = now.toLocaleDateString()
-    const time = now.toLocaleTimeString()
+    // Format date and time in Indian Standard Time (IST)
+    const options = {
+      timeZone: "Asia/Kolkata",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    }
+    const istDateTime = now.toLocaleString("en-IN", options)
+    const [date, time] = istDateTime.split(", ")
 
     const sheets = setupGoogleSheets()
 
@@ -913,7 +957,8 @@ app.get("/admin/resumes", async (req, res) => {
 
     // Get resume data from Sheet2
     const response = await sheets.spreadsheets.values.get({
-      spreadsheetId: process.env.GOOGLE_SHEETS_SPREADSHEET_ID,      range: "Sheet2!A:K",
+      spreadsheetId: process.env.GOOGLE_SHEETS_SPREADSHEET_ID,
+      range: "Sheet2!A:K",
     })
 
     const rows = response.data.values || []
@@ -1229,7 +1274,7 @@ app.use((err, req, res, next) => {
   // Ensure we haven't already sent a response
   if (!res.headersSent) {
     // Force JSON response type
-    res.setHeader('Content-Type', 'application/json')
+    res.setHeader("Content-Type", "application/json")
     res.status(err.status || 500).json({
       success: false,
       message: err.message || "An unexpected error occurred",
