@@ -902,8 +902,8 @@ const MySmartGrcPage = () => {
         ref={servicesRef}
         className="py-5 bg-light"
         id="services-risk-assessment"
-        data-section="services-risk-assessment"
-      >
+        data-section="services-risk-assessment">
+      &gt;
         <div className="container py-3">
           <motion.div
             className="row mb-4"
@@ -1358,8 +1358,12 @@ const MySmartGrcPage = () => {
                 <motion.button
                   className={`btn ${activeApproachTab === "methodology" ? "btn-primary" : "btn-outline-primary"} me-3`}
                   onClick={() => {
-                    setActiveApproachTab("methodology")
-                    scrollToSection(methodologyRef)
+                    if (activeApproachTab === "methodology") {
+                      setActiveApproachTab("")
+                    } else {
+                      setActiveApproachTab("methodology")
+                      scrollToSection(methodologyRef)
+                    }
                   }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -1374,25 +1378,13 @@ const MySmartGrcPage = () => {
                 </motion.button>
                 <motion.button
                   className={`btn ${activeApproachTab === "implementation" ? "btn-primary" : "btn-outline-primary"}`}
+                  id="approach-implementation"
                   onClick={() => {
-                    setActiveApproachTab("implementation")
-                    // Make sure we're scrolling to the correct element
-                    const implementationSection = document.getElementById("approach-implementation")
-                    if (implementationSection) {
-                      const headerHeight = 150
-                      const elementPosition = implementationSection.getBoundingClientRect().top + window.scrollY
-                      const offsetPosition = elementPosition - headerHeight
-
-                      window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth",
-                      })
-
-                      // Highlight the section
-                      implementationSection.classList.add("highlight-section")
-                      setTimeout(() => {
-                        implementationSection.classList.remove("highlight-section")
-                      }, 2000)
+                    if (activeApproachTab === "implementation") {
+                      setActiveApproachTab("")
+                    } else {
+                      setActiveApproachTab("implementation")
+                      scrollToSection(implementationRef)
                     }
                   }}
                   whileHover={{ scale: 1.05 }}
@@ -1709,7 +1701,7 @@ const MySmartGrcPage = () => {
                 transition={{ duration: 0.6, delay: 0.2 * index }}
               >
                 <div className="position-relative" style={{ height: "320px", perspective: "1000px", maxWidth: "100%" }}>
-                  <motion.div
+                  &lt;<motion.div
                     className="card border-0 shadow-sm h-100 w-100"
                     style={{
                       position: "absolute",
@@ -2026,4 +2018,3 @@ const MySmartGrcPage = () => {
 }
 
 export default MySmartGrcPage
-

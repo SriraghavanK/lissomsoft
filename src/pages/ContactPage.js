@@ -79,14 +79,15 @@ const ContactPage = () => {
         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.506366230087!2d80.20867307524588!3d13.003393787314899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525e88875e0359%3A0x55634d593f082105!2sLissomsoft%20Technologies!5e0!3m2!1sen!2sin!4v1742192313588!5m2!1sen!2sin",
       images: [
         {
+          src: require("../assets/Lissomsoft.jpg"),
+          alt: "Lissomsoft Office Exterior",
+        },
+        {
           src: require("../assets/banner.jpg"),
           alt: "Lissomsoft Chennai Office Building",
           style:{width:"20px" ,height:"20px"},
         },
-        {
-          src: require("../assets/Lissomsoft.jpg"),
-          alt: "Lissomsoft Office Exterior",
-        },
+       
       
       ],
     },
