@@ -248,17 +248,20 @@ app.post("/api/contact", async (req, res) => {
     const now = new Date()
     // Calculate IST by adding 5 hours and 30 minutes to UTC
     const istTime = new Date(now.getTime() + 5.5 * 60 * 60 * 1000)
-    const options = {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: true,
-    }
-    const formattedDate = istTime.toLocaleDateString("en-IN", options)
-    const formattedTime = istTime.toLocaleTimeString("en-IN", options)
+
+    // Format date and time manually for IST
+    const formattedDate = istTime.getDate().toString().padStart(2, '0') + '/' +
+                         (istTime.getMonth() + 1).toString().padStart(2, '0') + '/' +
+                         istTime.getFullYear()
+
+    let hours = istTime.getHours()
+    const ampm = hours >= 12 ? 'PM' : 'AM'
+    hours = hours % 12
+    hours = hours ? hours : 12 // Handle midnight (0 hours)
+
+    const formattedTime = hours.toString().padStart(2, '0') + ':' +
+                         istTime.getMinutes().toString().padStart(2, '0') + ':' +
+                         istTime.getSeconds().toString().padStart(2, '0') + ' ' + ampm
 
     const sheets = setupGoogleSheets()
 
@@ -332,17 +335,20 @@ app.post("/api/career", upload.single("resume"), async (req, res) => {
     const now = new Date()
     // Calculate IST by adding 5 hours and 30 minutes to UTC
     const istTime = new Date(now.getTime() + 5.5 * 60 * 60 * 1000)
-    const options = {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: true,
-    }
-    const formattedDate = istTime.toLocaleDateString("en-IN", options)
-    const formattedTime = istTime.toLocaleTimeString("en-IN", options)
+
+    // Format date and time manually for IST
+    const formattedDate = istTime.getDate().toString().padStart(2, '0') + '/' +
+                         (istTime.getMonth() + 1).toString().padStart(2, '0') + '/' +
+                         istTime.getFullYear()
+
+    let hours = istTime.getHours()
+    const ampm = hours >= 12 ? 'PM' : 'AM'
+    hours = hours % 12
+    hours = hours ? hours : 12 // Handle midnight (0 hours)
+
+    const formattedTime = hours.toString().padStart(2, '0') + ':' +
+                         istTime.getMinutes().toString().padStart(2, '0') + ':' +
+                         istTime.getSeconds().toString().padStart(2, '0') + ' ' + ampm
 
     const sheets = setupGoogleSheets()
 
@@ -530,17 +536,20 @@ app.post("/api/submit-form", async (req, res) => {
     const now = new Date()
     // Calculate IST by adding 5 hours and 30 minutes to UTC
     const istTime = new Date(now.getTime() + 5.5 * 60 * 60 * 1000)
-    const options = {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: true,
-    }
-    const formattedDate = istTime.toLocaleDateString("en-IN", options)
-    const formattedTime = istTime.toLocaleTimeString("en-IN", options)
+
+    // Format date and time manually for IST
+    const formattedDate = istTime.getDate().toString().padStart(2, '0') + '/' +
+                         (istTime.getMonth() + 1).toString().padStart(2, '0') + '/' +
+                         istTime.getFullYear()
+
+    let hours = istTime.getHours()
+    const ampm = hours >= 12 ? 'PM' : 'AM'
+    hours = hours % 12
+    hours = hours ? hours : 12 // Handle midnight (0 hours)
+
+    const formattedTime = hours.toString().padStart(2, '0') + ':' +
+                         istTime.getMinutes().toString().padStart(2, '0') + ':' +
+                         istTime.getSeconds().toString().padStart(2, '0') + ' ' + ampm
 
     const sheets = setupGoogleSheets()
 
@@ -700,17 +709,20 @@ app.post("/api/partner", async (req, res) => {
     const now = new Date()
     // Calculate IST by adding 5 hours and 30 minutes to UTC
     const istTime = new Date(now.getTime() + 5.5 * 60 * 60 * 1000)
-    const options = {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: true,
-    }
-    const formattedDate = istTime.toLocaleDateString("en-IN", options)
-    const formattedTime = istTime.toLocaleTimeString("en-IN", options)
+
+    // Format date and time manually for IST
+    const formattedDate = istTime.getDate().toString().padStart(2, '0') + '/' +
+                         (istTime.getMonth() + 1).toString().padStart(2, '0') + '/' +
+                         istTime.getFullYear()
+
+    let hours = istTime.getHours()
+    const ampm = hours >= 12 ? 'PM' : 'AM'
+    hours = hours % 12
+    hours = hours ? hours : 12 // Handle midnight (0 hours)
+
+    const formattedTime = hours.toString().padStart(2, '0') + ':' +
+                         istTime.getMinutes().toString().padStart(2, '0') + ':' +
+                         istTime.getSeconds().toString().padStart(2, '0') + ' ' + ampm
 
     const sheets = setupGoogleSheets()
 
