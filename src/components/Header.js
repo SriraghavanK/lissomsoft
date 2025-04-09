@@ -1,19 +1,19 @@
-"use client"
-import { useState, useEffect, useRef } from "react"
-import { Link, NavLink, useLocation } from "react-router-dom"
-import { motion, AnimatePresence } from "framer-motion"
+"use client";
+import { useState, useEffect, useRef } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
-  const [scrolled, setScrolled] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
-  const navbarRef = useRef(null)
-  const [activeDropdown, setActiveDropdown] = useState(null)
-  const [hoverIndex, setHoverIndex] = useState(null)
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
-  const location = useLocation()
-  const mobileMenuRef = useRef(null)
-  const [activeTab, setActiveTab] = useState("risk-assessment")
-  const [activeApproachTab, setActiveApproachTab] = useState("methodology")
+  const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const navbarRef = useRef(null);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [hoverIndex, setHoverIndex] = useState(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const location = useLocation();
+  const mobileMenuRef = useRef(null);
+  const [activeTab, setActiveTab] = useState("risk-assessment");
+  const [activeApproachTab, setActiveApproachTab] = useState("methodology");
 
   // Improved detection for SmartGRC page
   const isSmartGrcPage =
@@ -21,123 +21,123 @@ const Header = () => {
     (window.location.pathname.includes("/smart-grc") ||
       window.location.pathname.includes("/mysmartgrc") ||
       window.location.pathname === "/mysmartgrc" ||
-      window.location.pathname === "/smart-grc")
+      window.location.pathname === "/smart-grc");
 
   useEffect(() => {
-    if (typeof window === "undefined") return
+    if (typeof window === "undefined") return;
 
     setDimensions({
       width: window.innerWidth,
       height: window.innerHeight,
-    })
+    });
 
     const handleResize = () => {
       setDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
-      })
+      });
 
       // Close mobile menu on resize to desktop
       if (window.innerWidth > 992 && isOpen) {
-        setIsOpen(false)
+        setIsOpen(false);
       }
-    }
+    };
 
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [isOpen])
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isOpen]);
 
   useEffect(() => {
-    if (typeof window === "undefined") return
+    if (typeof window === "undefined") return;
 
     const handleScroll = () => {
       if (window.scrollY > 50) {
-        setScrolled(true)
+        setScrolled(true);
       } else {
-        setScrolled(false)
+        setScrolled(false);
       }
-    }
+    };
 
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
-    if (typeof window === "undefined") return
+    if (typeof window === "undefined") return;
 
     const handleClickOutside = (event) => {
       if (navbarRef.current && !navbarRef.current.contains(event.target)) {
-        setActiveDropdown(null)
+        setActiveDropdown(null);
       }
-    }
+    };
 
-    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Handle body scroll lock when mobile menu is open
   useEffect(() => {
-    if (typeof window === "undefined") return
+    if (typeof window === "undefined") return;
 
     if (isOpen) {
-      document.body.style.overflow = "hidden"
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = ""
+      document.body.style.overflow = "";
     }
 
     return () => {
-      document.body.style.overflow = ""
-    }
-  }, [isOpen])
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   // Add this before the return statement
   useEffect(() => {
-    if (typeof window === "undefined") return
+    if (typeof window === "undefined") return;
 
     // Add the styles to the document
-    const styleElement = document.createElement("style")
-    styleElement.innerHTML = styles
-    document.head.appendChild(styleElement)
+    const styleElement = document.createElement("style");
+    styleElement.innerHTML = styles;
+    document.head.appendChild(styleElement);
 
     // Initialize particles if not on SmartGRC page
     if (!isSmartGrcPage) {
-      initParticles()
+      initParticles();
     }
 
     return () => {
       if (styleElement && document.head.contains(styleElement)) {
-        document.head.removeChild(styleElement)
+        document.head.removeChild(styleElement);
       }
-      const canvas = document.getElementById("navbar-particles")
+      const canvas = document.getElementById("navbar-particles");
       if (canvas) {
-        canvas.remove()
+        canvas.remove();
       }
-    }
-  }, [isSmartGrcPage])
+    };
+  }, [isSmartGrcPage]);
 
   const initParticles = () => {
-    if (typeof window === "undefined") return
+    if (typeof window === "undefined") return;
 
     // Create canvas element for particles
-    const canvas = document.createElement("canvas")
-    canvas.id = "navbar-particles"
-    canvas.className = "navbar-particles"
+    const canvas = document.createElement("canvas");
+    canvas.id = "navbar-particles";
+    canvas.className = "navbar-particles";
 
     // Append to body
-    document.body.appendChild(canvas)
+    document.body.appendChild(canvas);
 
-    const ctx = canvas.getContext("2d")
-    canvas.width = window.innerWidth
-    canvas.height = 70
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = 70;
 
     // Particle settings
-    const particlesArray = []
-    const numberOfParticles = 50
+    const particlesArray = [];
+    const numberOfParticles = 50;
 
     // Create particles
     for (let i = 0; i < numberOfParticles; i++) {
@@ -148,167 +148,179 @@ const Header = () => {
         speedX: Math.random() * 1 - 0.5,
         speedY: Math.random() * 1 - 0.5,
         opacity: Math.random() * 0.5 + 0.1,
-      })
+      });
     }
 
     // Animation function
     function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       for (let i = 0; i < particlesArray.length; i++) {
-        const p = particlesArray[i]
-        ctx.fillStyle = `rgba(0, 119, 182, ${p.opacity})`
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
-        ctx.fill()
+        const p = particlesArray[i];
+        ctx.fillStyle = `rgba(0, 119, 182, ${p.opacity})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
 
-        p.x += p.speedX
-        p.y += p.speedY
+        p.x += p.speedX;
+        p.y += p.speedY;
 
-        if (p.x > canvas.width) p.x = 0
-        if (p.x < 0) p.x = canvas.width
-        if (p.y > canvas.height) p.y = 0
-        if (p.y < 0) p.y = canvas.height
+        if (p.x > canvas.width) p.x = 0;
+        if (p.x < 0) p.x = canvas.width;
+        if (p.y > canvas.height) p.y = 0;
+        if (p.y < 0) p.y = canvas.height;
       }
 
-      requestAnimationFrame(animateParticles)
+      requestAnimationFrame(animateParticles);
     }
 
-    animateParticles()
+    animateParticles();
 
     // Handle resize
     window.addEventListener("resize", () => {
-      canvas.width = window.innerWidth
-      canvas.height = 70
-    })
-  }
+      canvas.width = window.innerWidth;
+      canvas.height = 70;
+    });
+  };
 
   // Improved dropdown toggle function
   const toggleDropdown = (id) => {
-    console.log("Toggling dropdown:", id, "Current active:", activeDropdown)
+    console.log("Toggling dropdown:", id, "Current active:", activeDropdown);
     if (activeDropdown === id) {
-      setActiveDropdown(null)
+      setActiveDropdown(null);
     } else {
-      setActiveDropdown(id)
+      setActiveDropdown(id);
 
       // Add this condition to handle desktop behavior
       if (dimensions.width > 991) {
-        closeDropdownOnOutsideClick()
+        closeDropdownOnOutsideClick();
       }
     }
-  }
+  };
 
   const closeDropdownOnOutsideClick = () => {
-    if (typeof window === "undefined") return
+    if (typeof window === "undefined") return;
 
     // Add a click event listener to the document
     const handleDocumentClick = (e) => {
       // Check if the click is outside the navbar
       if (navbarRef.current && !navbarRef.current.contains(e.target)) {
-        setActiveDropdown(null)
+        setActiveDropdown(null);
         // Remove the event listener once the dropdown is closed
-        document.removeEventListener("click", handleDocumentClick)
+        document.removeEventListener("click", handleDocumentClick);
       }
-    }
+    };
 
     // Add the event listener with a slight delay to avoid immediate triggering
     setTimeout(() => {
-      document.addEventListener("click", handleDocumentClick)
-    }, 100)
-  }
+      document.addEventListener("click", handleDocumentClick);
+    }, 100);
+  };
 
   // Improved scrollToSection function with better error handling and debugging
   const scrollToSection = (id) => {
-    if (typeof window === "undefined") return
+    if (typeof window === "undefined") return;
 
-    console.log(`Attempting to scroll to section: ${id}`)
+    console.log(`Attempting to scroll to section: ${id}`);
 
     // SPECIAL CASE: If this is an implementation link, directly find that section
     if (id === "approach-implementation" || id === "implementation") {
-      const implementationSection = document.getElementById("approach-implementation")
+      const implementationSection = document.getElementById(
+        "approach-implementation"
+      );
       if (implementationSection) {
-        scrollToTarget(implementationSection)
+        scrollToTarget(implementationSection);
 
         // Also set the active tab to implementation
         if (window.setActiveTabFromHash) {
-          window.setActiveTabFromHash("#implementation")
+          window.setActiveTabFromHash("#implementation");
         } else {
           // If we can't directly access the state setter, try to find and click the implementation button
-          const implementationButton = document.querySelector('button[id="approach-implementation"]')
-          if (implementationButton) implementationButton.click()
+          const implementationButton = document.querySelector(
+            'button[id="approach-implementation"]'
+          );
+          if (implementationButton) implementationButton.click();
         }
-        return
+        return;
       }
     }
 
     // Special case for methodology
     if (id === "approach-methodology" || id === "methodology") {
-      const methodologySection = document.getElementById("approach-methodology")
+      const methodologySection = document.getElementById(
+        "approach-methodology"
+      );
       if (methodologySection) {
-        scrollToTarget(methodologySection)
+        scrollToTarget(methodologySection);
         // Set the active tab to methodology
         if (window.setActiveTabFromHash) {
-          window.setActiveTabFromHash("#methodology")
+          window.setActiveTabFromHash("#methodology");
         } else {
           // If we can't directly access the state setter, try to find and click the methodology button
-          const methodologyButton = document.querySelector('button[id="approach-methodology"]')
-          if (methodologyButton) methodologyButton.click()
+          const methodologyButton = document.querySelector(
+            'button[id="approach-methodology"]'
+          );
+          if (methodologyButton) methodologyButton.click();
         }
-        return
+        return;
       }
     }
 
     // Special case for vendor risk
     if (id === "services-vendor" || id === "vendor") {
-      const vendorSection = document.getElementById("services-vendor")
+      const vendorSection = document.getElementById("services-vendor");
       if (vendorSection) {
-        scrollToTarget(vendorSection)
+        scrollToTarget(vendorSection);
         // Set the active tab to vendor-risk
         if (window.setActiveTabFromHash) {
-          window.setActiveTabFromHash("#vendor")
+          window.setActiveTabFromHash("#vendor");
         }
-        return
+        return;
       }
     }
 
     // Special case for IT risk
     if (id === "services-it" || id === "it") {
-      const itSection = document.getElementById("services-it")
+      const itSection = document.getElementById("services-it");
       if (itSection) {
-        scrollToTarget(itSection)
+        scrollToTarget(itSection);
         // Set the active tab to it-cyber-risk
         if (window.setActiveTabFromHash) {
-          window.setActiveTabFromHash("#it")
+          window.setActiveTabFromHash("#it");
         }
-        return
+        return;
       }
     }
 
     // Special case for OUR APPROACH
     if (id === "our-approach" || id.toLowerCase() === "our approach") {
-      const approachSection = document.getElementById("our-approach")
+      const approachSection = document.getElementById("our-approach");
       if (approachSection) {
-        scrollToTarget(approachSection)
-        return
+        scrollToTarget(approachSection);
+        return;
       }
     }
 
     // Special case for SERVICES
     if (id === "services" || id.toLowerCase() === "services") {
-      const servicesSection = document.getElementById("services-risk-assessment")
+      const servicesSection = document.getElementById(
+        "services-risk-assessment"
+      );
       if (servicesSection) {
-        scrollToTarget(servicesSection)
-        return
+        scrollToTarget(servicesSection);
+        return;
       }
     }
 
     // Normal case - find the element
-    const element = document.getElementById(id)
+    const element = document.getElementById(id);
 
     if (element) {
-      scrollToTarget(element)
+      scrollToTarget(element);
     } else {
-      console.log(`Element with ID "${id}" not found, trying alternative selectors`)
+      console.log(
+        `Element with ID "${id}" not found, trying alternative selectors`
+      );
 
       // Alternative IDs mapping
       const alternativeIds = {
@@ -322,72 +334,77 @@ const Header = () => {
         "risk-assessment": "services-risk-assessment",
         compliance: "services-compliance",
         training: "services-training",
-      }
+      };
 
       // Try the alternative ID if available
       if (alternativeIds[id]) {
-        const altElement = document.getElementById(alternativeIds[id])
+        const altElement = document.getElementById(alternativeIds[id]);
         if (altElement) {
-          scrollToTarget(altElement)
-          return
+          scrollToTarget(altElement);
+          return;
         }
       }
 
       // Last resort - log all available IDs
-      console.log("Available section IDs:")
+      console.log("Available section IDs:");
       document.querySelectorAll("[id]").forEach((el) => {
-        console.log(`- ${el.id}`)
-      })
+        console.log(`- ${el.id}`);
+      });
     }
 
     // Helper function to scroll to an element
     function scrollToTarget(target) {
       // Get accurate navbar height with fallback
-      const navbar = document.querySelector(".navbar")
-      const navbarHeight = navbar ? navbar.offsetHeight : 80
+      const navbar = document.querySelector(".navbar");
+      const navbarHeight = navbar ? navbar.offsetHeight : 80;
 
       // Calculate position with extra buffer
-      const buffer = 20 // Extra space for better visibility
-      const elementPosition = target.getBoundingClientRect().top + window.pageYOffset
-      const offsetPosition = elementPosition - navbarHeight - buffer
+      const buffer = 20; // Extra space for better visibility
+      const elementPosition =
+        target.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - navbarHeight - buffer;
 
-      console.log(`Scrolling to ${target.id} at position: ${offsetPosition}px`)
+      console.log(`Scrolling to ${target.id} at position: ${offsetPosition}px`);
 
       // FIRST ATTEMPT - try smooth scroll
       window.scrollTo({
         top: offsetPosition,
         behavior: "smooth",
-      })
+      });
 
       // FIX FOR MID-SCROLL ISSUE: Do a second scroll after a short delay
       setTimeout(() => {
         // Get updated position in case content shifted
-        const updatedElementPosition = target.getBoundingClientRect().top + window.pageYOffset
-        const updatedOffsetPosition = updatedElementPosition - navbarHeight - buffer
+        const updatedElementPosition =
+          target.getBoundingClientRect().top + window.pageYOffset;
+        const updatedOffsetPosition =
+          updatedElementPosition - navbarHeight - buffer;
 
-        console.log(`Second scroll to ${target.id} at position: ${updatedOffsetPosition}px`)
+        console.log(
+          `Second scroll to ${target.id} at position: ${updatedOffsetPosition}px`
+        );
 
         // Second scroll to ensure we reach the correct position
         window.scrollTo({
           top: updatedOffsetPosition,
           behavior: "smooth",
-        })
+        });
 
         // Add a highlight effect
-        target.classList.add("highlight-section")
+        target.classList.add("highlight-section");
         setTimeout(() => {
-          target.classList.remove("highlight-section")
-        }, 1500)
-      }, 500) // 500ms delay for second scroll
+          target.classList.remove("highlight-section");
+        }, 1500);
+      }, 500); // 500ms delay for second scroll
 
       // Close mobile menus if open
-      setIsOpen(false)
-      setActiveDropdown(null)
+      setIsOpen(false);
+      setActiveDropdown(null);
 
       // Update URL hash without page reload
-      window.history.pushState(null, "", `#${target.id}`)
+      window.history.pushState(null, "", `#${target.id}`);
     }
-  }
+  };
 
   const dropdownVariants = {
     hidden: {
@@ -410,12 +427,12 @@ const Header = () => {
         when: "beforeChildren",
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { opacity: 0, y: -10, scale: 0.95 },
     visible: { opacity: 1, y: 0, scale: 1 },
-  }
+  };
 
   // Mobile menu animation variants
   const mobileMenuVariants = {
@@ -439,19 +456,19 @@ const Header = () => {
         delayChildren: 0.05,
       },
     },
-  }
+  };
 
   const mobileItemVariants = {
     closed: { opacity: 0, x: 10 },
     open: { opacity: 1, x: 0 },
-  }
+  };
 
   // Regular Lissomsoft navigation items - Updated to include Team
   const home = {
     name: "Home",
     path: "/",
     icon: "home",
-  }
+  };
   const navItems = [
     {
       title: "SOLUTIONS",
@@ -484,9 +501,9 @@ const Header = () => {
         { name: "Careers", path: "/career", icon: "briefcase" },
       ],
     },
-  ]
+  ];
 
-  const singleNavItems = ["PARTNERS", "MYSMARTGRC", "RESOURCES", "CONTACT"]
+  const singleNavItems = ["PARTNERS", "MYSMARTGRC", "RESOURCES", "CONTACT"];
 
   // Updated SmartGRC navigation items with correct IDs
   const smartGrcNavItems = [
@@ -499,9 +516,14 @@ const Header = () => {
         { name: "Experts", path: "#mysmartgrc-experts", icon: "check-circle" },
       ],
     },
-  ]
+  ];
 
-  const smartGrcSingleItems = ["OUR APPROACH", "SERVICES", "BENEFITS", "CONTACT"]
+  const smartGrcSingleItems = [
+    "OUR APPROACH",
+    "SERVICES",
+    "BENEFITS",
+    "CONTACT",
+  ];
 
   // Render the SmartGRC header
   if (isSmartGrcPage) {
@@ -519,13 +541,10 @@ const Header = () => {
           {/* Fix 8: Update the SmartGRC header brand link to point to /mysmartgrc */}
           <a
             className="navbar-brand"
-            href="https://mysmartgrc.com"
-            target="_blank"
+            href="#"
+          
             rel="noopener noreferrer"
-            onClick={(e) => {
-              window.open("/mysmartgrc", "_blank")
-              e.preventDefault()
-            }}
+         
           >
             <motion.div
               className="d-flex align-items-center"
@@ -585,7 +604,9 @@ const Header = () => {
             >
               {smartGrcNavItems.map((dropdown, index) => (
                 <motion.li
-                  className={`nav-item dropdown ${activeDropdown === dropdown.id ? "show" : ""}`}
+                  className={`nav-item dropdown ${
+                    activeDropdown === dropdown.id ? "show" : ""
+                  }`}
                   key={dropdown.id}
                   variants={{
                     hidden: { opacity: 0, y: -20 },
@@ -593,12 +614,14 @@ const Header = () => {
                   }}
                 >
                   <a
-                    className={`nav-link dropdown fw-semibold ${activeDropdown === dropdown.id ? "active" : ""}`}
+                    className={`nav-link dropdown fw-semibold ${
+                      activeDropdown === dropdown.id ? "active" : ""
+                    }`}
                     href="#"
                     id={dropdown.id}
                     onClick={(e) => {
-                      e.preventDefault()
-                      toggleDropdown(dropdown.id)
+                      e.preventDefault();
+                      toggleDropdown(dropdown.id);
                     }}
                     aria-expanded={activeDropdown === dropdown.id}
                   >
@@ -623,7 +646,10 @@ const Header = () => {
                         exit="hidden"
                         variants={dropdownVariants}
                       >
-                        <div className="dropdown-menu-backdrop" onClick={() => setActiveDropdown(null)}></div>
+                        <div
+                          className="dropdown-menu-backdrop"
+                          onClick={() => setActiveDropdown(null)}
+                        ></div>
                         <motion.ul className="dropdown-menu custom-dropdown">
                           <div className="dropdown-header">
                             <span>{dropdown.title}</span>
@@ -636,13 +662,15 @@ const Header = () => {
                               onHoverEnd={() => setHoverIndex(null)}
                             >
                               <a
-                                className={`dropdown-item ${hoverIndex === i ? "active" : ""}`}
+                                className={`dropdown-item ${
+                                  hoverIndex === i ? "active" : ""
+                                }`}
                                 href={item.path}
                                 onClick={(e) => {
-                                  e.preventDefault()
-                                  const sectionId = item.path.replace("#", "")
-                                  scrollToSection(sectionId)
-                                  setActiveDropdown(null)
+                                  e.preventDefault();
+                                  const sectionId = item.path.replace("#", "");
+                                  scrollToSection(sectionId);
+                                  setActiveDropdown(null);
                                 }}
                               >
                                 <span className="dropdown-icon icon-circle">
@@ -680,8 +708,8 @@ const Header = () => {
                     className={`nav-link fw-semibold`}
                     href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
                     onClick={(e) => {
-                      e.preventDefault()
-                      scrollToSection(item.toLowerCase().replace(/\s+/g, "-"))
+                      e.preventDefault();
+                      scrollToSection(item.toLowerCase().replace(/\s+/g, "-"));
                     }}
                   >
                     <span className="nav-text">{item}</span>
@@ -727,10 +755,14 @@ const Header = () => {
                           ? "https://lissomsoft.com/smart-grc/assets/logo/My%20Smart%20GRC-Logo%20(250x127%20px)1.png"
                           : "https://www.lissomsoft.com/assets/brand/lissom_logo.png"
                       }
-                      alt={isSmartGrcPage ? "My Smart GRC Logo" : "Lissomsoft Logo"}
+                      alt={
+                        isSmartGrcPage ? "My Smart GRC Logo" : "Lissomsoft Logo"
+                      }
                       className="mobile-logo"
                     />
-                    <span className="mobile-brand-text">{isSmartGrcPage ? "My Smart GRC" : "LISSOMSOFT"}</span>
+                    <span className="mobile-brand-text">
+                      {isSmartGrcPage ? "My Smart GRC" : "LISSOMSOFT"}
+                    </span>
                   </div>
                 </div>
 
@@ -743,9 +775,9 @@ const Header = () => {
                       variants={mobileItemVariants}
                       custom={1}
                       onClick={(e) => {
-                        e.preventDefault()
-                        window.location.href = "/"
-                        setIsOpen(false)
+                        e.preventDefault();
+                        window.location.href = "/";
+                        setIsOpen(false);
                       }}
                       whileHover={{ x: 5 }}
                       whileTap={{ scale: 0.98 }}
@@ -755,90 +787,111 @@ const Header = () => {
                         <span>Back to Lissomsoft</span>
                       </span>
                     </motion.a>
-                    {(isSmartGrcPage ? smartGrcNavItems : navItems).map((category, index) => (
-                      <motion.div
-                        className="mobile-menu-category"
-                        key={category.id}
-                        variants={mobileItemVariants}
-                        custom={index + 2}
-                      >
+                    {(isSmartGrcPage ? smartGrcNavItems : navItems).map(
+                      (category, index) => (
                         <motion.div
-                          className={`mobile-category-header ${activeDropdown === category.id ? "active" : ""}`}
-                          onClick={() => toggleDropdown(category.id)}
-                          whileTap={{ scale: 0.98 }}
+                          className="mobile-menu-category"
+                          key={category.id}
+                          variants={mobileItemVariants}
+                          custom={index + 2}
                         >
-                          <span>{category.title}</span>
-                          <motion.span
-                            className="mobile-dropdown-icon"
-                            animate={{
-                              rotate: activeDropdown === category.id ? 180 : 0,
-                            }}
-                            transition={{ duration: 0.3 }}
+                          <motion.div
+                            className={`mobile-category-header ${
+                              activeDropdown === category.id ? "active" : ""
+                            }`}
+                            onClick={() => toggleDropdown(category.id)}
+                            whileTap={{ scale: 0.98 }}
                           >
-                            <i className="fas fa-chevron-down"></i>
-                          </motion.span>
-                        </motion.div>
-
-                        <AnimatePresence>
-                          {activeDropdown === category.id && (
-                            <motion.div
-                              className="mobile-submenu"
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: "auto", opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
+                            <span>{category.title}</span>
+                            <motion.span
+                              className="mobile-dropdown-icon"
+                              animate={{
+                                rotate:
+                                  activeDropdown === category.id ? 180 : 0,
+                              }}
                               transition={{ duration: 0.3 }}
                             >
-                              {category.items.map((item, i) => (
-                                <motion.a
-                                  key={i}
-                                  href={item.path}
-                                  className="mobile-submenu-item"
-                                  initial={{ opacity: 0, x: -20 }}
-                                  animate={{ opacity: 1, x: 0 }}
-                                  transition={{ delay: i * 0.05 }}
-                                  onClick={(e) => {
-                                    e.preventDefault()
-                                    if (item.path.includes("#")) {
-                                      const sectionId = item.path.replace("#", "")
-                                      scrollToSection(sectionId)
-                                    } else {
-                                      // Fix: Add navigation for regular Lissomsoft navbar dropdown items
-                                      window.location.href = item.path
-                                    }
-                                    setIsOpen(false)
-                                  }}
-                                  whileHover={{ x: 5 }}
-                                  whileTap={{ scale: 0.98 }}
-                                >
-                                  <i className={`fas fa-${item.icon}`}></i>
-                                  <span>{item.name}</span>
-                                </motion.a>
-                              ))}
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </motion.div>
-                    ))}
+                              <i className="fas fa-chevron-down"></i>
+                            </motion.span>
+                          </motion.div>
 
-                    {(isSmartGrcPage ? smartGrcSingleItems : singleNavItems).map((item, index) => (
+                          <AnimatePresence>
+                            {activeDropdown === category.id && (
+                              <motion.div
+                                className="mobile-submenu"
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                              >
+                                {category.items.map((item, i) => (
+                                  <motion.a
+                                    key={i}
+                                    href={item.path}
+                                    className="mobile-submenu-item"
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: i * 0.05 }}
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      if (item.path.includes("#")) {
+                                        const sectionId = item.path.replace(
+                                          "#",
+                                          ""
+                                        );
+                                        scrollToSection(sectionId);
+                                      } else {
+                                        // Fix: Add navigation for regular Lissomsoft navbar dropdown items
+                                        window.location.href = item.path;
+                                      }
+                                      setIsOpen(false);
+                                    }}
+                                    whileHover={{ x: 5 }}
+                                    whileTap={{ scale: 0.98 }}
+                                  >
+                                    <i className={`fas fa-${item.icon}`}></i>
+                                    <span>{item.name}</span>
+                                  </motion.a>
+                                ))}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </motion.div>
+                      )
+                    )}
+
+                    {(isSmartGrcPage
+                      ? smartGrcSingleItems
+                      : singleNavItems
+                    ).map((item, index) => (
                       <motion.a
                         key={item}
                         href={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
-                        className={`mobile-menu-item ${item === "CONTACT" ? "mobile-contact-btn" : ""}`}
+                        className={`mobile-menu-item ${
+                          item === "CONTACT" ? "mobile-contact-btn" : ""
+                        }`}
                         variants={mobileItemVariants}
-                        custom={index + (isSmartGrcPage ? smartGrcNavItems.length : navItems.length) + 3}
+                        custom={
+                          index +
+                          (isSmartGrcPage
+                            ? smartGrcNavItems.length
+                            : navItems.length) +
+                          3
+                        }
                         onClick={(e) => {
-                          e.preventDefault()
+                          e.preventDefault();
                           if (item.toLowerCase() === "contact") {
                             // Special handling for contact
-                            window.location.href = `/${item.toLowerCase()}`
+                            window.location.href = `/${item.toLowerCase()}`;
                           } else if (isSmartGrcPage) {
-                            scrollToSection(item.toLowerCase().replace(/\s+/g, "-"))
+                            scrollToSection(
+                              item.toLowerCase().replace(/\s+/g, "-")
+                            );
                           } else {
                             // Fix: Add navigation for regular Lissomsoft navbar items
-                            window.location.href = `/${item.toLowerCase()}`
+                            window.location.href = `/${item.toLowerCase()}`;
                           }
-                          setIsOpen(false)
+                          setIsOpen(false);
                         }}
                         whileHover={{ x: 5 }}
                         whileTap={{ scale: 0.98 }}
@@ -856,7 +909,11 @@ const Header = () => {
                 </div>
 
                 {/* Enhanced footer with more information */}
-                <motion.div className="mobile-menu-footer" variants={mobileItemVariants} custom={10}>
+                <motion.div
+                  className="mobile-menu-footer"
+                  variants={mobileItemVariants}
+                  custom={10}
+                >
                   {isSmartGrcPage ? (
                     <>
                       <div className="social-icons">
@@ -926,7 +983,10 @@ const Header = () => {
                         />
                       </div>
 
-                      <p className="copyright mt-2">© {new Date().getFullYear()} Lissomsoft. All rights reserved.</p>
+                      <p className="copyright mt-2">
+                        © {new Date().getFullYear()} Lissomsoft. All rights
+                        reserved.
+                      </p>
                     </>
                   ) : (
                     <>
@@ -989,7 +1049,10 @@ const Header = () => {
                           <i className="fab fa-youtube"></i>
                         </motion.a>
                       </div>
-                      <p className="copyright">© {new Date().getFullYear()} Lissomsoft. All rights reserved.</p>
+                      <p className="copyright">
+                        © {new Date().getFullYear()} Lissomsoft. All rights
+                        reserved.
+                      </p>
                     </>
                   )}
                 </motion.div>
@@ -1020,13 +1083,15 @@ const Header = () => {
           </AnimatePresence>
         </div>
       </motion.nav>
-    )
+    );
   }
 
   // Render the regular Lissomsoft header - FIXED to match SmartGRC structure
   return (
     <motion.nav
-      className={`navbar navbar-expand-lg fixed-top ${scrolled ? "scrolled" : ""} ${isOpen ? "menu-open" : ""}`}
+      className={`navbar navbar-expand-lg fixed-top ${
+        scrolled ? "scrolled" : ""
+      } ${isOpen ? "menu-open" : ""}`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100, damping: 15 }}
@@ -1036,7 +1101,7 @@ const Header = () => {
       <div className="navbar-glow"></div>
       <div className="navbar-shimmer"></div>
       <div className="container">
-        <a className="navbar-brand" href="/">
+        <a className="navbar-brand" href="#">
           <motion.div
             className="d-flex align-items-center"
             whileHover={{ scale: 1.05 }}
@@ -1102,7 +1167,9 @@ const Header = () => {
               }}
             >
               <NavLink
-                className={({ isActive }) => `nav-link fw-semibold ${isActive ? "active" : ""}`}
+                className={({ isActive }) =>
+                  `nav-link fw-semibold ${isActive ? "active" : ""}`
+                }
                 to={home.path}
                 onClick={() => setIsOpen(false)}
               >
@@ -1112,7 +1179,9 @@ const Header = () => {
             </motion.li>
             {navItems.map((dropdown, index) => (
               <motion.li
-                className={`nav-item dropdown ${activeDropdown === dropdown.id ? "show" : ""}`}
+                className={`nav-item dropdown ${
+                  activeDropdown === dropdown.id ? "show" : ""
+                }`}
                 key={dropdown.id}
                 variants={{
                   hidden: { opacity: 0, y: -20 },
@@ -1120,12 +1189,14 @@ const Header = () => {
                 }}
               >
                 <a
-                  className={`nav-link dropdown fw-semibold ${activeDropdown === dropdown.id ? "active" : ""}`}
+                  className={`nav-link dropdown fw-semibold ${
+                    activeDropdown === dropdown.id ? "active" : ""
+                  }`}
                   href="#"
                   id={dropdown.id}
                   onClick={(e) => {
-                    e.preventDefault()
-                    toggleDropdown(dropdown.id)
+                    e.preventDefault();
+                    toggleDropdown(dropdown.id);
                   }}
                   aria-expanded={activeDropdown === dropdown.id}
                 >
@@ -1150,7 +1221,10 @@ const Header = () => {
                       exit="hidden"
                       variants={dropdownVariants}
                     >
-                      <div className="dropdown-menu-backdrop" onClick={() => setActiveDropdown(null)}></div>
+                      <div
+                        className="dropdown-menu-backdrop"
+                        onClick={() => setActiveDropdown(null)}
+                      ></div>
                       <motion.ul className="dropdown-menu custom-dropdown">
                         <div className="dropdown-header">
                           <span>{dropdown.title}</span>
@@ -1163,11 +1237,13 @@ const Header = () => {
                             onHoverEnd={() => setHoverIndex(null)}
                           >
                             <Link
-                              className={`dropdown-item ${hoverIndex === i ? "active" : ""}`}
+                              className={`dropdown-item ${
+                                hoverIndex === i ? "active" : ""
+                              }`}
                               to={item.path}
                               onClick={() => {
-                                setActiveDropdown(null)
-                                setIsOpen(false)
+                                setActiveDropdown(null);
+                                setIsOpen(false);
                               }}
                             >
                               <span className="dropdown-icon icon-circle">
@@ -1202,16 +1278,20 @@ const Header = () => {
                 }}
               >
                 <NavLink
-                  className={({ isActive }) => `nav-link fw-semibold ${isActive ? "active" : ""}`}
+                  className={({ isActive }) =>
+                    `nav-link fw-semibold ${isActive ? "active" : ""}`
+                  }
                   to={`/${item.toLowerCase()}`}
                   target={item === "MYSMARTGRC" ? "_blank" : undefined}
-                  rel={item === "MYSMARTGRC" ? "noopener noreferrer" : undefined}
+                  rel={
+                    item === "MYSMARTGRC" ? "noopener noreferrer" : undefined
+                  }
                   onClick={(e) => {
                     if (item === "MYSMARTGRC") {
-                      e.preventDefault()
-                      window.open("/mysmartgrc", "_blank")
+                      e.preventDefault();
+                      window.open("/mysmartgrc", "_blank");
                     }
-                    setIsOpen(false)
+                    setIsOpen(false);
                   }}
                 >
                   <span className="nav-text">{item}</span>
@@ -1242,10 +1322,14 @@ const Header = () => {
                         ? "https://lissomsoft.com/smart-grc/assets/logo/My%20Smart%20GRC-Logo%20(250x127%20px)1.png"
                         : "https://www.lissomsoft.com/assets/brand/lissom_logo.png"
                     }
-                    alt={isSmartGrcPage ? "My Smart GRC Logo" : "Lissomsoft Logo"}
+                    alt={
+                      isSmartGrcPage ? "My Smart GRC Logo" : "Lissomsoft Logo"
+                    }
                     className="mobile-logo"
                   />
-                  <span className="mobile-brand-text">{isSmartGrcPage ? "My Smart GRC" : "LISSOMSOFT"}</span>
+                  <span className="mobile-brand-text">
+                    {isSmartGrcPage ? "My Smart GRC" : "LISSOMSOFT"}
+                  </span>
                 </div>
               </div>
 
@@ -1260,9 +1344,9 @@ const Header = () => {
                     className="mobile-menu-item home-item"
                     variants={mobileItemVariants}
                     onClick={(e) => {
-                      e.preventDefault()
-                      window.location.href = "/"
-                      setIsOpen(false)
+                      e.preventDefault();
+                      window.location.href = "/";
+                      setIsOpen(false);
                     }}
                     whileHover={{ x: 5 }}
                     whileTap={{ scale: 0.98 }}
@@ -1272,113 +1356,142 @@ const Header = () => {
                       <span className="ms-2">Home</span>
                     </span>
                   </motion.a>
-                  {(isSmartGrcPage ? smartGrcNavItems : navItems).map((category, index) => (
-                    <motion.div
-                      className="mobile-menu-category"
-                      key={category.id}
-                      variants={mobileItemVariants}
-                      custom={index + 2}
-                    >
+                  {(isSmartGrcPage ? smartGrcNavItems : navItems).map(
+                    (category, index) => (
                       <motion.div
-                        className={`mobile-category-header ${activeDropdown === category.id ? "active" : ""}`}
-                        onClick={() => toggleDropdown(category.id)}
-                        whileTap={{ scale: 0.98 }}
+                        className="mobile-menu-category"
+                        key={category.id}
+                        variants={mobileItemVariants}
+                        custom={index + 2}
                       >
-                        <span>{category.title}</span>
-                        <motion.span
-                          className="mobile-dropdown-icon"
-                          animate={{
-                            rotate: activeDropdown === category.id ? 180 : 0,
-                          }}
-                          transition={{ duration: 0.3 }}
+                        <motion.div
+                          className={`mobile-category-header ${
+                            activeDropdown === category.id ? "active" : ""
+                          }`}
+                          onClick={() => toggleDropdown(category.id)}
+                          whileTap={{ scale: 0.98 }}
                         >
-                          <i className="fas fa-chevron-down"></i>
-                        </motion.span>
-                      </motion.div>
-
-                      <AnimatePresence>
-                        {activeDropdown === category.id && (
-                          <motion.div
-                            className="mobile-submenu"
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
+                          <span>{category.title}</span>
+                          <motion.span
+                            className="mobile-dropdown-icon"
+                            animate={{
+                              rotate: activeDropdown === category.id ? 180 : 0,
+                            }}
                             transition={{ duration: 0.3 }}
                           >
-                            {category.items.map((item, i) => (
-                              <motion.a
-                                key={i}
-                                href={item.path}
-                                className="mobile-submenu-item"
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: i * 0.05 }}
-                                onClick={(e) => {
-                                  e.preventDefault()
-                                  if (item.path.includes("#")) {
-                                    const sectionId = item.path.replace("#", "")
-                                    scrollToSection(sectionId)
-                                  } else {
-                                    // Fix: Add navigation for regular Lissomsoft navbar items
-                                    window.location.href = item.path
-                                  }
-                                  setIsOpen(false)
-                                }}
-                                whileHover={{ x: 5 }}
-                                whileTap={{ scale: 0.98 }}
-                              >
-                                <i className={`fas fa-${item.icon}`}></i>
-                                <span>{item.name}</span>
-                              </motion.a>
-                            ))}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </motion.div>
-                  ))}
+                            <i className="fas fa-chevron-down"></i>
+                          </motion.span>
+                        </motion.div>
 
-                  {(isSmartGrcPage ? smartGrcSingleItems : singleNavItems).map((item, index) => (
-                    <motion.a
-                      key={item}
-                      href={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
-                      className={`mobile-menu-item ${item === "CONTACT" ? "mobile-contact-btn" : ""}`}
-                      variants={mobileItemVariants}
-                      custom={index + (isSmartGrcPage ? smartGrcNavItems.length : navItems.length) + 3}
-                      onClick={(e) => {
-                        e.preventDefault()
-                        if (item.toLowerCase() === "contact") {
-                          // Special handling for contact
-                          window.location.href = `/${item.toLowerCase()}`
-                        } else if (isSmartGrcPage) {
-                          scrollToSection(item.toLowerCase().replace(/\s+/g, "-"))
-                        } else {
-                          // Fix: Add navigation for regular Lissomsoft navbar items
-                          window.location.href = `/${item.toLowerCase()}`
+                        <AnimatePresence>
+                          {activeDropdown === category.id && (
+                            <motion.div
+                              className="mobile-submenu"
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              {category.items.map((item, i) => (
+                                <motion.a
+                                  key={i}
+                                  href={item.path}
+                                  className="mobile-submenu-item"
+                                  initial={{ opacity: 0, x: -20 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: i * 0.05 }}
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    if (item.path.includes("#")) {
+                                      const sectionId = item.path.replace(
+                                        "#",
+                                        ""
+                                      );
+                                      scrollToSection(sectionId);
+                                    } else {
+                                      // Fix: Add navigation for regular Lissomsoft navbar items
+                                      window.location.href = item.path;
+                                    }
+                                    setIsOpen(false);
+                                  }}
+                                  whileHover={{ x: 5 }}
+                                  whileTap={{ scale: 0.98 }}
+                                >
+                                  <i className={`fas fa-${item.icon}`}></i>
+                                  <span>{item.name}</span>
+                                </motion.a>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </motion.div>
+                    )
+                  )}
+
+                  {(isSmartGrcPage ? smartGrcSingleItems : singleNavItems).map(
+                    (item, index) => (
+                      <motion.a
+                        key={item}
+                        href={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
+                        className={`mobile-menu-item ${
+                          item === "CONTACT" ? "mobile-contact-btn" : ""
+                        }`}
+                        variants={mobileItemVariants}
+                        custom={
+                          index +
+                          (isSmartGrcPage
+                            ? smartGrcNavItems.length
+                            : navItems.length) +
+                          3
                         }
-                        setIsOpen(false)
-                      }}
-                      whileHover={{ x: 5 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      {item}
-                      {item === "CONTACT" && (
-                        <>
-                          <i className="fas fa-arrow-right" style={{ paddingRight: "8px", color: "#007ba7" }}></i>
-                          <div className="btn-pulse"></div>
-                        </>
-                      )}
-                    </motion.a>
-                  ))}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (item.toLowerCase() === "contact") {
+                            // Special handling for contact
+                            window.location.href = `/${item.toLowerCase()}`;
+                          } else if (isSmartGrcPage) {
+                            scrollToSection(
+                              item.toLowerCase().replace(/\s+/g, "-")
+                            );
+                          } else {
+                            // Fix: Add navigation for regular Lissomsoft navbar items
+                            window.location.href = `/${item.toLowerCase()}`;
+                          }
+                          setIsOpen(false);
+                        }}
+                        whileHover={{ x: 5 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        {item}
+                        {item === "CONTACT" && (
+                          <>
+                            <i
+                              className="fas fa-arrow-right"
+                              style={{ paddingRight: "8px", color: "#007ba7" }}
+                            ></i>
+                            <div className="btn-pulse"></div>
+                          </>
+                        )}
+                      </motion.a>
+                    )
+                  )}
                 </div>
               </div>
 
               {/* Enhanced footer with more information */}
-              <motion.div className="mobile-menu-footer" variants={mobileItemVariants} custom={10}>
+              <motion.div
+                className="mobile-menu-footer"
+                variants={mobileItemVariants}
+                custom={10}
+              >
                 {isSmartGrcPage ? (
                   <>
                     <div className="powered-by-footer mb-3">
                       <span className="powered-by-text">Powered by</span>
-                      <img src="https://www.lissomsoft.com/assets/brand/lissom_logo.png" alt="Powered by Lissomsoft" />
+                      <img
+                        src="https://www.lissomsoft.com/assets/brand/lissom_logo.png"
+                        alt="Powered by Lissomsoft"
+                      />
                     </div>
                     <div className="social-icons">
                       <motion.a
@@ -1438,7 +1551,10 @@ const Header = () => {
                         <i className="fab fa-facebook"></i>
                       </motion.a>
                     </div>
-                    <p className="copyright mt-2">© {new Date().getFullYear()} Lissomsoft. All rights reserved.</p>
+                    <p className="copyright mt-2">
+                      © {new Date().getFullYear()} Lissomsoft. All rights
+                      reserved.
+                    </p>
                   </>
                 ) : (
                   <>
@@ -1501,7 +1617,10 @@ const Header = () => {
                         <i className="fab fa-youtube"></i>
                       </motion.a>
                     </div>
-                    <p className="copyright">© {new Date().getFullYear()} Lissomsoft. All rights reserved.</p>
+                    <p className="copyright">
+                      © {new Date().getFullYear()} Lissomsoft. All rights
+                      reserved.
+                    </p>
                   </>
                 )}
               </motion.div>
@@ -1532,8 +1651,8 @@ const Header = () => {
         </AnimatePresence>
       </div>
     </motion.nav>
-  )
-}
+  );
+};
 
 // Add this CSS before the export
 const styles = `
@@ -1908,14 +2027,14 @@ const styles = `
   
   .dropdown-item:hover,
   .dropdown-item.active {
-    color: #0077b6;
+    color: white;
     transform: translateX(5px);
   }
   
   .dropdown-item:hover .dropdown-icon,
   .dropdown-item.active .dropdown-icon {
     transform: scale(1.2);
-    color: #0077b6;
+    color: white;
   }
   
   /* Premium Hamburger Button */
@@ -2423,6 +2542,6 @@ const styles = `
   .menu-open {
     overflow: hidden;
   }
-`
+`;
 
-export default Header
+export default Header;
