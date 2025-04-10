@@ -17,6 +17,7 @@ import TermsOfUse from "./pages/termsofuse"
 import PrivacyPolicy from "./pages/privacypolicy"
 import TeamPage from "./pages/TeamPage"
 import CareerForm from "./pages/CareerForm"
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 
 function App() {
