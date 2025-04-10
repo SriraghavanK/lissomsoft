@@ -1,43 +1,43 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const MySmartGrcPage = () => {
   useEffect(() => {
     // Expose the function to set active tabs from hash to the window object
     // so the Header component can use it
     window.setActiveTabFromHash = (hash) => {
-      console.log(`Setting active tab from hash: ${hash}`)
+      console.log(`Setting active tab from hash: ${hash}`);
 
       // Set active tabs based on the hash
       if (hash.includes("benefits")) {
         // No need to do anything special for benefits as it's just a section
-        console.log("Setting active section: benefits")
+        console.log("Setting active section: benefits");
       } else if (hash.includes("features") || hash.includes("feature")) {
-        setCurrentFeature(0) // Reset to first feature
-        console.log("Setting active section: features")
+        setCurrentFeature(0); // Reset to first feature
+        console.log("Setting active section: features");
       } else if (hash.includes("methodology")) {
-        setActiveApproachTab("methodology")
-        console.log("Setting active approach tab: methodology")
+        setActiveApproachTab("methodology");
+        console.log("Setting active approach tab: methodology");
       } else if (hash.includes("implementation")) {
-        setActiveApproachTab("implementation")
-        console.log("Setting active approach tab: implementation")
+        setActiveApproachTab("implementation");
+        console.log("Setting active approach tab: implementation");
       } else if (hash.includes("vendor")) {
-        setActiveTab("vendor-risk")
-        console.log("Setting active tab: vendor-risk")
+        setActiveTab("vendor-risk");
+        console.log("Setting active tab: vendor-risk");
       } else if (hash.includes("it") || hash.includes("cyber")) {
-        setActiveTab("it-cyber-risk")
-        console.log("Setting active tab: it-cyber-risk")
+        setActiveTab("it-cyber-risk");
+        console.log("Setting active tab: it-cyber-risk");
       }
-    }
+    };
 
     return () => {
       // Clean up
-      delete window.setActiveTabFromHash
-    }
-  }, [])
-  const [activeTab, setActiveTab] = useState("operational-risk")
+      delete window.setActiveTabFromHash;
+    };
+  }, []);
+  const [activeTab, setActiveTab] = useState("operational-risk");
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -45,38 +45,38 @@ const MySmartGrcPage = () => {
     email: "",
     message: "",
     agreeTerms: false,
-  })
+  });
   const [formErrors, setFormErrors] = useState({
     name: "",
     phone: "",
     company: "",
     email: "",
     agreeTerms: "",
-  })
-  const [formSubmitting, setFormSubmitting] = useState(false)
-  const [formSubmitStatus, setFormSubmitStatus] = useState(null)
+  });
+  const [formSubmitting, setFormSubmitting] = useState(false);
+  const [formSubmitStatus, setFormSubmitStatus] = useState(null);
   const [expandedItems, setExpandedItems] = useState({
     "operational-risk": true,
     "risk-register": false,
     "incident-management": false,
     "loss-database": false,
     kri: false,
-  })
+  });
 
   // Refs for scrolling to sections
-  const overviewRef = useRef(null)
-  const featuresRef = useRef(null)
-  const benefitsRef = useRef(null)
-  const approachRef = useRef(null)
-  const methodologyRef = useRef(null)
-  const implementationRef = useRef(null)
-  const servicesRef = useRef(null)
-  const expertsRef = useRef(null)
-  const vendorRiskRef = useRef(null)
-  const itRiskRef = useRef(null)
+  const overviewRef = useRef(null);
+  const featuresRef = useRef(null);
+  const benefitsRef = useRef(null);
+  const approachRef = useRef(null);
+  const methodologyRef = useRef(null);
+  const implementationRef = useRef(null);
+  const servicesRef = useRef(null);
+  const expertsRef = useRef(null);
+  const vendorRiskRef = useRef(null);
+  const itRiskRef = useRef(null);
 
   // For rotating hero images
-  const [currentHeroImage, setCurrentHeroImage] = useState(0)
+  const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const heroImages = [
     {
       src: "https://imgs.search.brave.com/-CuUCGKeEcPO6vJ_fYhk-z2kV6hnj6eNDaJ4LE3i_uk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jMS53/YWxscGFwZXJmbGFy/ZS5jb20vcHJldmll/dy85NTkvODcvNjkz/L2FkdWx0LWFkdmVu/dHVyZS1iYWNrcGFj/ay1jbGltYi5qcGc",
@@ -86,22 +86,24 @@ const MySmartGrcPage = () => {
       src: "https://imgs.search.brave.com/bSrAHQDUNeYEivUr9xL3RGa4RjxzBYAKn3oheWHU-jo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA0LzMyLzc5LzA4/LzM2MF9GXzQzMjc5/MDgwMF9nQ21CdWRz/Z0N2YXk0cmRvckxh/ZXhsR1ZrT093bFho/SC5qcGc",
       alt: "Compliance Management",
     },
-  ]
+  ];
 
   // For rotating features
-  const [currentFeature, setCurrentFeature] = useState(0)
+  const [currentFeature, setCurrentFeature] = useState(0);
   const features = [
     {
       title: "Risk Heat Maps",
       description:
         "Unlock a visual journey into your organizational risks with our Risk Heat Maps. Instantly grasp and prioritize potential threats and flag them for scrutiny. All at a glance!",
-      image: "https://lissomsoft.com/smart-grc/assets/sgrc%20reports/heat_map.jpg",
+      image:
+        "https://lissomsoft.com/smart-grc/assets/sgrc%20reports/heat_map.jpg",
     },
     {
       title: "Dashboard & Custom reports",
       description:
         "Level Up your Risk Management game! Gain a comprehensive view of your organization's Risk Health, Track Risks daily and present impactful data. Get ready to revolutionize your risk insights.",
-      image: "https://lissomsoft.com/smart-grc/assets/sgrc%20reports/risk_impact_report.jpg",
+      image:
+        "https://lissomsoft.com/smart-grc/assets/sgrc%20reports/risk_impact_report.jpg",
     },
     {
       title: "Tracking and Monitoring",
@@ -122,42 +124,49 @@ const MySmartGrcPage = () => {
 
       description:
         "Integrate MySmartGRC with third-party systems for a cohesive user management experience. Keep all users, both active and inactive, synchronized effortlessly across systems for seamless collaboration.",
-      image: "https://lissomsoft.com/smart-grc/assets/sgrc%20reports/movement_report.jpg",
+      image:
+        "https://lissomsoft.com/smart-grc/assets/sgrc%20reports/movement_report.jpg",
     },
-  ]
+  ];
 
   // For flipping expert cards
-  const [flippedCard, setFlippedCard] = useState(null)
+  const [flippedCard, setFlippedCard] = useState(null);
   const experts = [
     {
       name: "Amit Bansal",
       title: "BFSI",
-      image: "https://lissomsoft.com/smart-grc/assets/experties/amit-bansal.png",
+      image:
+        "https://lissomsoft.com/smart-grc/assets/experties/amit-bansal.png",
       bio: "Over 15 years of experience in banking and financial risk management. Specializes in Basel compliance and operational risk frameworks.",
       expertise: ["Banking Regulations", "Financial Risk", "Basel Compliance"],
     },
     {
       name: "Lalit Dua",
       title: "Manufacturing",
-      image: "https://lissomsoft.com/smart-grc/assets/experties/lalit%20dua.png",
+      image:
+        "https://lissomsoft.com/smart-grc/assets/experties/lalit%20dua.png",
       bio: "20+ years in manufacturing risk management. Expert in supply chain risk, quality control systems, and ISO compliance.",
       expertise: ["Supply Chain Risk", "Quality Management", "ISO Standards"],
     },
-  ]
+  ];
 
   // Deployment options
   const deploymentOptions = [
     {
       title: "On-Premise Deployment",
       icon: "server",
-      description: "Deploy MySmartGRC on your own servers within your Data Center.",
-      benefits: "Full control and customization over your deployment environment.",
+      description:
+        "Deploy MySmartGRC on your own servers within your Data Center.",
+      benefits:
+        "Full control and customization over your deployment environment.",
     },
     {
       title: "Your Own Private Cloud",
       icon: "cloud",
-      description: "Utilize your existing Cloud environment within your Data Center for MySmartGRC deployment.",
-      benefits: "Leverage your dedicated cloud resources with enhanced scalability.",
+      description:
+        "Utilize your existing Cloud environment within your Data Center for MySmartGRC deployment.",
+      benefits:
+        "Leverage your dedicated cloud resources with enhanced scalability.",
     },
     {
       title: "Any Third-Party Cloud",
@@ -169,10 +178,12 @@ const MySmartGrcPage = () => {
     {
       title: "Our Cloud Environment & Maintenance Support",
       icon: "cogs",
-      description: "Opt for Lissomsoft's Cloud environment and Maintenance Support for deploying MySmartGRC.",
-      benefits: "Hassle-free deployment with expert support, ensuring optimal performance.",
+      description:
+        "Opt for Lissomsoft's Cloud environment and Maintenance Support for deploying MySmartGRC.",
+      benefits:
+        "Hassle-free deployment with expert support, ensuring optimal performance.",
     },
-  ]
+  ];
 
   // Helper icons for "Helps in many ways" section
   const helpIcons = [
@@ -201,55 +212,55 @@ const MySmartGrcPage = () => {
       icon: "bullseye",
       color: "#0077b6",
     },
-  ]
+  ];
 
   // Form validation functions
   const validateField = (name, value) => {
-    let error = ""
+    let error = "";
 
     switch (name) {
       case "name":
         if (!value.trim()) {
-          error = "Name is required"
+          error = "Name is required";
         } else if (value.trim().length < 2) {
-          error = "Name must be at least 2 characters"
+          error = "Name must be at least 2 characters";
         }
-        break
+        break;
 
       case "email":
         if (!value.trim()) {
-          error = "Email is required"
+          error = "Email is required";
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-          error = "Please enter a valid email address"
+          error = "Please enter a valid email address";
         }
-        break
+        break;
 
       case "phone":
         if (!value.trim()) {
-          error = "Phone number is required"
+          error = "Phone number is required";
         } else if (!/^[0-9+\-\s()]{10,15}$/.test(value)) {
-          error = "Please enter a valid phone number"
+          error = "Please enter a valid phone number";
         }
-        break
+        break;
 
       case "company":
         if (!value.trim()) {
-          error = "Company name is required"
+          error = "Company name is required";
         }
-        break
+        break;
 
       case "agreeTerms":
         if (!value) {
-          error = "You must agree to the terms"
+          error = "You must agree to the terms";
         }
-        break
+        break;
 
       default:
-        break
+        break;
     }
 
-    return error
-  }
+    return error;
+  };
 
   const validateForm = () => {
     const errors = {
@@ -258,67 +269,70 @@ const MySmartGrcPage = () => {
       phone: validateField("phone", formData.phone),
       company: validateField("company", formData.company),
       agreeTerms: validateField("agreeTerms", formData.agreeTerms),
-    }
+    };
 
-    setFormErrors(errors)
+    setFormErrors(errors);
 
     // Return true if no errors (all values are empty strings)
-    return Object.values(errors).every((error) => error === "")
-  }
+    return Object.values(errors).every((error) => error === "");
+  };
 
   const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target
-    const newValue = type === "checkbox" ? checked : value
+    const { name, value, type, checked } = e.target;
+    const newValue = type === "checkbox" ? checked : value;
 
     setFormData({
       ...formData,
       [name]: newValue,
-    })
+    });
 
     // Clear the error for this field when user starts typing
     setFormErrors({
       ...formErrors,
       [name]: "",
-    })
-  }
+    });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     // Validate form
-    const isValid = validateForm()
+    const isValid = validateForm();
     if (!isValid) {
-      return
+      return;
     }
 
     // Set loading state
-    setFormSubmitting(true)
-    setFormSubmitStatus(null)
+    setFormSubmitting(true);
+    setFormSubmitStatus(null);
 
     try {
       // Submit to backend
-      const response = await fetch("https://lissomsoft.onrender.com/api/submit-form", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          sheet: "Sheet3", // Specify Sheet 3
-        }),
-      })
+      const response = await fetch(
+        "https://lissomsoft.onrender.com/api/submit-form",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...formData,
+            sheet: "Sheet3", // Specify Sheet 3
+          }),
+        }
+      );
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`)
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (data.success) {
         setFormSubmitStatus({
           success: true,
           message: "Thank you for your interest! We'll contact you soon.",
-        })
+        });
 
         // Reset form
         setFormData({
@@ -328,118 +342,130 @@ const MySmartGrcPage = () => {
           email: "",
           message: "",
           agreeTerms: false,
-        })
+        });
       } else {
         setFormSubmitStatus({
           success: false,
-          message: data.message || "There was an error submitting the form. Please try again.",
-        })
+          message:
+            data.message ||
+            "There was an error submitting the form. Please try again.",
+        });
       }
     } catch (error) {
-      console.error("Error submitting form:", error)
+      console.error("Error submitting form:", error);
       setFormSubmitStatus({
         success: false,
-        message: "There was an error connecting to the server. Please try again later.",
-      })
+        message:
+          "There was an error connecting to the server. Please try again later.",
+      });
     } finally {
-      setFormSubmitting(false)
+      setFormSubmitting(false);
     }
-  }
+  };
 
   const toggleItem = (id) => {
     setExpandedItems({
       ...expandedItems,
       [id]: !expandedItems[id],
-    })
-  }
+    });
+  };
 
   // Scroll to section function
-  const scrollToSection = (ref) => {
-    if (ref && ref.current) {
-      const headerHeight = 150
-      const elementPosition = ref.current.getBoundingClientRect().top + window.scrollY
-      const offsetPosition = elementPosition - headerHeight
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      })
-
-      // Highlight the section
-      ref.current.classList.add("highlight-section")
-      setTimeout(() => {
-        ref.current.classList.remove("highlight-section")
-      }, 2000)
+  const scrollToSection = (sectionId) => {
+    let ref;
+    if (sectionId === "overview") ref = overviewRef;
+    else if (sectionId === "approach") ref = approachRef;
+    else if (sectionId === "services" || sectionId === "consulting-services")
+      ref = servicesRef;
+    else if (sectionId === "contact") {
+      // Scroll to the contact/CTA section at the bottom
+      const contactSection = document.getElementById("contact");
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: "smooth" });
+        setMobileMenuOpen(false); // Close mobile menu after clicking
+        return;
+      }
     }
-  }
+
+    if (ref && ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth" });
+      setActiveTab(sectionId);
+      setMobileMenuOpen(false); // Close mobile menu after clicking
+    }
+  };
 
   // Auto-rotate hero images
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentHeroImage((prev) => (prev + 1) % heroImages.length)
-    }, 5000)
+      setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
 
-    return () => clearInterval(interval)
-  }, [])
+    return () => clearInterval(interval);
+  }, []);
 
   // Auto-rotate features
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentFeature((prev) => (prev + 1) % features.length)
-    }, 7000)
+      setCurrentFeature((prev) => (prev + 1) % features.length);
+    }, 7000);
 
-    return () => clearInterval(interval)
-  }, [])
+    return () => clearInterval(interval);
+  }, []);
 
   // Handle hash navigation on load
   useEffect(() => {
-    const hash = window.location.hash
+    const hash = window.location.hash;
     if (hash) {
       // Set a timeout to ensure the DOM is fully loaded
       setTimeout(() => {
-        console.log("Processing hash:", hash)
+        console.log("Processing hash:", hash);
 
         // Set the active tab based on the hash
         if (hash.includes("vendor")) {
-          setActiveTab("vendor-risk")
+          setActiveTab("vendor-risk");
         } else if (hash.includes("it")) {
-          setActiveTab("it-cyber-risk")
+          setActiveTab("it-cyber-risk");
         } else if (hash.includes("implementation")) {
-          setActiveApproachTab("implementation")
+          setActiveApproachTab("implementation");
         } else if (hash.includes("methodology")) {
-          setActiveApproachTab("methodology")
+          setActiveApproachTab("methodology");
         }
 
         // Find the element by ID
-        const id = hash.replace("#", "")
-        const element = document.getElementById(id)
+        const id = hash.replace("#", "");
+        const element = document.getElementById(id);
 
         if (element) {
-          console.log(`Found element with id: ${id}`)
+          console.log(`Found element with id: ${id}`);
           // Adjust for header height
-          const headerHeight = 150
-          const elementPosition = element.getBoundingClientRect().top + window.scrollY
-          const offsetPosition = elementPosition - headerHeight
+          const headerHeight = 150;
+          const elementPosition =
+            element.getBoundingClientRect().top + window.scrollY;
+          const offsetPosition = elementPosition - headerHeight;
 
           window.scrollTo({
             top: offsetPosition,
             behavior: "smooth",
-          })
+          });
 
           // Highlight the section
-          element.classList.add("highlight-section")
+          element.classList.add("highlight-section");
           setTimeout(() => {
-            element.classList.remove("highlight-section")
-          }, 2000)
+            element.classList.remove("highlight-section");
+          }, 2000);
         } else {
-          console.error(`Section with ID "${id}" not found`)
+          console.error(`Section with ID "${id}" not found`);
           // Log all available IDs for debugging
-          const allIds = Array.from(document.querySelectorAll("[id]")).map((el) => el.id)
-          console.log("Available IDs:", allIds)
+          const allIds = Array.from(document.querySelectorAll("[id]")).map(
+            (el) => el.id
+          );
+          console.log("Available IDs:", allIds);
         }
-      }, 500)
+      }, 500);
     }
-  }, [])
+  }, []);
 
   // Add this CSS for the risk management tabs
   const riskTabStyles = `
@@ -562,80 +588,86 @@ const MySmartGrcPage = () => {
         max-height: 120px;
       }
     }
-`
+`;
 
   // Add this to the useEffect that adds styles
   useEffect(() => {
     // Add the styles to the document
-    const styleElement = document.createElement("style")
-    const styles = "" // Define styles variable
-    const isSmartGrcPage = false // Define isSmartGrcPage variable
-    const initParticles = () => {} // Define initParticles variable
-    styleElement.innerHTML = styles + riskTabStyles // Add the risk tab styles
-    document.head.appendChild(styleElement)
+    const styleElement = document.createElement("style");
+    const styles = ""; // Define styles variable
+    const isSmartGrcPage = false; // Define isSmartGrcPage variable
+    const initParticles = () => {}; // Define initParticles variable
+    styleElement.innerHTML = styles + riskTabStyles; // Add the risk tab styles
+    document.head.appendChild(styleElement);
 
     // Initialize particles if not on SmartGRC page
     if (!isSmartGrcPage) {
-      initParticles()
+      initParticles();
     }
 
     return () => {
-      document.head.removeChild(styleElement)
-      const canvas = document.getElementById("navbar-particles")
+      document.head.removeChild(styleElement);
+      const canvas = document.getElementById("navbar-particles");
       if (canvas) {
-        canvas.remove()
+        canvas.remove();
       }
-    }
-  }, [])
+    };
+  }, []);
 
-  const [activeApproachTab, setActiveApproachTab] = useState("methodology")
+  const [activeApproachTab, setActiveApproachTab] = useState("methodology");
 
   // CTA Buttons and Demo Form State
-  const [showDemoModal, setShowDemoModal] = useState(false)
+  const [showDemoModal, setShowDemoModal] = useState(false);
   const [demoFormData, setDemoFormData] = useState({
     firstName: "",
     titleDesignation: "",
     organization: "",
     email: "",
     phoneNumber: "",
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState(null)
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   const handleDemoInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setDemoFormData({
       ...demoFormData,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const handleDemoSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setSubmitStatus(null)
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
 
     try {
       // Submit to your Express backend
-      const response = await fetch("https://lissomsoft.onrender.com/api/submit-form", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...demoFormData,
-          sheet: "Sheet4", // Specify Sheet 4
-        }),
-      })
+      const response = await fetch(
+        "https://lissomsoft.onrender.com/api/submit-form",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...demoFormData,
+            sheet: "Sheet4", // Specify Sheet 4
+          }),
+        }
+      );
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`)
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (data.success) {
-        setSubmitStatus({ success: true, message: "Thank you for requesting a demo! We'll be in touch soon." })
+        setSubmitStatus({
+          success: true,
+          message: "Thank you for requesting a demo! We'll be in touch soon.",
+        });
         // Reset form
         setDemoFormData({
           firstName: "",
@@ -643,31 +675,36 @@ const MySmartGrcPage = () => {
           organization: "",
           email: "",
           phoneNumber: "",
-        })
+        });
 
         // Close modal after 2 seconds
         setTimeout(() => {
-          setShowDemoModal(false)
-          setSubmitStatus(null)
-        }, 2000)
+          setShowDemoModal(false);
+          setSubmitStatus(null);
+        }, 2000);
       } else {
         setSubmitStatus({
           success: false,
-          message: data.message || "There was an error submitting the form. Please try again.",
-        })
+          message:
+            data.message ||
+            "There was an error submitting the form. Please try again.",
+        });
       }
     } catch (error) {
-      console.error("Error submitting demo form:", error)
-      setSubmitStatus({ success: false, message: "There was an error submitting the form. Please try again." })
+      console.error("Error submitting demo form:", error);
+      setSubmitStatus({
+        success: false,
+        message: "There was an error submitting the form. Please try again.",
+      });
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   const handleRequestCall = () => {
     // Initiate call functionality
-    window.location.href = "tel:+91 93618 29552" // Replace with actual phone number
-  }
+    window.location.href = "tel:+91 93618 29552"; // Replace with actual phone number
+  };
 
   return (
     <>
@@ -687,8 +724,12 @@ const MySmartGrcPage = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
               >
-                <h1 className="fw-bolder mb-3">Instil Resilience, and Stay Compliant with MySmartGRC</h1>
-                <p className="lead mb-4">Reduce risks, enhance performance, and ensure compliance.</p>
+                <h1 className="fw-bolder mb-3">
+                  Instil Resilience, and Stay Compliant with MySmartGRC
+                </h1>
+                <p className="lead mb-4">
+                  Reduce risks, enhance performance, and ensure compliance.
+                </p>
               </motion.div>
             </div>
             <div className="col-lg-6">
@@ -728,7 +769,10 @@ const MySmartGrcPage = () => {
                         width: "12px",
                         height: "12px",
                         padding: 0,
-                        background: currentHeroImage === index ? "#0077b6" : "rgba(255,255,255,0.5)",
+                        background:
+                          currentHeroImage === index
+                            ? "#0077b6"
+                            : "rgba(255,255,255,0.5)",
                         border: "none",
                       }}
                       onClick={() => setCurrentHeroImage(index)}
@@ -765,18 +809,26 @@ const MySmartGrcPage = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <h2 className="fw-bold mb-4">Navigate Business Risks with Confidence.</h2>
-                <h3 className="h4 mb-4">MySmartGRC - Your Shield in a Dynamic Business Arena</h3>
+                <h2 className="fw-bold mb-4">
+                  Navigate Business Risks with Confidence.
+                </h2>
+                <h3 className="h4 mb-4">
+                  MySmartGRC - Your Shield in a Dynamic Business Arena
+                </h3>
                 <p className="mb-4">
-                  MySmartGRC transforms risk assessment, streamlines collaboration, and provides a consolidated source
-                  of truth for navigating regulatory challenges. Propelled by an intuitive dashboard and versatile
-                  report templates, it adapts to an organization's high-level/low-level risk drivers.
+                  MySmartGRC transforms risk assessment, streamlines
+                  collaboration, and provides a consolidated source of truth for
+                  navigating regulatory challenges. Propelled by an intuitive
+                  dashboard and versatile report templates, it adapts to an
+                  organization's high-level/low-level risk drivers.
                 </p>
                 <p className="mb-4">
-                  Aligned with regulatory standards such as Basel, COSO, and ISO, MySmartGRC caters to the enterprise
-                  landscape spanning Banking, Manufacturing, Green Energy, Infrastructure, Construction, Healthcare, IT,
-                  and more. Recent inclusions, like third-party risk analysis and predictive analytics within risk
-                  tolerance limits for seamless business continuity.
+                  Aligned with regulatory standards such as Basel, COSO, and
+                  ISO, MySmartGRC caters to the enterprise landscape spanning
+                  Banking, Manufacturing, Green Energy, Infrastructure,
+                  Construction, Healthcare, IT, and more. Recent inclusions,
+                  like third-party risk analysis and predictive analytics within
+                  risk tolerance limits for seamless business continuity.
                 </p>
               </motion.div>
             </div>
@@ -790,13 +842,18 @@ const MySmartGrcPage = () => {
                 <div className="card border-0 shadow-sm">
                   <div className="card-body p-4">
                     <h4 className="text-center mb-4">
-                      Fill out the form to get started on optimizing your risk strategy today!
+                      Fill out the form to get started on optimizing your risk
+                      strategy today!
                     </h4>
 
                     {/* Form status message */}
                     {formSubmitStatus && (
                       <div
-                        className={`form-status ${formSubmitStatus.success ? "form-status-success" : "form-status-error"}`}
+                        className={`form-status ${
+                          formSubmitStatus.success
+                            ? "form-status-success"
+                            : "form-status-error"
+                        }`}
                       >
                         {formSubmitStatus.message}
                       </div>
@@ -806,50 +863,66 @@ const MySmartGrcPage = () => {
                       <div className="mb-3">
                         <input
                           type="text"
-                          className={`form-control ${formErrors.name ? "input-error" : ""}`}
+                          className={`form-control ${
+                            formErrors.name ? "input-error" : ""
+                          }`}
                           placeholder="Name"
                           name="name"
                           value={formData.name}
                           onChange={handleInputChange}
                           required
                         />
-                        {formErrors.name && <div className="form-error">{formErrors.name}</div>}
+                        {formErrors.name && (
+                          <div className="form-error">{formErrors.name}</div>
+                        )}
                       </div>
                       <div className="mb-3">
                         <input
                           type="tel"
-                          className={`form-control ${formErrors.phone ? "input-error" : ""}`}
+                          className={`form-control ${
+                            formErrors.phone ? "input-error" : ""
+                          }`}
                           placeholder="Phone Number"
                           name="phone"
                           value={formData.phone}
                           onChange={handleInputChange}
                           required
                         />
-                        {formErrors.phone && <div className="form-error">{formErrors.phone}</div>}
+                        {formErrors.phone && (
+                          <div className="form-error">{formErrors.phone}</div>
+                        )}
                       </div>
                       <div className="mb-3">
                         <input
                           type="text"
-                          className={`form-control ${formErrors.company ? "input-error" : ""}`}
+                          className={`form-control ${
+                            formErrors.company ? "input-error" : ""
+                          }`}
                           placeholder="Company"
                           name="company"
                           value={formData.company}
                           onChange={handleInputChange}
                           required
                         />
-                        {formErrors.company && <div className="form-error">{formErrors.company}</div>}
+                        {formErrors.company && (
+                          <div className="form-error">{formErrors.company}</div>
+                        )}
                       </div>
                       <div className="mb-3">
                         <input
                           type="email"
-                          className={`form-control ${formErrors.email ? "input-error" : ""}`}
+                          className={`form-control ${
+                            formErrors.email ? "input-error" : ""
+                          }`}
                           placeholder="Email"
                           name="email"
                           value={formData.email}
                           onChange={handleInputChange}
                           required
                         />
-                        {formErrors.email && <div className="form-error">{formErrors.email}</div>}
+                        {formErrors.email && (
+                          <div className="form-error">{formErrors.email}</div>
+                        )}
                       </div>
                       <div className="mb-3">
                         <textarea
@@ -864,14 +937,19 @@ const MySmartGrcPage = () => {
                       <div className="mb-3 form-check">
                         <input
                           type="checkbox"
-                          className={`form-check-input ${formErrors.agreeTerms ? "input-error" : ""}`}
+                          className={`form-check-input ${
+                            formErrors.agreeTerms ? "input-error" : ""
+                          }`}
                           id="agreeTerms"
                           name="agreeTerms"
                           checked={formData.agreeTerms}
                           onChange={handleInputChange}
                           required
                         />
-                        <label className="form-check-label" htmlFor="agreeTerms">
+                        <label
+                          className="form-check-label"
+                          htmlFor="agreeTerms"
+                        >
                           I agree with Lissomsoft's{" "}
                           <a href="/terms" className="text-primary">
                             Terms of Use
@@ -881,10 +959,22 @@ const MySmartGrcPage = () => {
                             Privacy Policy
                           </a>
                         </label>
-                        {formErrors.agreeTerms && <div className="form-error">{formErrors.agreeTerms}</div>}
+                        {formErrors.agreeTerms && (
+                          <div className="form-error">
+                            {formErrors.agreeTerms}
+                          </div>
+                        )}
                       </div>
-                      <motion.div className="text-center" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                        <button type="submit" className="btn btn-primary px-4 py-2" disabled={formSubmitting}>
+                      <motion.div
+                        className="text-center"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <button
+                          type="submit"
+                          className="btn btn-primary px-4 py-2"
+                          disabled={formSubmitting}
+                        >
                           {formSubmitting ? "Submitting..." : "Submit"}
                         </button>
                       </motion.div>
@@ -902,8 +992,9 @@ const MySmartGrcPage = () => {
         ref={servicesRef}
         className="py-5 bg-light"
         id="services-risk-assessment"
-        data-section="services-risk-assessment">
-      &gt;
+        data-section="services-risk-assessment"
+      >
+        &gt;
         <div className="container py-3">
           <motion.div
             className="row mb-4"
@@ -917,16 +1008,20 @@ const MySmartGrcPage = () => {
             <div className="col-12 d-flex justify-content-center">
               <div className="risk-management-tabs">
                 <button
-                  className={`risk-tab-button ${activeTab === "operational-risk" ? "active" : ""}`}
+                  className={`risk-tab-button ${
+                    activeTab === "operational-risk" ? "active" : ""
+                  }`}
                   onClick={() => setActiveTab("operational-risk")}
                 >
                   <span>Operational Risk</span>
                 </button>
                 <button
-                  className={`risk-tab-button ${activeTab === "vendor-risk" ? "active" : ""}`}
+                  className={`risk-tab-button ${
+                    activeTab === "vendor-risk" ? "active" : ""
+                  }`}
                   onClick={() => {
-                    setActiveTab("vendor-risk")
-                    scrollToSection(vendorRiskRef)
+                    setActiveTab("vendor-risk");
+                    scrollToSection(vendorRiskRef);
                   }}
                   id="services-vendor"
                   data-section="services-vendor"
@@ -934,10 +1029,12 @@ const MySmartGrcPage = () => {
                   <span>Vendor Risk/Third Party Risk</span>
                 </button>
                 <button
-                  className={`risk-tab-button ${activeTab === "it-cyber-risk" ? "active" : ""}`}
+                  className={`risk-tab-button ${
+                    activeTab === "it-cyber-risk" ? "active" : ""
+                  }`}
                   onClick={() => {
-                    setActiveTab("it-cyber-risk")
-                    scrollToSection(itRiskRef)
+                    setActiveTab("it-cyber-risk");
+                    scrollToSection(itRiskRef);
                   }}
                   id="services-it"
                   data-section="services-it"
@@ -1017,9 +1114,12 @@ const MySmartGrcPage = () => {
                   >
                     <h3 className="mb-3">Operational Risk Management</h3>
                     <p>
-                      Lissomsoft offers a suite of applications to aid businesses in identifying risk, streamlining
-                      compliance tasks. The solution provides intuitive dashboards, seamless collaboration between
-                      stakeholders and delivers a single source of truth for navigating regulatory complexities.
+                      Lissomsoft offers a suite of applications to aid
+                      businesses in identifying risk, streamlining compliance
+                      tasks. The solution provides intuitive dashboards,
+                      seamless collaboration between stakeholders and delivers a
+                      single source of truth for navigating regulatory
+                      complexities.
                     </p>
                   </motion.div>
                 )}
@@ -1034,9 +1134,11 @@ const MySmartGrcPage = () => {
                   >
                     <h3 className="mb-3">Vendor Risk Management</h3>
                     <p>
-                      In today's dynamic business environment, partnering with third parties is crucial. Prioritizing
-                      risk mitigation is essential. Meet Lissomsoft's Third-Party Risk Management Solution – your
-                      reliable partner. Safeguard your business reputation with automated governance and compliance,
+                      In today's dynamic business environment, partnering with
+                      third parties is crucial. Prioritizing risk mitigation is
+                      essential. Meet Lissomsoft's Third-Party Risk Management
+                      Solution – your reliable partner. Safeguard your business
+                      reputation with automated governance and compliance,
                       shielding against potential threats.
                     </p>
                   </motion.div>
@@ -1052,11 +1154,15 @@ const MySmartGrcPage = () => {
                   >
                     <h3 className="mb-3">IT/Cyber Risk Management</h3>
                     <p>
-                      Cyber risk encompasses the potential for data loss or exposure resulting from cyberattacks such as
-                      phishing, malware, and identity theft. These breaches exploit vulnerabilities in IT systems,
-                      leading to data, operational, and financial losses for organizations. Our Cybersecurity Solution
-                      is tailored to safeguard the internet-connected systems of enterprises, including hardware,
-                      software, and data, from these evolving cyber threats.
+                      Cyber risk encompasses the potential for data loss or
+                      exposure resulting from cyberattacks such as phishing,
+                      malware, and identity theft. These breaches exploit
+                      vulnerabilities in IT systems, leading to data,
+                      operational, and financial losses for organizations. Our
+                      Cybersecurity Solution is tailored to safeguard the
+                      internet-connected systems of enterprises, including
+                      hardware, software, and data, from these evolving cyber
+                      threats.
                     </p>
                   </motion.div>
                 )}
@@ -1076,7 +1182,9 @@ const MySmartGrcPage = () => {
             transition={{ duration: 0.6 }}
           >
             <div className="col-12">
-              <h2 className="fw-bold text-center">Adherence to our Risk Framework</h2>
+              <h2 className="fw-bold text-center">
+                Adherence to our Risk Framework
+              </h2>
             </div>
           </motion.div>
 
@@ -1092,7 +1200,9 @@ const MySmartGrcPage = () => {
                 >
                   <motion.div
                     className={`accordion-header p-3 d-flex justify-content-between align-items-center ${
-                      expandedItems["operational-risk"] ? "bg-primary text-white" : "bg-light"
+                      expandedItems["operational-risk"]
+                        ? "bg-primary text-white"
+                        : "bg-light"
                     }`}
                     style={{
                       cursor: "pointer",
@@ -1107,7 +1217,9 @@ const MySmartGrcPage = () => {
                   >
                     <h5 className="mb-0">Control Library</h5>
                     <motion.i
-                      className={`fas fa-chevron-${expandedItems["operational-risk"] ? "up" : "down"}`}
+                      className={`fas fa-chevron-${
+                        expandedItems["operational-risk"] ? "up" : "down"
+                      }`}
                       animate={{
                         rotate: expandedItems["operational-risk"] ? 180 : 0,
                       }}
@@ -1125,8 +1237,10 @@ const MySmartGrcPage = () => {
                         transition={{ duration: 0.3 }}
                       >
                         <p>
-                          Simplify compliance and bolster cybersecurity with our robust library, meticulously designed
-                          to meet the stringent requirements of ISO 27001 and NIST frameworks
+                          Simplify compliance and bolster cybersecurity with our
+                          robust library, meticulously designed to meet the
+                          stringent requirements of ISO 27001 and NIST
+                          frameworks
                         </p>
                       </motion.div>
                     )}
@@ -1142,7 +1256,9 @@ const MySmartGrcPage = () => {
                 >
                   <motion.div
                     className={`accordion-header p-3 d-flex justify-content-between align-items-center ${
-                      expandedItems["risk-register"] ? "bg-primary text-white" : "bg-light"
+                      expandedItems["risk-register"]
+                        ? "bg-primary text-white"
+                        : "bg-light"
                     }`}
                     style={{
                       cursor: "pointer",
@@ -1157,7 +1273,9 @@ const MySmartGrcPage = () => {
                   >
                     <h5 className="mb-0">Asset Master</h5>
                     <motion.i
-                      className={`fas fa-chevron-${expandedItems["risk-register"] ? "up" : "down"}`}
+                      className={`fas fa-chevron-${
+                        expandedItems["risk-register"] ? "up" : "down"
+                      }`}
                       animate={{
                         rotate: expandedItems["risk-register"] ? 180 : 0,
                       }}
@@ -1175,9 +1293,11 @@ const MySmartGrcPage = () => {
                         transition={{ duration: 0.3 }}
                       >
                         <p>
-                          Effectively manage and safeguard your digital assets. Seamlessly organize, track, and secure
-                          assets with precision. Elevate your cybersecurity posture and ensure comprehensive asset
-                          management with our cutting-edge solution.
+                          Effectively manage and safeguard your digital assets.
+                          Seamlessly organize, track, and secure assets with
+                          precision. Elevate your cybersecurity posture and
+                          ensure comprehensive asset management with our
+                          cutting-edge solution.
                         </p>
                       </motion.div>
                     )}
@@ -1193,7 +1313,9 @@ const MySmartGrcPage = () => {
                 >
                   <motion.div
                     className={`accordion-header p-3 d-flex justify-content-between align-items-center ${
-                      expandedItems["incident-management"] ? "bg-primary text-white" : "bg-light"
+                      expandedItems["incident-management"]
+                        ? "bg-primary text-white"
+                        : "bg-light"
                     }`}
                     style={{
                       cursor: "pointer",
@@ -1208,7 +1330,9 @@ const MySmartGrcPage = () => {
                   >
                     <h5 className="mb-0">Risk Assessment</h5>
                     <motion.i
-                      className={`fas fa-chevron-${expandedItems["incident-management"] ? "up" : "down"}`}
+                      className={`fas fa-chevron-${
+                        expandedItems["incident-management"] ? "up" : "down"
+                      }`}
                       animate={{
                         rotate: expandedItems["incident-management"] ? 180 : 0,
                       }}
@@ -1226,9 +1350,11 @@ const MySmartGrcPage = () => {
                         transition={{ duration: 0.3 }}
                       >
                         <p>
-                          Conduct thorough evaluations of potential threats, vulnerabilities, and their impact on your
-                          digital infrastructure. Identify and prioritize risks, enabling informed decision-making and
-                          strategic mitigation.
+                          Conduct thorough evaluations of potential threats,
+                          vulnerabilities, and their impact on your digital
+                          infrastructure. Identify and prioritize risks,
+                          enabling informed decision-making and strategic
+                          mitigation.
                         </p>
                       </motion.div>
                     )}
@@ -1244,7 +1370,9 @@ const MySmartGrcPage = () => {
                 >
                   <motion.div
                     className={`accordion-header p-3 d-flex justify-content-between align-items-center ${
-                      expandedItems["loss-database"] ? "bg-primary text-white" : "bg-light"
+                      expandedItems["loss-database"]
+                        ? "bg-primary text-white"
+                        : "bg-light"
                     }`}
                     style={{
                       cursor: "pointer",
@@ -1259,7 +1387,9 @@ const MySmartGrcPage = () => {
                   >
                     <h5 className="mb-0">Control Testing</h5>
                     <motion.i
-                      className={`fas fa-chevron-${expandedItems["loss-database"] ? "up" : "down"}`}
+                      className={`fas fa-chevron-${
+                        expandedItems["loss-database"] ? "up" : "down"
+                      }`}
                       animate={{
                         rotate: expandedItems["loss-database"] ? 180 : 0,
                       }}
@@ -1277,9 +1407,10 @@ const MySmartGrcPage = () => {
                         transition={{ duration: 0.3 }}
                       >
                         <p>
-                          Rigorously assess the effectiveness of security controls through comprehensive testing.
-                          Identify vulnerabilities, ensure regulatory compliance, and fortify your digital
-                          infrastructure.
+                          Rigorously assess the effectiveness of security
+                          controls through comprehensive testing. Identify
+                          vulnerabilities, ensure regulatory compliance, and
+                          fortify your digital infrastructure.
                         </p>
                       </motion.div>
                     )}
@@ -1295,12 +1426,16 @@ const MySmartGrcPage = () => {
                 >
                   <motion.div
                     className={`accordion-header p-3 d-flex justify-content-between align-items-center ${
-                      expandedItems["kri"] ? "bg-primary text-white" : "bg-light"
+                      expandedItems["kri"]
+                        ? "bg-primary text-white"
+                        : "bg-light"
                     }`}
                     style={{
                       cursor: "pointer",
                       borderRadius: "8px",
-                      background: expandedItems["kri"] ? "linear-gradient(90deg, #0077b6, #00a8e8)" : "#f8f9fa",
+                      background: expandedItems["kri"]
+                        ? "linear-gradient(90deg, #0077b6, #00a8e8)"
+                        : "#f8f9fa",
                     }}
                     onClick={() => toggleItem("kri")}
                     whileHover={{ scale: 1.01 }}
@@ -1308,7 +1443,9 @@ const MySmartGrcPage = () => {
                   >
                     <h5 className="mb-0">Mitigation Plan</h5>
                     <motion.i
-                      className={`fas fa-chevron-${expandedItems["kri"] ? "up" : "down"}`}
+                      className={`fas fa-chevron-${
+                        expandedItems["kri"] ? "up" : "down"
+                      }`}
                       animate={{ rotate: expandedItems["kri"] ? 180 : 0 }}
                       transition={{ duration: 0.3 }}
                     ></motion.i>
@@ -1324,9 +1461,10 @@ const MySmartGrcPage = () => {
                         transition={{ duration: 0.3 }}
                       >
                         <p>
-                          Proactively address and manage identified risks, vulnerabilities, and potential threats.
-                          Tailor mitigation strategies to your specific cybersecurity needs, ensuring a resilient
-                          defense.
+                          Proactively address and manage identified risks,
+                          vulnerabilities, and potential threats. Tailor
+                          mitigation strategies to your specific cybersecurity
+                          needs, ensuring a resilient defense.
                         </p>
                       </motion.div>
                     )}
@@ -1339,7 +1477,12 @@ const MySmartGrcPage = () => {
       </section>
 
       {/* Our Approach with two sections */}
-      <section id="our-approach" ref={approachRef} className="py-5" data-section="our-approach">
+      <section
+        id="our-approach"
+        ref={approachRef}
+        className="py-5"
+        data-section="our-approach"
+      >
         <div className="container py-3">
           <motion.div
             className="row mb-4"
@@ -1356,43 +1499,67 @@ const MySmartGrcPage = () => {
             <div className="col-12 mb-4">
               <div className="d-grid gap-3 d-sm-flex justify-content-sm-center">
                 <motion.button
-                  className={`btn ${activeApproachTab === "methodology" ? "btn-primary" : "btn-outline-primary"} me-3`}
+                  className={`btn ${
+                    activeApproachTab === "methodology"
+                      ? "btn-primary"
+                      : "btn-outline-primary"
+                  } me-3`}
                   onClick={() => {
                     if (activeApproachTab === "methodology") {
-                      setActiveApproachTab("")
+                      setActiveApproachTab("");
                     } else {
-                      setActiveApproachTab("methodology")
-                      scrollToSection(methodologyRef)
+                      setActiveApproachTab("methodology");
+                      scrollToSection(methodologyRef);
                     }
                   }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   animate={{
-                    backgroundColor: activeApproachTab === "methodology" ? "#0077b6" : "transparent",
-                    color: activeApproachTab === "methodology" ? "white" : "#0077b6",
-                    boxShadow: activeApproachTab === "methodology" ? "0 4px 15px rgba(0, 119, 182, 0.3)" : "none",
+                    backgroundColor:
+                      activeApproachTab === "methodology"
+                        ? "#0077b6"
+                        : "transparent",
+                    color:
+                      activeApproachTab === "methodology" ? "white" : "#0077b6",
+                    boxShadow:
+                      activeApproachTab === "methodology"
+                        ? "0 4px 15px rgba(0, 119, 182, 0.3)"
+                        : "none",
                   }}
                   transition={{ duration: 0.3 }}
                 >
                   Our Approach
                 </motion.button>
                 <motion.button
-                  className={`btn ${activeApproachTab === "implementation" ? "btn-primary" : "btn-outline-primary"}`}
+                  className={`btn ${
+                    activeApproachTab === "implementation"
+                      ? "btn-primary"
+                      : "btn-outline-primary"
+                  }`}
                   id="approach-implementation"
                   onClick={() => {
                     if (activeApproachTab === "implementation") {
-                      setActiveApproachTab("")
+                      setActiveApproachTab("");
                     } else {
-                      setActiveApproachTab("implementation")
-                      scrollToSection(implementationRef)
+                      setActiveApproachTab("implementation");
+                      scrollToSection(implementationRef);
                     }
                   }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   animate={{
-                    backgroundColor: activeApproachTab === "implementation" ? "#0077b6" : "transparent",
-                    color: activeApproachTab === "implementation" ? "white" : "#0077b6",
-                    boxShadow: activeApproachTab === "implementation" ? "0 4px 15px rgba(0, 119, 182, 0.3)" : "none",
+                    backgroundColor:
+                      activeApproachTab === "implementation"
+                        ? "#0077b6"
+                        : "transparent",
+                    color:
+                      activeApproachTab === "implementation"
+                        ? "white"
+                        : "#0077b6",
+                    boxShadow:
+                      activeApproachTab === "implementation"
+                        ? "0 4px 15px rgba(0, 119, 182, 0.3)"
+                        : "none",
                   }}
                   transition={{ duration: 0.3 }}
                 >
@@ -1419,7 +1586,10 @@ const MySmartGrcPage = () => {
                 <div className="col-md-6 mb-4 mb-md-0">
                   <div className="h-100 d-flex flex-column justify-content-center">
                     <h3 className="mb-3">Methodology</h3>
-                    <p>Our comprehensive risk management methodology follows a structured approach that includes:</p>
+                    <p>
+                      Our comprehensive risk management methodology follows a
+                      structured approach that includes:
+                    </p>
                     <ul className="list-group list-group-flush">
                       <motion.li
                         className="list-group-item bg-transparent"
@@ -1489,7 +1659,9 @@ const MySmartGrcPage = () => {
                 key="implementation-tab"
               >
                 <div className="col-12 mb-5">
-                  <h3 className="text-center mb-4">MySmartGRC Deployment Options</h3>
+                  <h3 className="text-center mb-4">
+                    MySmartGRC Deployment Options
+                  </h3>
                   <div className="row">
                     {deploymentOptions.map((option, index) => (
                       <motion.div
@@ -1510,9 +1682,13 @@ const MySmartGrcPage = () => {
                           <div className="card-body p-4">
                             <div className="d-flex align-items-center mb-3">
                               <div className="bg-primary rounded-circle p-3 me-3 text-white">
-                                <i className={`fas fa-${option.icon} fa-2x`}></i>
+                                <i
+                                  className={`fas fa-${option.icon} fa-2x`}
+                                ></i>
                               </div>
-                              <h4 className="card-title mb-0">{option.title}</h4>
+                              <h4 className="card-title mb-0">
+                                {option.title}
+                              </h4>
                             </div>
                             <p className="card-text">{option.description}</p>
                             <div className="mt-3">
@@ -1531,7 +1707,12 @@ const MySmartGrcPage = () => {
       </section>
 
       {/* Features with rotating content */}
-      <section id="mysmartgrc-features" ref={featuresRef} className="py-5 bg-light" data-section="mysmartgrc-features">
+      <section
+        id="mysmartgrc-features"
+        ref={featuresRef}
+        className="py-5 bg-light"
+        data-section="mysmartgrc-features"
+      >
         <div className="container py-3">
           <motion.div
             className="row mb-4"
@@ -1551,7 +1732,10 @@ const MySmartGrcPage = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="col-md-8 text-center">
-              <div className="position-relative" style={{ height: "300px", marginBottom: "20px" }}>
+              <div
+                className="position-relative"
+                style={{ height: "300px", marginBottom: "20px" }}
+              >
                 {features.map((feature, index) => (
                   <AnimatePresence key={index} mode="wait">
                     {currentFeature === index && (
@@ -1578,7 +1762,10 @@ const MySmartGrcPage = () => {
                 ))}
               </div>
 
-              <div className="position-relative" style={{ minHeight: "100px", margin: "100px 0px 0px 0px" }}>
+              <div
+                className="position-relative"
+                style={{ minHeight: "100px", margin: "100px 0px 0px 0px" }}
+              >
                 {features.map((feature, index) => (
                   <AnimatePresence key={index} mode="wait">
                     {currentFeature === index && (
@@ -1606,7 +1793,8 @@ const MySmartGrcPage = () => {
                       width: "12px",
                       height: "12px",
                       padding: 0,
-                      background: currentFeature === index ? "#0077b6" : "#e0e0e0",
+                      background:
+                        currentFeature === index ? "#0077b6" : "#e0e0e0",
                       border: "none",
                     }}
                     onClick={() => setCurrentFeature(index)}
@@ -1660,7 +1848,10 @@ const MySmartGrcPage = () => {
                   }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <i className={`fas fa-${item.icon} fa-2x`} style={{ color: item.color }}></i>
+                  <i
+                    className={`fas fa-${item.icon} fa-2x`}
+                    style={{ color: item.color }}
+                  ></i>
                 </motion.div>
                 <h5 className="small">{item.title}</h5>
               </motion.div>
@@ -1687,7 +1878,9 @@ const MySmartGrcPage = () => {
             transition={{ duration: 0.6 }}
           >
             <div className="col-12 text-center">
-              <h2 className="fw-bold text-white">MySmartGRC Industry Experts</h2>
+              <h2 className="fw-bold text-white">
+                MySmartGRC Industry Experts
+              </h2>
             </div>
           </motion.div>
 
@@ -1700,8 +1893,16 @@ const MySmartGrcPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 * index }}
               >
-                <div className="position-relative" style={{ height: "320px", perspective: "1000px", maxWidth: "100%" }}>
-                  &lt;<motion.div
+                <div
+                  className="position-relative"
+                  style={{
+                    height: "320px",
+                    perspective: "1000px",
+                    maxWidth: "100%",
+                  }}
+                >
+                  &lt;
+                  <motion.div
                     className="card border-0 shadow-sm h-100 w-100"
                     style={{
                       position: "absolute",
@@ -1743,7 +1944,6 @@ const MySmartGrcPage = () => {
                       </motion.button>
                     </div>
                   </motion.div>
-
                   {/* Back of card */}
                   <motion.div
                     className="card border-0 shadow-sm h-100 w-100"
@@ -1788,7 +1988,11 @@ const MySmartGrcPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section id="contact" className="py-5 bg-dark text-white" data-section="contact">
+      <section
+        id="contact"
+        className="py-5 bg-dark text-white"
+        data-section="contact"
+      >
         <div className="container py-3">
           <div className="row">
             <div className="col-12 text-center">
@@ -1797,7 +2001,10 @@ const MySmartGrcPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h2 className="fw-bold">MySmartGRC – The Go To Choice of Chief Risk and Compliance Officers!</h2>
+                <h2 className="fw-bold">
+                  MySmartGRC – The Go To Choice of Chief Risk and Compliance
+                  Officers!
+                </h2>
               </motion.div>
             </div>
           </div>
@@ -1806,21 +2013,24 @@ const MySmartGrcPage = () => {
             {[
               {
                 title: "Take Quick Tour",
-                description: "Learn how MySmartGRC can transform your risk management through a tour",
+                description:
+                  "Learn how MySmartGRC can transform your risk management through a tour",
                 icon: "play-circle",
                 buttonText: "Request a Tour",
                 onClick: () => window.open("/contact", "_blank"),
               },
               {
                 title: "Request Call Back",
-                description: "Leave your contact details and our experts will reach out to discuss your needs",
+                description:
+                  "Leave your contact details and our experts will reach out to discuss your needs",
                 icon: "phone",
                 buttonText: "Request a Call",
                 onClick: handleRequestCall,
               },
               {
                 title: "Experience a Demo",
-                description: "Schedule a personalized demo with our expert guidance",
+                description:
+                  "Schedule a personalized demo with our expert guidance",
                 icon: "laptop",
                 buttonText: "Request a Demo",
                 onClick: () => setShowDemoModal(true),
@@ -1895,7 +2105,12 @@ const MySmartGrcPage = () => {
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{ scale: 0.8, opacity: 0 }}
-                  style={{ width: "90%", maxWidth: "500px", maxHeight: "90vh", overflow: "auto" }}
+                  style={{
+                    width: "90%",
+                    maxWidth: "500px",
+                    maxHeight: "90vh",
+                    overflow: "auto",
+                  }}
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="d-flex justify-content-between align-items-center mb-3">
@@ -1906,11 +2121,16 @@ const MySmartGrcPage = () => {
                         style={{ height: "40px" }}
                       />
                     </div>
-                    <button className="btn-close" onClick={() => setShowDemoModal(false)} aria-label="Close"></button>
+                    <button
+                      className="btn-close"
+                      onClick={() => setShowDemoModal(false)}
+                      aria-label="Close"
+                    ></button>
                   </div>
 
                   <h4 className="text-center mb-4" style={{ color: "#333" }}>
-                    Fill out the form below to get started on optimizing your risk strategy today!
+                    Fill out the form below to get started on optimizing your
+                    risk strategy today!
                   </h4>
 
                   <form onSubmit={handleDemoSubmit} style={{ color: "black" }}>
@@ -2002,7 +2222,13 @@ const MySmartGrcPage = () => {
                     </div>
 
                     {submitStatus && (
-                      <div className={`alert ${submitStatus.success ? "alert-success" : "alert-danger"} mt-3`}>
+                      <div
+                        className={`alert ${
+                          submitStatus.success
+                            ? "alert-success"
+                            : "alert-danger"
+                        } mt-3`}
+                      >
                         {submitStatus.message}
                       </div>
                     )}
@@ -2014,7 +2240,6 @@ const MySmartGrcPage = () => {
         </div>
       </section>
     </>
-  )
-}
-
-export default MySmartGrcPage
+  );
+};
+export default MySmartGrcPage;

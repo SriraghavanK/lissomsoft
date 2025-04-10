@@ -62,7 +62,8 @@ const HomePage = () => {
       title: "Discover the thrill of risk management evolution with Lissomsoft's flagship MySmartGRC!",
       description:
         "Discover the thrill of risk management evolution with Lissomsoft's flagship,MySmartGRC! Pioneering comprehensive risk solutions, it tackles Operational, Third-Party, and IT Risks. Empowering through GRC automation, it ignites productivity and offers transformative visibility. MySmartGRC excels in hotspot identification, supercharges mitigation, fosters seamless collaboration, and expertly navigates regulatory landscapes. Elevate your risk game with the magic of digital transformation!",
-      image: "https://imgs.search.brave.com/7LV9xEHsyuFOV_HSU8B9XdFrW1LIIt7tH89LJ4FePpk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTUy/Njk4MzUwOC9waG90/by9yaXNrLW1hbmFn/ZW1lbnQtY29uY2Vw/dC1hc3Nlc3NtZW50/LWZvci1idXNpbmVz/cy1pbnZlc3RtZW50/LWFuZC1mb3JlY2Fz/dGluZy1ldmFsdWF0/aW9uLmpwZz9iPTEm/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9aVJt/ZXV0S3FVYW95Y2pl/NTFXVlQ2enNSZDJS/OGMwVVl3am1TTWI0/dHBIWT0",
+      image:
+        "https://imgs.search.brave.com/7LV9xEHsyuFOV_HSU8B9XdFrW1LIIt7tH89LJ4FePpk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTUy/Njk4MzUwOC9waG90/by9yaXNrLW1hbmFn/ZW1lbnQtY29uY2Vw/dC1hc3Nlc3NtZW50/LWZvci1idXNpbmVz/cy1pbnZlc3RtZW50/LWFuZC1mb3JlY2Fz/dGluZy1ldmFsdWF0/aW9uLmpwZz9iPTEm/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9aVJt/ZXV0S3FVYW95Y2pl/NTFXVlQ2enNSZDJS/OGMwVVl3am1TTWI0/dHBIWT0",
       ctaText: "Assess Risks, Improve Performance and Stay Compliant!",
       ctaLink: "/risk-management",
       features: [
@@ -99,7 +100,8 @@ const HomePage = () => {
       title: "In a rapidly evolving digital landscape, businesses must be agile and transparent to stay competitive",
       description:
         "In a rapidly evolving digital landscape, companies must be agile and transparent to stay competitive. We, as a leading digital transformation service provider, offer holistic solutions, leveraging innovative technologies like IoT, Data Analytics, and AI to automate processes, collect real-time data, and adapt to ever-changing customer needs.",
-      image: "https://imgs.search.brave.com/dab97Jw6HTxwHq--35r6gd-FGtkKE6kRtfD3C02l_yE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTIx/MjMwMTgxOC9waG90/by9kaWdpdGFsLXRy/YW5zZm9ybWF0aW9u/LWNvbmNlcHQuanBn/P3M9NjEyeDYxMiZ3/PTAmaz0yMCZjPVBI/ZV8tbm5OTHJVZjhZ/LUxldjJOYzJJVV9j/V2pVTV9IYUxhVkFU/UTNBQ1U9",
+      image:
+        "https://imgs.search.brave.com/dab97Jw6HTxwHq--35r6gd-FGtkKE6kRtfD3C02l_yE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTIx/MjMwMTgxOC9waG90/by9kaWdpdGFsLXRy/YW5zZm9ybWF0aW9u/LWNvbmNlcHQuanBn/P3M9NjEyeDYxMiZ3/PTAmaz0yMCZjPVBI/ZV8tbm5OTHJVZjhZ/LUxldjJOYzJJVV9j/V2pVTV9IYUxhVkFU/UTNBQ1U9",
       ctaText: "Transform with Full Stack, Automate Business Processes!",
       ctaLink: "/digital-transformation",
       features: [
@@ -113,7 +115,8 @@ const HomePage = () => {
       title: "Elevate Your Business with Seamless Cloud Solutions",
       description:
         "Lissomsoft offers a suite of applications to aid businesses to identify risk-hotspots/concentration risks. The solution helps evolve mitigation processes, seamless collaboration between stackholders and delivers a single source of truth for navigating regulatory complexities.",
-      image: "https://imgs.search.brave.com/kaWmyb8Kjfd3840BThBeYlEkJioMjriL4gZ4s7aIpMc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTQ1/OTUzNTEyMC9waG90/by9kYXRhLWNsb3Vk/LXNlcnZlci5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9am4x/SGJPaFZTOEhrSGtl/VGRlSnNxUXc1NkJW/ckNSQkluWWhrV0tm/T0puND0",
+      image:
+        "https://imgs.search.brave.com/kaWmyb8Kjfd3840BThBeYlEkJioMjriL4gZ4s7aIpMc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTQ1/OTUzNTEyMC9waG90/by9kYXRhLWNsb3Vk/LXNlcnZlci5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9am4x/SGJPaFZTOEhrSGtl/VGRlSnNxUXc1NkJW/ckNSQkluWWhrV0tm/T0puND0",
       ctaText: "Explore Our Cloud Solutions",
       ctaLink: "/cloud-services",
       features: [
@@ -127,7 +130,8 @@ const HomePage = () => {
       title: "Energize Your Business with Growth Marketing",
       description:
         "Energize your business with Lissomsoft's Growth Marketing. Integrate Website development, Content Creation, B2B Social Media Engagement and Sales Intelligence Tools, to propel your brand visibility, engage decision-makers, and empower sales. Set your business on a course for unparalleled digital growth.",
-      image: "https://imgs.search.brave.com/CFVb3dOYVzgPjui3WGgO0kUzD_rezSynBHfN6D875ZE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTM2/MjcxMTA5My9waG90/by9sYXJnZS1ncm91/cC1vZi1wZW9wbGUt/Zm9ybWluZy1hLWdy/b3dpbmctYXJyb3cu/anBnP3M9NjEyeDYx/MiZ3PTAmaz0yMCZj/PVgyU25GLU1DSC1a/eDMtQS1JYjdPQzRL/ZVNETXNMcjNRU1l4/T1YxRXVqUEE9",
+      image:
+        "https://imgs.search.brave.com/CFVb3dOYVzgPjui3WGgO0kUzD_rezSynBHfN6D875ZE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTM2/MjcxMTA5My9waG90/by9sYXJnZS1ncm91/cC1vZi1wZW9wbGUt/Zm9ybWluZy1hLWdy/b3dpbmctYXJyb3cu/anBnP3M9NjEyeDYx/MiZ3PTAmaz0yMCZj/PVgyU25GLU1DSC1a/eDMtQS1JYjdPQzRL/ZVNETXNMcjNRU1l4/T1YxRXVqUEE9",
       ctaText: "Learn More On Growth Marketing",
       ctaLink: "/growth-marketing",
       features: [
@@ -362,8 +366,12 @@ const HomePage = () => {
                 </span>
               </h2>
               <p className="section-description">{serviceContent[activeService].description}</p>
-           
-              <Link to={serviceContent[activeService].ctaLink} className="btn btn-primary-modern mb-5"  onClick={scrollToTop}>
+
+              <Link
+                to={serviceContent[activeService].ctaLink}
+                className="btn btn-primary-modern mb-5"
+                onClick={scrollToTop}
+              >
                 {serviceContent[activeService].ctaText}
                 <i className="fas fa-arrow-right ms-2"></i>
               </Link>
@@ -442,7 +450,6 @@ const HomePage = () => {
                       <h5 className="card-title fw-bold mb-3">{card.title}</h5>
                       <p className="card-text">{card.description}</p>
                     </div>
-                  
                   </div>
                 </div>
               ))}
@@ -467,7 +474,6 @@ const HomePage = () => {
                   <Link to="/mysmartgrc" className="btn btn-primary-modern mb-2 mb-md-0" target="blank">
                     {serviceContent.risk.productCTA}
                   </Link>
-                  
                 </div>
               </div>
             </div>
@@ -566,7 +572,7 @@ const HomePage = () => {
                   src="https://www.lissomsoft.com/assets/description/img1.png"
                   alt="Business professional"
                   className="img-fluid rounded shadow-lg about-image"
-                  style={{ maxWidth: "90%" , width:"75%" }}
+                  style={{ maxWidth: "90%", width: "75%" }}
                 />
                 <div className="position-absolute top-0 start-0 translate-middle bg-primary rounded-circle p-3 shadow-lg d-none d-lg-block">
                   <i className="fas fa-lightbulb text-white fa-2x"></i>
@@ -601,7 +607,7 @@ const HomePage = () => {
                     <span>Tailored strategies</span>
                   </div>
                 </div>
-                <Link to="/about" className="btn btn-primary-modern btn-lg"  onClick={scrollToTop}>
+                <Link to="/about" className="btn btn-primary-modern btn-lg" onClick={scrollToTop}>
                   Learn more about Lissomsoft
                   <i className="fas fa-arrow-right ms-2"></i>
                 </Link>
@@ -664,11 +670,10 @@ const HomePage = () => {
                 <h2 className="display-5 fw-bolder mb-4">Ready to Transform Your Business?</h2>
                 <p className="lead mb-4">Partner with Lissomsoft and unlock your organization's full potential</p>
                 <div className="d-flex flex-column flex-md-row justify-content-center gap-3">
-                  <Link to="/contact" className="btn btn-light btn-lg px-4 py-3"  onClick={scrollToTop}>
+                  <Link to="/contact" className="btn btn-light btn-lg px-4 py-3" onClick={scrollToTop}>
                     <i className="fas fa-envelope me-2"></i>
                     Contact Us
                   </Link>
-                 
                 </div>
               </div>
             </div>
@@ -742,17 +747,15 @@ const HomePage = () => {
               <div
                 className="card border-0 shadow hover-shadow transition-all animate-on-scroll"
                 data-id="contact-card"
-              >
-          
-              </div>
+              ></div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Certifications Section - Enhanced */}
-      <section className="py-5 bg-light">
-        <div className="container py-3">
+      <section className="py-5 bg-light certification-section">
+        <div className="container py-4">
           <div className="row justify-content-center mb-4">
             <div className="col-lg-8 text-center">
               <h4 className="fw-bold mb-3 animate-on-scroll" data-id="certifications-title">
@@ -761,58 +764,48 @@ const HomePage = () => {
             </div>
           </div>
           <div className="row justify-content-center align-items-center">
-            <div className="col-4 col-md-3 mb-3 mb-md-0 text-center">
-              <div className="certification-badge animate-on-scroll" data-id="cert-1">
-                <img
-                  src="https://www.lissomsoft.com/assets/certification/nasscom1.jpeg"
-                  alt="NASSCOM Certified Member"
-                  className="img-fluid"
-                  style={{ maxHeight: "60px", maxWidth: "100%" }}
-                  onError={(e) => {
-                    e.target.src = "/placeholder.svg?height=80&width=150"
-                  }}
-                />
+            {[
+              {
+                id: "cert-1",
+                src: "https://www.lissomsoft.com/assets/certification/nasscom1.jpeg",
+                alt: "NASSCOM Certified Member",
+                delay: "0s",
+              },
+              {
+                id: "cert-2",
+                src: "https://www.lissomsoft.com/assets/certification/make%20in%20india%201.jpeg",
+                alt: "Make in India",
+                delay: "0.2s",
+              },
+              {
+                id: "cert-3",
+                src: "https://www.lissomsoft.com/assets/certification/msme.jpeg",
+                alt: "Startup India",
+                delay: "0.4s",
+              },
+            ].map((cert, index) => (
+              <div key={index} className="col-4 col-md-3 mb-4 text-center">
+                <div
+                  className="certification-badge animate-on-scroll"
+                  data-id={cert.id}
+                  style={{ animationDelay: cert.delay }}
+                >
+                  <div className="certification-image-container">
+                    <img
+                      src={cert.src || "/placeholder.svg"}
+                      alt={cert.alt}
+                      className="img-fluid certification-image"
+                      onError={(e) => {
+                        e.target.src = "/placeholder.svg?height=80&width=150"
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="col-4 col-md-3 mb-3 mb-md-0 text-center">
-              <div
-                className="certification-badge animate-on-scroll"
-                data-id="cert-2"
-                style={{ animationDelay: "0.2s" }}
-              >
-                <img
-                  src="https://www.lissomsoft.com/assets/certification/make%20in%20india%201.jpeg"
-                  alt="Make in India"
-                  className="img-fluid"
-                  style={{ maxHeight: "60px", maxWidth: "100%" }}
-                  onError={(e) => {
-                    e.target.src = "/placeholder.svg?height=80&width=150"
-                  }}
-                />
-              </div>
-            </div>
-            <div className="col-4 col-md-3 mb-3 mb-md-0 text-center">
-              <div
-                className="certification-badge animate-on-scroll"
-                data-id="cert-3"
-                style={{ animationDelay: "0.4s" }}
-              >
-                <img
-                  src="https://www.lissomsoft.com/assets/certification/msme.jpeg"
-                  alt="Startup India"
-                  className="img-fluid"
-                  style={{ maxHeight: "60px", maxWidth: "100%" }}
-                  onError={(e) => {
-                    e.target.src = "/placeholder.svg?height=80&width=150"
-                  }}
-                />
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
-
-     
 
       {/* CSS for enhanced styling */}
       <style jsx>{`
@@ -1273,4 +1266,3 @@ const HomePage = () => {
 }
 
 export default HomePage
-

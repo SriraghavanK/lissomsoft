@@ -13,6 +13,7 @@ const ServicePage = ({ pageData, serviceCategories = null, accordionData = null 
   const approachRef = useRef(null)
   const servicesRef = useRef(null)
   const navRef = useRef(null)
+  const [isNavFixed, setIsNavFixed] = useState(false)
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -55,6 +56,13 @@ const ServicePage = ({ pageData, serviceCategories = null, accordionData = null 
         } else {
           setActiveTab("overview")
         }
+      }
+
+      // Check if we've scrolled past the hero section to fix the navigation
+      const heroSection = document.querySelector(".hero-section")
+      if (heroSection) {
+        const heroBottom = heroSection.getBoundingClientRect().bottom
+        setIsNavFixed(heroBottom <= 0)
       }
     }
 
@@ -127,8 +135,17 @@ const ServicePage = ({ pageData, serviceCategories = null, accordionData = null 
         target={pageData.hero.target}
       />
 
-      {/* Navigation Tabs - Scrollable */}
-      <section className="py-0 sticky-top bg-white shadow-sm">
+      {/* Navigation Tabs - Conditionally Fixed */}
+      <section
+        className={`py-0 ${isNavFixed ? "service-nav-fixed" : ""}`}
+        id="service-nav"
+        style={{
+          position: isNavFixed ? "fixed" : "relative",
+          top: isNavFixed ? "0" : "auto",
+          width: "100%",
+          zIndex: 1020,
+        }}
+      >
         <div className="container-fluid p-0">
           <div className="row g-0">
             <div className="col-12">
@@ -186,6 +203,9 @@ const ServicePage = ({ pageData, serviceCategories = null, accordionData = null 
           </div>
         </div>
       </section>
+
+      {/* Spacer div to prevent content jump when nav becomes fixed */}
+      {isNavFixed && <div style={{ height: navRef.current ? navRef.current.offsetHeight : 0 }} />}
 
       {/* Overview Section */}
       <section id="overview" ref={overviewRef} className="py-5">
@@ -967,10 +987,38 @@ const ServicePage = ({ pageData, serviceCategories = null, accordionData = null 
             margin-top: 1rem;
           }
         }
+
+        /* Fixed Navigation Styles */
+        .service-nav-fixed {
+          background-color: #fff;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          width: 100%;
+        }
+
+        /* Remove the sticky positioning from service-nav-sticky */
+        .service-nav-sticky {
+          background-color: #fff;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          width: 100%;
+          position: relative;
+          z-index: 1020;
+        }
+
+        .nav-tabs-container {
+          background-color: #fff;
+          position: relative;
+          z-index: 1010;
+        }
+
+        /* Ensure the nav stays on top of other elements */
+        #service-nav {
+          position: sticky;
+          top: 0;
+          z-index: 1020;
+        }
       `}</style>
     </div>
   )
 }
 
 export default ServicePage
-

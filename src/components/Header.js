@@ -463,7 +463,7 @@ const Header = () => {
   if (isSmartGrcPage) {
     return (
       <motion.nav
-        className={`navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm fixed-top ${
+        className={`navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm ${
           scrolled ? "scrolled" : ""
         }`}
         initial={{ y: -100, opacity: 0 }}
@@ -485,6 +485,7 @@ const Header = () => {
                   className="logo"
                   src="https://lissomsoft.com/smart-grc/assets/logo/My%20Smart%20GRC-Logo%20(250x127%20px)1.png"
                   alt="My Smart Grc Logo"
+                  style={{ height: "40px", width: "auto", maxWidth: "none" }} /* Add inline style to override any constraints */
                 />
               </div>
               <motion.span
@@ -632,6 +633,8 @@ const Header = () => {
                         scrollToSection("approach-methodology")
                       } else if (item === "SERVICES") {
                         scrollToSection("services-risk-assessment")
+                      } else if (item === "CONTACT") {
+                        scrollToSection("contact") // Scroll to contact section
                       } else {
                         scrollToSection(item.toLowerCase())
                       }
@@ -783,8 +786,13 @@ const Header = () => {
                         onClick={(e) => {
                           e.preventDefault()
                           if (item.toLowerCase() === "contact") {
-                            // Special handling for contact
-                            window.location.href = `/${item.toLowerCase()}`
+                            if (isSmartGrcPage) {
+                              // For SmartGRC page, scroll to contact section
+                              scrollToSection("contact")
+                            } else {
+                              // For regular Lissomsoft site, navigate to contact page
+                              window.location.href = `/${item.toLowerCase()}`
+                            }
                           } else if (isSmartGrcPage) {
                             if (item === "OUR APPROACH") {
                               scrollToSection("approach-methodology")
@@ -805,7 +813,7 @@ const Header = () => {
                         {item}
                         {item === "CONTACT" && (
                           <>
-                            <i className="fas fa-arrow-right p-2"></i>
+                            <i className="fas fa-arrow-right" style={{ paddingRight: "8px", color: "#007ba7" }}></i>
                             <div className="btn-pulse"></div>
                           </>
                         )}
@@ -985,7 +993,7 @@ const Header = () => {
   // Render the regular Lissomsoft header - FIXED to match SmartGRC structure
   return (
     <motion.nav
-      className={`navbar navbar-expand-lg fixed-top ${scrolled ? "scrolled" : ""} ${isOpen ? "menu-open" : ""}`}
+      className={`navbar navbar-expand-lg ${scrolled ? "scrolled" : ""} ${isOpen ? "menu-open" : ""}`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100, damping: 15 }}
@@ -1007,6 +1015,7 @@ const Header = () => {
                 className="logo"
                 src="https://www.lissomsoft.com/assets/brand/lissom_logo.png"
                 alt="Lissomsoft Logo"
+                style={{ height: "40px", width: "auto", maxWidth: "none" }} /* Add inline style to override any constraints */
               />
             </div>
             <motion.span
@@ -1506,7 +1515,10 @@ const styles = `
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
-    position: relative;
+    position: fixed; /* Change from 'relative' to 'fixed' */
+    top: 0; /* Add this to ensure it stays at the top */
+    left: 0; /* Add this to ensure it spans the full width */
+    width: 100%; /* Add this to ensure it spans the full width */
     z-index: 1000;
     border-bottom: 1px solid rgba(0, 119, 182, 0.1);
     height: 80px;
@@ -1614,6 +1626,8 @@ const styles = `
     display: flex;
     align-items: center;
     justify-content: center;
+    width: auto; /* Add this to allow the container to expand */
+    height: auto; /* Add this to allow the container to expand */
   }
   
   .logo-glow {
@@ -1634,6 +1648,7 @@ const styles = `
   .logo {
     height: 40px;
     width: auto;
+    max-width: none; /* Add this to prevent width constraints */
     transition: transform 0.3s ease;
     filter: drop-shadow(0 0 5px rgba(0, 119, 182, 0.2));
   }
@@ -2224,7 +2239,7 @@ const styles = `
     }
     
     .navbar.scrolled {
-      height: 60px;
+      height: 70px;
     }
     
     .logo {
@@ -2810,28 +2825,6 @@ const styles = `
     }
   }
   
-  /* Responsive adjustments for the enhanced mobile menu */
-  @media (max-width: 400px) {
-    .quick-links-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .mobile-menu-close {
-      top: 15px;
-      right: 15px;
-      width: 36px;
-      height: 36px;
-      font-size: 1rem;
-    }
-    
-    .mobile-search-container,
-    .quick-links,
-    .mobile-nav-main {
-      padding-left: 15px;
-      padding-right: 15px;
-    }
-  }
-  
   /* Enhanced Desktop Navigation */
   @media (min-width: 992px) {
     .navbar-nav .nav-link {
@@ -3008,6 +3001,26 @@ const styles = `
 
 .back-to-lissomsoft-btn i {
   margin-right: 8px;
+}
+
+/* Add this to the styles section */
+body {
+  padding-top: 80px; /* Match the height of the navbar */
+}
+
+/* Adjust padding when scrolled */
+body .navbar.scrolled {
+  height: 70px;
+}
+
+@media (max-width: 576px) {
+  body {
+    padding-top: 70px; /* Match the mobile navbar height */
+  }
+  
+  body .navbar.scrolled {
+    height: 70px;
+  }
 }
 `
 
