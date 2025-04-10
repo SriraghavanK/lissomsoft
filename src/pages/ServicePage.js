@@ -143,7 +143,7 @@ const ServicePage = ({ pageData, serviceCategories = null, accordionData = null 
           position: isNavFixed ? "fixed" : "relative",
           top: isNavFixed ? "0" : "auto",
           width: "100%",
-          zIndex: 1020,
+          zIndex: 990, // Reduced z-index to be lower than the main navbar
         }}
       >
         <div className="container-fluid p-0">
@@ -1014,7 +1014,7 @@ const ServicePage = ({ pageData, serviceCategories = null, accordionData = null 
         #service-nav {
           position: sticky;
           top: 0;
-          z-index: 1020;
+          z-index: 990;
         }
       `}</style>
     </div>
@@ -1022,3 +1022,4 @@ const ServicePage = ({ pageData, serviceCategories = null, accordionData = null 
 }
 
 export default ServicePage
+  
