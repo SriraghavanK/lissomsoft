@@ -83,7 +83,12 @@ const ContactPage = () => {
           alt: "Lissomsoft Office Exterior",
         },
         {
-          src: require("../assets/banner.jpg"),
+          src: require("../assets/outside.jpg"),
+          alt: "Lissomsoft Chennai Office Building",
+          style:{width:"20px" ,height:"20px"},
+        },
+        {
+          src: require("../assets/inside.jpg"),
           alt: "Lissomsoft Chennai Office Building",
           style:{width:"20px" ,height:"20px"},
         },
