@@ -1013,7 +1013,7 @@ const Footer = () => {
             viewport={{ once: true }}
           >
             <h5 className="text-white mb-4 footer-heading">Legal</h5>
-            <ul className="list-unstyled footer-links">
+            <ul className="list-unstyled footer-links" onClick={scrollToTop}>
               {[
                 { name: "Privacy Policy", path: "/privacypolicy" },
                 { name: "Terms of Use", path: "/termsofuse" },
@@ -1336,10 +1336,10 @@ const Footer = () => {
             viewport={{ once: true }}
           >
             <div className="footer-bottom-links">
-              <Link to="/privacypolicy" className="footer-bottom-link">
+              <Link to="/privacypolicy" className="footer-bottom-link" onClick={scrollToTop}>
                 Privacy Policy
               </Link>
-              <Link to="/termsofuse" className="footer-bottom-link">
+              <Link to="/termsofuse" className="footer-bottom-link" onClick={scrollToTop}>
                 Terms of Use
               </Link>
             </div>
