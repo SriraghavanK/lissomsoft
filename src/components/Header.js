@@ -508,7 +508,6 @@ const Header = () => {
             animate={{ opacity: 1 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-           
           >
             <span className="hamburger-line"></span>
             <span className="hamburger-line"></span>
@@ -971,7 +970,6 @@ const Header = () => {
                   initial={{ opacity: 0, rotate: -90 }}
                   animate={{ opacity: 1, rotate: 0 }}
                   transition={{ delay: 0.3 }}
-                  style={{marginRight:"30px"}}
                 >
                   <i className="fas fa-times"></i>
                   <div className="close-btn-ripple"></div>
@@ -1040,7 +1038,6 @@ const Header = () => {
           animate={{ opacity: 1 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          style={{marginRight:"30px"}}
         >
           <span className="hamburger-line"></span>
           <span className="hamburger-line"></span>
@@ -1492,7 +1489,6 @@ const Header = () => {
                 initial={{ opacity: 0, rotate: -90 }}
                 animate={{ opacity: 1, rotate: 0 }}
                 transition={{ delay: 0.3 }}
-                style={{marginRight:"30px"}}
               >
                 <i className="fas fa-times"></i>
                 <div className="close-btn-ripple"></div>
