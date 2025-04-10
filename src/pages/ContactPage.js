@@ -72,7 +72,7 @@ const ContactPage = () => {
   const officeLocations = [
     {
       city: "Chennai",
-      address: "3, Chakrapani Rd, Ramapuram, Ramapuram, Chennai, Tamil Nadu 600032",
+      address: "3, Chakrapani Rd, Ramapuram, Chennai, Tamil Nadu 600032",
       phone: "+91 9361829552",
       email: "sales@lissomsoft.com",
       mapUrl:
